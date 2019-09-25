@@ -1,6 +1,7 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.web.annotations.PageTitle;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController extends BaseController {
 
     @GetMapping("/")
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     @PageTitle("Index")
     public ModelAndView index() {
         return view("index");

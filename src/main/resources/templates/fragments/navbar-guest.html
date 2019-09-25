@@ -1,0 +1,30 @@
+<th:block th:fragment>
+    <li class="nav-item active col-md-6">
+        <button type="button" class="btn border-0 bg-transparent text-white" data-toggle="modal" data-target="#registerModal">
+            <h5>Register</h5>
+        </button>
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="form">
+                <div class="modal-content text-center bg-forms">
+
+                    <th:block th:include="~{users/register-user}"></th:block>
+
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item active col-md-6">
+        <button type="button" class="btn border-0 bg-transparent text-white" data-toggle="modal" data-target="#loginModal">
+            <h5>Login</h5>
+        </button>
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="form">
+                <div class="modal-content text-center bg-forms">
+
+                    <th:block th:include="~{users/login-user}"></th:block>
+
+                </div>
+            </div>
+        </div>
+    </li>
+</th:block>

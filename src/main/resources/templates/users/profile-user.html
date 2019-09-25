@@ -1,0 +1,95 @@
+<th:block>
+    <div class="container justify-content-center col-md-11 my-4">
+        <div class="jumbotron bg-forms d-flex justify-content-center text text-center" th:object="${userEditBindingModel}">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <h1 class="text text-center text-danger">My Profile</h1>
+                </div>
+                <hr class="hr" />
+                <div class="row d-flex justify-content-center">
+                    <h4 th:text="'Email: ' + *{email}"></h4>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h4 th:text="'First Name: ' + *{firstName}"></h4>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h4 th:text="'Last Name: ' + *{lastName}"></h4>
+                </div>
+                <hr class="hr" />
+                <div class="row d-flex justify-content-center">
+                    <button class="btn btn-success" id="toggle-edit-profile">Edit</button>
+                </div>
+                <form id="edit-form" th:action="@{/edit}" th:method="post" hidden>
+                    <div class="form-row d-flex justify-content-center">
+                        <label for="email">Email
+                            <input class="form-control" th:field="*{email}" th:styleappend="${#fields.hasErrors('email')} ? border-color: red"
+                                id="email" type="email" name="email" placeholder="Email..." readonly>
+                            <small style="color: red" th:each="error : ${#fields.errors('email')}" th:text="${error}"></small>
+                        </label>
+                    </div>
+                    <div class="form-row d-flex justify-content-center">
+                        <label for="password">Password
+                            <input class="form-control" th:field="*{password}" th:styleappend="${#fields.hasErrors('password')} ? border-color: red"
+                                   id="password" type="password" name="password" placeholder="Password..." required>
+                            <small style="color: red" th:each="error : ${#fields.errors('password')}" th:text="${error}"></small>
+                        </label>
+                    </div>
+                    <div class="form-row d-flex justify-content-center">
+                        <label for="newPassword">New Password
+                            <input class="form-control" th:field="*{newPassword}" th:styleappend="${#fields.hasErrors('newPassword')} ? border-color: red"
+                                   id="newPassword" type="password" name="newPassword" placeholder="New Password..." >
+                            <small style="color: red" th:each="error : ${#fields.errors('newPassword')}" th:text="${error}"></small>
+                        </label>
+                    </div>
+                    <div class="form-row d-flex justify-content-center">
+                        <label for="confirmPassword">Confirm Password
+                            <input class="form-control" th:field="*{confirmPassword}" th:styleappend="${#fields.hasErrors('newPassword')} ? border-color: red"
+                                   id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password..." >
+                            <small style="color: red" th:each="error : ${#fields.errors('newPassword')}" th:text="${error}"></small>
+                        </label>
+                    </div>
+                    <hr class="hr" />
+                    <div class="form-row">
+                        <div class="col d-flex justify-content-center">
+                            <label for="firstName">First Name
+                                <input class="form-control" th:field="*{firstName}" th:styleappend="${#fields.hasErrors('firstName')} ? border-color: red"
+                                       id="firstName" type="text" name="firstName" placeholder="First Name...">
+                                <small style="color: red" th:each="error : ${#fields.errors('firstName')}" th:text="${error}"></small>
+                            </label>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <label for="lastName">Last Name
+                                <input class="form-control" th:field="*{lastName}" th:styleappend="${#fields.hasErrors('lastName')} ? border-color: red"
+                                       id="lastName" type="text" name="lastName" placeholder="Last Name...">
+                                <small style="color: red" th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></small>
+                            </label>
+                        </div>
+                    </div>
+                    <hr class="hr" />
+                    <div class="form-row my-5 d-flex justify-content-center">
+                        <div class="col d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success mr-2">Edit</button>
+                            <button id="cancel-edit-profile" type="button" class="btn btn-secondary ml-2">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+        let editProfileBtn = $('#toggle-edit-profile');
+        let cancelEditProfileBtn = $('#cancel-edit-profile');
+
+        editProfileBtn.click(function () {
+            $('#edit-form').prop('hidden', false);
+            editProfileBtn.prop('hidden', true);
+        });
+
+        cancelEditProfileBtn.click(function () {
+            $('#edit-form').prop('hidden', true);
+            editProfileBtn.prop('hidden', false);
+        });
+    </script>
+</th:block>
