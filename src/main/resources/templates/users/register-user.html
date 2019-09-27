@@ -10,7 +10,7 @@
         <div class="form-row">
             <div class="col">
                 <label for="email">Email
-                    <input class="form-control" th:field="*{email}" th:styleappend="${#fields.hasErrors('email')} ? border-color: red"
+                    <input class="form-control" th:value="*{email}"
                            id="email" type="email" name="email" placeholder="Email..." required>
                     <small style="color: red" th:each="error : ${#fields.errors('email')}" th:text="${error}"></small>
                 </label>
@@ -19,7 +19,7 @@
         <div class="form-row">
             <div class="col">
                 <label for="password">Password
-                    <input class="form-control" th:field="*{password}" th:styleappend="${#fields.hasErrors('password')} ? border-color: red"
+                    <input class="form-control" th:value="*{password}"
                            id="password" type="password" name="password" placeholder="Password..." required>
                     <small style="color: red" th:each="error : ${#fields.errors('password')}" th:text="${error}"></small>
                 </label>
@@ -28,7 +28,7 @@
         <div class="form-row">
             <div class="col">
                 <label for="confirmPassword">Confirm Password
-                    <input class="form-control" th:field="*{confirmPassword}" th:styleappend="${#fields.hasErrors('password')} ? border-color: red"
+                    <input class="form-control" th:value="*{confirmPassword}"
                            id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password..." required>
                     <small style="color: red" th:each="error : ${#fields.errors('password')}" th:text="${error}"></small>
                 </label>
@@ -38,16 +38,9 @@
         <div class="form-row">
             <div class="col">
                 <label for="fullName">Full Name
-                    <input class="form-control" th:field="*{fullName}" th:styleappend="${#fields.hasErrors('fullName')} ? border-color: red"
+                    <input class="form-control" th:value="*{fullName}"
                            id="fullName" type="text" name="fullName" placeholder="Full Name..." required>
                     <small style="color: red" th:each="error : ${#fields.errors('fullName')}" th:text="${error}"></small>
-                </label>
-            </div>
-            <div class="col">
-                <label for="address">Delivery Address
-                    <input class="form-control" th:field="*{address}" th:styleappend="${#fields.hasErrors('address')} ? border-color: red"
-                           id="address" type="text" name="address" placeholder="Delivery Name..." required>
-                    <small style="color: red" th:each="error : ${#fields.errors('address')}" th:text="${error}"></small>
                 </label>
             </div>
         </div>

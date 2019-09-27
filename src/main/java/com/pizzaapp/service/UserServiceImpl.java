@@ -1,5 +1,6 @@
 package com.pizzaapp.service;
 
+import com.pizzaapp.common.Constants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -97,6 +98,14 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);
         return true;
+    }
+
+    @Override
+    public void firstLogin(String id) {
+        User user = userRepository.findById(id).orElseThrow(()
+                -> new IllegalArgumentException(WRONG_NON_EXISTENT_ID));
+        user.setFirstTimeLogin(true);
+        userRepository.saveAndFlush(user);
     }
 
     @Override

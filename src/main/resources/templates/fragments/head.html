@@ -4,9 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title} + ' &copy;'"></title>
     <link rel="shortcut icon" th:href="${favicon}">
-    <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/reset.css}"  rel="stylesheet" >
+    <link th:href="@{/css/bootstrap.min.css}"  rel="stylesheet" >
+    <link th:href="@{/css/style.css}"  rel="stylesheet" >
+    <link th:href="@{/lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/animate/animate.min.css}" rel="stylesheet">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/lib/superfish/superfish.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/js/main.js"></script>
+
 </th:block>

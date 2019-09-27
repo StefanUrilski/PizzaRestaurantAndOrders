@@ -9,6 +9,8 @@ public interface UserService extends UserDetailsService {
 
     boolean registerUser(UserServiceModel userServiceModel);
 
+    void firstLogin(String id);
+
     boolean editUser(UserServiceModel userServiceModel);
 
     UserServiceModel extractUserByEmail(String email);

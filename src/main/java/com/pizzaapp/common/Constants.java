@@ -14,5 +14,4 @@ public final class Constants {
 
     public static final String ITEM_ALREADY_EXISTS = "%s already exists.";
 
-    private Constants(){}
 }

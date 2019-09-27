@@ -13,6 +13,7 @@ public class User extends BaseEntity implements UserDetails {
     private String fullName;
     private String email;
     private String password;
+    private boolean firstTimeLogin;
     private Set<Address> addresses;
 
     private boolean isAccountNonLocked;
@@ -53,6 +54,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isFirstTimeLogin() {
+        return firstTimeLogin;
+    }
+
+    public void setFirstTimeLogin(boolean firstTimeLogin) {
+        this.firstTimeLogin = firstTimeLogin;
     }
 
     @OneToMany(targetEntity = Address.class, mappedBy = "owner")
