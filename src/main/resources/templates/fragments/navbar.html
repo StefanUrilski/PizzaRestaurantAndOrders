@@ -8,10 +8,10 @@
             <ul class="nav-menu">
                 <th:block sec:authorize="isAnonymous()">
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="guestNav">
-                        <ul class="pl-3">
+                        <ul>
                             <li><a class="nav-btn" th:href="@{/users/login}">Login</a></li>
                         </ul>
-                        <ul class="pl-3">
+                        <ul>
                             <li><a class="nav-btn" th:href="@{/users/register}">Register</a></li>
                         </ul>
                     </div>

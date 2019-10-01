@@ -40,20 +40,20 @@ public class UserController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView register(@ModelAttribute("userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel) {
-        return view("users/register-user", "userRegisterBindingModel", userRegisterBindingModel);
+    public ModelAndView register(@ModelAttribute("model") UserRegisterBindingModel userRegisterBindingModel) {
+        return view("users/register-user", "model", userRegisterBindingModel);
     }
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(@Valid @ModelAttribute("userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel,
+    public ModelAndView registerConfirm(@Valid @ModelAttribute("model") UserRegisterBindingModel userRegisterBindingModel,
                                         BindingResult bindingResult) {
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-            bindingResult.addError(new FieldError("userRegisterBindingModel", "password", "Passwords don't match."));
+            bindingResult.addError(new FieldError("model", "password", "Passwords don't match."));
         }
 
         if (bindingResult.hasErrors()) {
-            return view("index", "userRegisterBindingModel", userRegisterBindingModel);
+            return view("users/register-user", "model", userRegisterBindingModel);
         }
 
         UserServiceModel userServiceModel = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);

@@ -1,38 +1,41 @@
-<th:block>
-    <div class="modal-header text text-center">
-        <h1 class="modal-title" id="drinksModalLabel">Login</h1>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <form th:action="@{/login}" method="post">
-        <div class="form-row">
-            <div class="col">
-                <label for="email">Email
-                    <input class="form-control"
-                           id="email" type="email" name="email" placeholder="Email..." required>
-                </label>
-            </div>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+</head>
+<body>
+<header><th:block th:include="~{fragments/navbar}"/></header>
+
+<main class="mt-3">
+    <h1 class="text-center text-dark">Login</h1>
+    <hr class="hr-2 bg-dark w-25">
+    <form class="form w-25 mx-auto" th:action="@{/users/login}" method="post">
+        <div class="form-group">
+            <label for="username" class="font-weight-bold">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username..." name="username">
         </div>
-        <div class="form-row">
-            <div class="col">
-                <label for="password">Password
-                    <input class="form-control"
-                           id="password" type="password" name="password" placeholder="Password..." required>
-                </label>
-            </div>
+        <div class="form-group">
+            <label for="password" class="font-weight-bold">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
         </div>
-        <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
-        <hr class="hr" />
-        <!--<div class="form-check">-->
-            <!--<input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">-->
-            <!--<label class="form-check-label" for="rememberMe">Remember Me</label>-->
-        <!--</div>-->
-        <div class="form-row my-5">
-            <div class="col">
-                <button type="submit" class="btn btn-success">Login</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+        <hr class="hr-2 bg-dark">
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-dark">Login</button>
         </div>
     </form>
-</th:block>
+    <th:block th:if="${param.error}">
+        <div class="text-center" style="color: red"
+             th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+            <!--Bad Credentials-->
+        </div>
+    </th:block>
+    <th:block th:if="${param.logout}">
+        <div class="text-center" style="color: greenyellow">
+            Successful logout
+        </div>
+    </th:block>
+</main>
+
+<footer><th:block th:include="~{fragments/footer}"/></footer>
+</body>
+</html>
