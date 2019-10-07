@@ -1,0 +1,41 @@
+<th:block th:fragment>
+    <div class="container justify-content-center col-md-11 my-4">
+        <div class="jumbotron bg-forms d-flex justify-content-center">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <h1 class="text text-center text-danger">My Addresses</h1>
+                </div>
+                <hr class="hr" />
+                <div class="row d-flex justify-content-center" id="edit-address-form"></div>
+                <div class="row d-flex justify-content-center">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Town</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Block</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="address,iter : ${addresses}">
+                            <tr class="table-rows" th:id="${address.id}">
+                                <th scope="row" th:text="${iter.index + 1}"></th>
+                                <td th:text="${address.name}"></td>
+                                <td th:text="${address.street}"></td>
+                                <td th:text="${address.number}"></td>
+                                <td th:text="${address.block}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="hr" />
+                <div class="row d-flex justify-content-center">
+                    <a th:href="@{addresses/add}" class="btn btn-success">Add address</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

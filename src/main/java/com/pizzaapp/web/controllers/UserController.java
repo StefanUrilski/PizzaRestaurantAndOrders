@@ -2,7 +2,8 @@ package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.UserEditBindingModel;
 import com.pizzaapp.domain.models.view.user.AddressViewModel;
-import com.pizzaapp.web.annotations.PageTitle;
+import com.pizzaapp.web.validations.user.UserEditValidator;
+import com.pizzaapp.web.validations.user.UserRegisterValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,21 +21,21 @@ import com.pizzaapp.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
 public class UserController extends BaseController {
 
     private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserEditValidator userEditValidator;
+    private final UserRegisterValidator userRegisterValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
+    public UserController(UserService userService, UserEditValidator userEditValidator, UserRegisterValidator userRegisterValidator, ModelMapper modelMapper) {
         this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userEditValidator = userEditValidator;
+        this.userRegisterValidator = userRegisterValidator;
         this.modelMapper = modelMapper;
     }
 
@@ -46,21 +47,19 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(@Valid @ModelAttribute("model") UserRegisterBindingModel userRegisterBindingModel,
+    public ModelAndView registerConfirm(@Valid @ModelAttribute("model") UserRegisterBindingModel model,
                                         BindingResult bindingResult) {
-        if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-            bindingResult.addError(new FieldError("model", "password", "Passwords don't match."));
-        }
+
+        userRegisterValidator.validate(model, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return view("users/register-user", "model", userRegisterBindingModel);
+            model.setPassword(null);
+            model.setConfirmPassword(null);
+            return view("users/register-user", "model", model);
         }
 
-        UserServiceModel userServiceModel = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
-
-        if (!userService.registerUser(userServiceModel)) {
-            throw new UserRegisterFailureException("Registering user " + userServiceModel.getEmail() + " failed.");
-        }
+        UserServiceModel userServiceModel = modelMapper.map(model, UserServiceModel.class);
+        this.userService.registerUser(userServiceModel);
 
         return redirect("/");
     }
@@ -68,7 +67,7 @@ public class UserController extends BaseController {
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
     public ModelAndView login() {
-        return view("users/login");
+        return view("users/login-user");
     }
 
     @GetMapping("/login/profile")
@@ -82,7 +81,13 @@ public class UserController extends BaseController {
 
         userService.firstLogin(loggedUser.getId());
 
-        return view("/users/profile/addresses", "user",  modelMapper.map(loggedUser, AddressViewModel.class));
+        return view("addresses/add-addresses");
+    }
+
+    @GetMapping("/profile/addresses")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView addresses() {
+        return view("addresses/add-addresses");
     }
 
 //
@@ -183,32 +188,6 @@ public class UserController extends BaseController {
         userEditBindingModel = modelMapper.map(userService.extractUserByEmail(principal.getName()), UserEditBindingModel.class);
 
         return view("users/profile-user", "userRegisterBindingModel", userEditBindingModel);
-    }
-
-    @PostMapping("/edit")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView editConfirm(@Valid @ModelAttribute("userEditBindingModel") UserEditBindingModel userEditBindingModel, BindingResult bindingResult) {
-        UserServiceModel userServiceModel = userService.extractUserByEmail(userEditBindingModel.getEmail());
-
-        if (!bCryptPasswordEncoder.matches(userEditBindingModel.getPassword(), userServiceModel.getPassword())) {
-            bindingResult.addError(new FieldError("userEditBindingModel", "password", "Incorrect password."));
-        } else if (!userEditBindingModel.getNewPassword().equals(userEditBindingModel.getConfirmPassword())) {
-            bindingResult.addError(new FieldError("userEditBindingModel", "newPassword", "Passwords don't match."));
-        }
-
-        if (bindingResult.hasErrors()) {
-            return view("users/profile-user", "userEditBindingModel", userEditBindingModel);
-        }
-
-        if (!userEditBindingModel.getNewPassword().equals("")) {
-            userEditBindingModel.setPassword(userEditBindingModel.getNewPassword());
-        }
-
-        if (!userService.editUser(modelMapper.map(userEditBindingModel, UserServiceModel.class))) {
-            throw new UserEditFailureException("Editing user " + userServiceModel.getEmail() + " failed.");
-        }
-
-        return redirect("/profiles/my");
     }
 
 }

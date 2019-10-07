@@ -1,0 +1,86 @@
+<th:block>
+    <div>
+        <form th:action="@{/addresses/add}" method="post" id="address-form" hidden>
+            <div class="row d-flex justify-content-center">
+                <div class="col d-flex justify-content-start" >
+                    <label for="address-name">Name
+                        <input class="form-control" id="address-name" type="text" name="name" placeholder="Name..." required>
+                    </label>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col col-md-4" >
+                    <label for="address-street">Street
+                        <input class="form-control" id="address-street" type="text" name="street" placeholder="Street..." required>
+                    </label>
+                </div>
+                <div class="col col-md-4" >
+                    <label for="address-number">Number
+                        <input class="form-control" id="address-number" type="number" name="number" placeholder="Number..." required>
+                    </label>
+                </div>
+                <div class="col col-md-4 d-flex justify-content-center" >
+                    <label for="address-post-code">Post Code
+                        <input class="form-control" id="address-post-code" type="number" name="postCode" placeholder="Post code..." required>
+                    </label>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col col-md-4" >
+                    <label for="address-municipality">Municipality
+                        <input class="form-control" id="address-municipality" type="text" name="municipality" placeholder="Municipality..." required>
+                    </label>
+                </div>
+                <div class="col col-md-4" >
+                    <label for="address-phone-number">Phone Number
+                        <input class="form-control" id="address-phone-number" type="text" name="phoneNumber" placeholder="Phone number..." required>
+                    </label>
+                </div>
+                <div class="col col-md-4" >
+                    <label for="address-block">Block
+                        <input class="form-control" id="address-block" type="number" name="block" placeholder="Block...">
+                    </label>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+
+                <div class="col col-md-4" >
+                    <label for="address-entrance">Entrance
+                        <input class="form-control" id="address-entrance" type="text" maxlength="1" name="entrance" placeholder="Entrance..." >
+                    </label>
+                </div>
+                <div class="col col-md-4">
+                    <label for="address-floor">Floor
+                        <input class="form-control" id="address-floor" type="number" name="floor" placeholder="Floor...">
+                    </label>
+                </div>
+                <div class="col col-md-4 d-flex justify-content-center" >
+                    <label for="address-door-apartment">Apartment
+                        <input class="form-control" id="address-door-apartment" type="number" name="apartment" placeholder="Apartment...">
+                    </label>
+                </div>
+            </div>
+            <hr class="hr" />
+            <div class="row my-5 d-flex justify-content-center">
+                <div class="col d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-2">Add Address</button>
+                    <button id="toggle-off-add-address-form" type="button" class="btn btn-secondary ml-2">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        let toggleOnAddAddressForm = $('#toggle-on-add-address-form');
+        let toggleOffAddAddressForm = $('#toggle-off-add-address-form');
+
+        toggleOnAddAddressForm.click(function () {
+            $('#address-form').prop('hidden', false);
+            toggleOnAddAddressForm.prop('hidden', true);
+        });
+
+        toggleOffAddAddressForm.click(function () {
+            $('#address-form').prop('hidden', true);
+            toggleOnAddAddressForm.prop('hidden', false);
+        });
+    </script>
+</th:block>
