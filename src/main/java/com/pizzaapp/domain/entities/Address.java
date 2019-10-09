@@ -89,7 +89,7 @@ public class Address extends BaseEntity {
         this.entrance = entrance;
     }
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinTable(name = "addresses_users",
             joinColumns = @JoinColumn(name = "address_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")

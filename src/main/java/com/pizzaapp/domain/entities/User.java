@@ -64,7 +64,7 @@ public class User extends BaseEntity implements UserDetails {
         this.firstTimeLogin = firstTimeLogin;
     }
 
-    @OneToMany(targetEntity = Address.class, mappedBy = "owner")
+    @OneToMany(targetEntity = Address.class, mappedBy = "owner", fetch = FetchType.EAGER)
     public Set<Address> getAddresses() {
         return this.addresses;
     }

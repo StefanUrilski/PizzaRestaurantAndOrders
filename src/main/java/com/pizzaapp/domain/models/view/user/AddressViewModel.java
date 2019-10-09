@@ -3,38 +3,33 @@ package com.pizzaapp.domain.models.view.user;
 public class AddressViewModel {
 
     private String id;
-    private String name;
+    private String town;
     private String street;
     private Integer number;
-    private Integer postCode;
-    private String municipality;
     private String phoneNumber;
     private Integer floor;
     private Integer block;
     private Integer apartment;
     private Character entrance;
 
-    public AddressViewModel() {
-    }
-
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTown() {
+        return town;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTown(String town) {
+        this.town = town;
     }
 
     public String getStreet() {
-        return this.street;
+        return street;
     }
 
     public void setStreet(String street) {
@@ -42,31 +37,15 @@ public class AddressViewModel {
     }
 
     public Integer getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public Integer getPostCode() {
-        return this.postCode;
-    }
-
-    public void setPostCode(Integer postCode) {
-        this.postCode = postCode;
-    }
-
-    public String getMunicipality() {
-        return this.municipality;
-    }
-
-    public void setMunicipality(String municipality) {
-        this.municipality = municipality;
-    }
-
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -74,7 +53,7 @@ public class AddressViewModel {
     }
 
     public Integer getFloor() {
-        return this.floor;
+        return floor;
     }
 
     public void setFloor(Integer floor) {
@@ -82,7 +61,7 @@ public class AddressViewModel {
     }
 
     public Integer getBlock() {
-        return this.block;
+        return block;
     }
 
     public void setBlock(Integer block) {
@@ -90,7 +69,7 @@ public class AddressViewModel {
     }
 
     public Integer getApartment() {
-        return this.apartment;
+        return apartment;
     }
 
     public void setApartment(Integer apartment) {
@@ -98,7 +77,7 @@ public class AddressViewModel {
     }
 
     public Character getEntrance() {
-        return this.entrance;
+        return entrance;
     }
 
     public void setEntrance(Character entrance) {

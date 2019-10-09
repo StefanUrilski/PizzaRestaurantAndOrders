@@ -1,9 +1,11 @@
-package com.pizzaapp.domain.models.binding;
+package com.pizzaapp.domain.models.service;
 
-public class AddEditAddressBindingModel {
+import com.pizzaapp.domain.entities.Town;
+
+public class AddressServiceModel {
 
     private String id;
-    private String town;
+    private Town town;
     private String street;
     private Integer number;
     private String phoneNumber;
@@ -11,25 +13,26 @@ public class AddEditAddressBindingModel {
     private Integer block;
     private Integer apartment;
     private Character entrance;
+    private UserServiceModel owner;
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getTown() {
+    public Town getTown() {
         return town;
     }
 
-    public void setTown(String town) {
+    public void setTown(Town town) {
         this.town = town;
     }
 
     public String getStreet() {
-        return this.street;
+        return street;
     }
 
     public void setStreet(String street) {
@@ -37,7 +40,7 @@ public class AddEditAddressBindingModel {
     }
 
     public Integer getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setNumber(Integer number) {
@@ -45,7 +48,7 @@ public class AddEditAddressBindingModel {
     }
 
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -53,7 +56,7 @@ public class AddEditAddressBindingModel {
     }
 
     public Integer getFloor() {
-        return this.floor;
+        return floor;
     }
 
     public void setFloor(Integer floor) {
@@ -61,7 +64,7 @@ public class AddEditAddressBindingModel {
     }
 
     public Integer getBlock() {
-        return this.block;
+        return block;
     }
 
     public void setBlock(Integer block) {
@@ -69,7 +72,7 @@ public class AddEditAddressBindingModel {
     }
 
     public Integer getApartment() {
-        return this.apartment;
+        return apartment;
     }
 
     public void setApartment(Integer apartment) {
@@ -77,10 +80,18 @@ public class AddEditAddressBindingModel {
     }
 
     public Character getEntrance() {
-        return this.entrance;
+        return entrance;
     }
 
     public void setEntrance(Character entrance) {
         this.entrance = entrance;
+    }
+
+    public UserServiceModel getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserServiceModel owner) {
+        this.owner = owner;
     }
 }

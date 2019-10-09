@@ -1,10 +1,13 @@
 <th:block>
     <div>
-        <form th:action="@{/addresses/add}" method="post" id="address-form" hidden>
+        <form th:action="@{/addresses/add}" method="post" id="address-form">
             <div class="row d-flex justify-content-center">
                 <div class="col d-flex justify-content-start" >
-                    <label for="address-name">Name
-                        <input class="form-control" id="address-name" type="text" name="name" placeholder="Name..." required>
+                    <label for="address-town">Town
+                        <select class="browser-default custom-select" id="address-town">
+                            <option disabled selected>Select town</option>
+                            <option th:each="town : ${T(com.pizzaapp.domain.entities.Town.values()}" th:value="${town}" th:text="${town}"></option>
+                        </select>
                     </label>
                 </div>
             </div>
@@ -17,18 +20,6 @@
                 <div class="col col-md-4" >
                     <label for="address-number">Number
                         <input class="form-control" id="address-number" type="number" name="number" placeholder="Number..." required>
-                    </label>
-                </div>
-                <div class="col col-md-4 d-flex justify-content-center" >
-                    <label for="address-post-code">Post Code
-                        <input class="form-control" id="address-post-code" type="number" name="postCode" placeholder="Post code..." required>
-                    </label>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col col-md-4" >
-                    <label for="address-municipality">Municipality
-                        <input class="form-control" id="address-municipality" type="text" name="municipality" placeholder="Municipality..." required>
                     </label>
                 </div>
                 <div class="col col-md-4" >
@@ -64,23 +55,9 @@
             <div class="row my-5 d-flex justify-content-center">
                 <div class="col d-flex justify-content-center">
                     <button type="submit" class="btn btn-success mr-2">Add Address</button>
-                    <button id="toggle-off-add-address-form" type="button" class="btn btn-secondary ml-2">Cancel</button>
+<!--                    <button id="toggle-off-add-address-form" type="button" class="btn btn-secondary ml-2">Cancel</button>-->
                 </div>
             </div>
         </form>
     </div>
-    <script>
-        let toggleOnAddAddressForm = $('#toggle-on-add-address-form');
-        let toggleOffAddAddressForm = $('#toggle-off-add-address-form');
-
-        toggleOnAddAddressForm.click(function () {
-            $('#address-form').prop('hidden', false);
-            toggleOnAddAddressForm.prop('hidden', true);
-        });
-
-        toggleOffAddAddressForm.click(function () {
-            $('#address-form').prop('hidden', true);
-            toggleOnAddAddressForm.prop('hidden', false);
-        });
-    </script>
 </th:block>

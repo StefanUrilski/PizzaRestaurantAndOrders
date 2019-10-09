@@ -72,8 +72,8 @@ public class UserController extends BaseController {
 
     @GetMapping("/login/profile")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView firstLogin(@ModelAttribute(name = "model") UserEditBindingModel model) {
-        UserServiceModel loggedUser = userService.extractUserByEmail(model.getEmail());
+    public ModelAndView firstLogin(Principal principal) {
+        UserServiceModel loggedUser = userService.extractUserByEmail(principal.getName());
 
         if (loggedUser.isFirstTimeLogin()) {
             return redirect("/");
@@ -83,104 +83,6 @@ public class UserController extends BaseController {
 
         return view("addresses/add-addresses");
     }
-
-    @GetMapping("/profile/addresses")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView addresses() {
-        return view("addresses/add-addresses");
-    }
-
-//
-//    @GetMapping("/profile")
-//    @PreAuthorize("isAuthenticated()")
-//    public ModelAndView profile(Principal principal, ModelAndView modelAndView) {
-//        UserServiceModel loggedUser = userService.findByUsername(principal.getName());
-//
-//        modelAndView.addObject("user", modelMapper.map(loggedUser, UserProfileViewModel.class));
-//
-//        return view("/user/profile", modelAndView);
-//    }
-//
-//    @GetMapping("/edit")
-//    @PreAuthorize("isAuthenticated()")
-//    public ModelAndView editProfile(Principal principal,
-//                                    ModelAndView modelAndView,
-//                                    @ModelAttribute(name = "model") UserEditBindingModel model) {
-//
-//        UserServiceModel userServiceModel = userService.findByUsername(principal.getName());
-//        model = modelMapper.map(userServiceModel, UserEditBindingModel.class);
-//        model.setPassword(null);
-//        modelAndView.addObject("model", model);
-//
-//        return view("user/edit-profile", modelAndView);
-//    }
-//
-//    @PatchMapping("/edit")
-//    @PreAuthorize("isAuthenticated()")
-//    public ModelAndView editProfileConfirm(ModelAndView modelAndView,
-//                                           @ModelAttribute(name = "model") UserEditBindingModel model,
-//                                           BindingResult bindingResult) {
-//
-//        userEditValidator.validate(model, bindingResult);
-//
-//        if (bindingResult.hasErrors()) {
-//            model.setOldPassword(null);
-//            model.setPassword(null);
-//            model.setConfirmPassword(null);
-//            modelAndView.addObject("model", model);
-//
-//            return view("user/edit-profile", modelAndView);
-//        }
-//
-//        UserServiceModel userServiceModel = modelMapper.map(model, UserServiceModel.class);
-//        userService.editUser(userServiceModel, model.getOldPassword());
-//
-//        return redirect("/user/profile");
-//    }
-//
-//    @GetMapping("/all")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @PageTitle("All Users")
-//    public ModelAndView allUsers(ModelAndView modelAndView) {
-//        List<UserAllViewModel> users = userService.findAllUsers()
-//                .stream()
-//                .map(user -> {
-//                    UserAllViewModel userModel = modelMapper.map(user, UserAllViewModel.class);
-//                    Set<String> authorities = user.getAuthorities().stream().map(RoleServiceModel::getAuthority).collect(Collectors.toSet());
-//                    userModel.setAuthorities(authorities);
-//
-//                    return userModel;
-//                })
-//                .collect(Collectors.toList());
-//
-//        modelAndView.addObject("users", users);
-//
-//        return view("user/all-users", modelAndView);
-//    }
-//
-//    @PostMapping("/set-user/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public ModelAndView setUser(@PathVariable String id) {
-//        userService.setUserRole(id, "user");
-//
-//        return redirect("/users/all");
-//    }
-//
-//    @PostMapping("/set-moderator/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public ModelAndView setModerator(@PathVariable String id) {
-//        userService.setUserRole(id, "moderator");
-//
-//        return redirect("/users/all");
-//    }
-//
-//    @PostMapping("/set-admin/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public ModelAndView setAdmin(@PathVariable String id) {
-//        userService.setUserRole(id, "admin");
-//
-//        return redirect("/users/all");
-//    }
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
