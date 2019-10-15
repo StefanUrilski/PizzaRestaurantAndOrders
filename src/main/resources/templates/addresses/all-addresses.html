@@ -16,16 +16,19 @@
                             <th scope="col">Street</th>
                             <th scope="col">Number</th>
                             <th scope="col">Block</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <th:block th:each="address,iter : ${addresses}">
                             <tr class="table-rows" th:id="${address.id}">
                                 <th scope="row" th:text="${iter.index + 1}"></th>
-                                <td th:text="${address.name}"></td>
+                                <td th:text="${address.town}"></td>
                                 <td th:text="${address.street}"></td>
                                 <td th:text="${address.number}"></td>
                                 <td th:text="${address.block}"></td>
+                                <td><a th:href="@{/users/addresses/edit/{id}(id=${address.id})}"
+                                       class="btn btn-info font-weight-bold text-white">Edit</a></td>
                             </tr>
                         </th:block>
                         </tbody>
@@ -33,7 +36,7 @@
                 </div>
                 <hr class="hr" />
                 <div class="row d-flex justify-content-center">
-                    <a th:href="@{addresses/add}" class="btn btn-success">Add address</a>
+                    <a th:href="@{/users/addresses/add}" class="btn btn-success">Add address</a>
                 </div>
             </div>
         </div>

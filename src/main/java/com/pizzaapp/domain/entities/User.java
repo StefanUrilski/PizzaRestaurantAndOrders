@@ -13,7 +13,6 @@ public class User extends BaseEntity implements UserDetails {
     private String fullName;
     private String email;
     private String password;
-    private boolean firstTimeLogin;
     private Set<Address> addresses;
 
     private boolean isAccountNonLocked;
@@ -56,14 +55,6 @@ public class User extends BaseEntity implements UserDetails {
         this.password = password;
     }
 
-    public boolean isFirstTimeLogin() {
-        return firstTimeLogin;
-    }
-
-    public void setFirstTimeLogin(boolean firstTimeLogin) {
-        this.firstTimeLogin = firstTimeLogin;
-    }
-
     @OneToMany(targetEntity = Address.class, mappedBy = "owner", fetch = FetchType.EAGER)
     public Set<Address> getAddresses() {
         return this.addresses;
@@ -74,6 +65,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Transient
     @Column(name = "is_account_non_locked")
     public boolean isAccountNonLocked() {
         return true;
@@ -84,6 +76,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Transient
     @Column(name = "is_account_non_expired")
     public boolean isAccountNonExpired() {
         return true;
@@ -94,6 +87,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
+    @Transient
     @Column(name = "is_credentials_non_expired")
     public boolean isCredentialsNonExpired() {
         return true;

@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByUsername(String email);
 
-    @Query("SELECT u FROM User u order by u.username")
+    @Query("select u from User u order by u.username")
     List<User> findAllOrderedAlphabetically();
 }

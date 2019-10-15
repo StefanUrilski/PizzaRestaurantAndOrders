@@ -1,66 +1,62 @@
 <th:block>
     <div class="d-flex justify-content-center bg-pic">
         <div class="row">
-            <form class="form-horizontal" th:action="@{/users/addresses/add}" method="post">
+            <form class="form-horizontal" th:action="@{/users/addresses/edit/{id}(id=${address.id})}" method="post" th:object="${address}">
                 <!-- Address form -->
 
-                <h2>Add Address</h2>
+                <h2>Edit Address</h2>
 
                 <div class="form-group">
                     <label for="address-town" class="form-group">Town</label>
-                        <select class="browser-default custom-select" id="address-town" name="town">
-                            <option disabled selected>Select town</option>
-                            <option th:each="town : ${T(com.pizzaapp.domain.entities.Town).values()}"
-                                    th:value="${town}"
-                                    th:text="${town}">
-                            </option>
-                        </select>
+                    <input class="form-control" id="address-town" type="text" name="town"
+                           th:value="*{town}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="address-street">Street
                         <input class="form-control" id="address-street" type="text" name="street"
-                               placeholder="Street..." required>
+                               th:value="*{street}" required>
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="address-number">Number
                         <input class="form-control" id="address-number" type="number" name="number"
-                               placeholder="Number..." required>
+                               th:value="*{number}" required>
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="address-block">Block
-                        <input class="form-control" id="address-block" type="text" name="block" placeholder="Block...">
+                        <input class="form-control" id="address-block" type="text" name="block"
+                               th:value="*{block}">
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="address-entrance">Entrance
                         <input class="form-control" id="address-entrance" type="text" name="entrance"
-                               placeholder="Entrance...">
+                               th:value="*{entrance}">
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="address-floor">Floor
                         <input class="form-control" id="address-floor" type="number" name="floor"
-                               placeholder="Floor...">
+                               th:value="*{floor}">
                     </label>
                     <div class="form-group">
                         <label for="address-door-apartment">Apartment
                             <input class="form-control" id="address-door-apartment" type="number" name="apartment"
-                                   placeholder="Apartment...">
+                                   th:value="*{apartment}">
                         </label>
                     </div>
                     <div class="form-group">
                         <label for="address-phone-number">Phone Number
                             <input class="form-control" id="address-phone-number" type="text" name="phoneNumber"
-                                   placeholder="Phone number..." required>
+                                   th:value="*{phoneNumber}" required>
                         </label>
                     </div>
                 </div>
                 <hr class="hr"/>
                 <div class="row my-5 d-flex justify-content-center">
                     <div class="col d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success mr-2">Add Address</button>
+                        <button type="submit" class="btn btn-success mr-2">Edit Address</button>
                     </div>
                 </div>
             </form>

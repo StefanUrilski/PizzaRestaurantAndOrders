@@ -101,14 +101,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void firstLogin(String id) {
-        User user = userRepository.findById(id).orElseThrow(()
-                -> new IllegalArgumentException(WRONG_NON_EXISTENT_ID));
-        user.setFirstTimeLogin(true);
-        userRepository.saveAndFlush(user);
-    }
-
-    @Override
     public UserServiceModel extractUserByEmail(String email) {
         User userEntity = userRepository.findByUsername(email).orElse(null);
 

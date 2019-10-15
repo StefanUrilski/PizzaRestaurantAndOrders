@@ -6,7 +6,6 @@ public class UserServiceModel {
     private String fullName;
     private String email;
     private String password;
-    private boolean firstTimeLogin;
 
     public String getId() {
         return id;
@@ -38,13 +37,5 @@ public class UserServiceModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isFirstTimeLogin() {
-        return firstTimeLogin;
-    }
-
-    public void setFirstTimeLogin(boolean firstTimeLogin) {
-        this.firstTimeLogin = firstTimeLogin;
     }
 }

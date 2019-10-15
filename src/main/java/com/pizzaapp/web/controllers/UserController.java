@@ -70,19 +70,6 @@ public class UserController extends BaseController {
         return view("users/login-user");
     }
 
-    @GetMapping("/login/profile")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView firstLogin(Principal principal) {
-        UserServiceModel loggedUser = userService.extractUserByEmail(principal.getName());
-
-        if (loggedUser.isFirstTimeLogin()) {
-            return redirect("/");
-        }
-
-        userService.firstLogin(loggedUser.getId());
-
-        return view("addresses/add-addresses");
-    }
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")

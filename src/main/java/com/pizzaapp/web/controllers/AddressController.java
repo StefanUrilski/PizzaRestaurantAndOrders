@@ -9,16 +9,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/addresses")
+@RequestMapping("users/addresses")
 public class AddressController extends BaseController {
 
     private final UserService userService;
@@ -35,9 +32,9 @@ public class AddressController extends BaseController {
     @GetMapping("/all")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView AllAddresses(Principal principal) {
-        AddressViewModel addresses = modelMapper.map(
-                addressService.getUserAddressesOrderedByName(principal.getName()),
-                AddressViewModel.class
+        AddressViewModel[] addresses = modelMapper.map(
+                addressService.getUserAddressesOrderedByTown(principal.getName()),
+                AddressViewModel[].class
         );
 
         return view("addresses/all-addresses", "addresses", addresses);
@@ -46,7 +43,7 @@ public class AddressController extends BaseController {
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView addAddress(){
-        return view("addresses/add-addresses");
+        return view("addresses/add-address");
     }
 
     @PostMapping("/add")
@@ -57,6 +54,28 @@ public class AddressController extends BaseController {
         addressServiceModel.setOwner(userService.extractUserByEmail(principal.getName()));
         addressService.addAddress(addressServiceModel);
 
-        return view("addresses/all-addresses");
+        return redirect("/users/addresses/all");
     }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView editAddress(@PathVariable String id){
+        AddEditAddressBindingModel address = modelMapper.map(
+                addressService.getAddressById(id),
+                AddEditAddressBindingModel.class
+        );
+        return view("addresses/edit-address", "address", address);
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView editAddressConfirm(@ModelAttribute AddEditAddressBindingModel addressBindingModel, Principal principal){
+        AddressServiceModel addressServiceModel = modelMapper.map(addressBindingModel, AddressServiceModel.class);
+
+        addressServiceModel.setOwner(userService.extractUserByEmail(principal.getName()));
+        addressService.editAddress(addressServiceModel);
+
+        return redirect("/users/addresses/all");
+    }
+
 }

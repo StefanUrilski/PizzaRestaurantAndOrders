@@ -12,5 +12,7 @@ public interface AddressService {
 
     boolean editAddress(AddressServiceModel addressServiceModel);
 
-    List<AddressServiceModel> getUserAddressesOrderedByName(String email);
+    List<AddressServiceModel> getUserAddressesOrderedByTown(String email);
+
+    void deleteAddress(String id, String name);
 }
