@@ -12,6 +12,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Email</th>
                             <th scope="col">Full Name</th>
+                            <th scope="col">Authorities</th>
                             <th scope="col">Details</th>
                         </tr>
                         </thead>
@@ -21,7 +22,10 @@
                                 <th scope="row" th:text="${iter.index + 1}"></th>
                                 <td th:text="${profile.email}"></td>
                                 <td th:text="${profile.fullName}"></td>
-                                <td><a th:href="@{/profile/{id}(id=${profile.id})}">Details</a></td>
+                                <td th:text="${profile.role}"></td>
+                                <th:block th:if="${profile.role != 'ROOT'}">
+                                <td><a th:href="@{/profile/{id}(id=${profile.id})}" class="btn bg-success text-white">Change Role</a></td>
+                                </th:block>
                             </tr>
                         </th:block>
                         </tbody>

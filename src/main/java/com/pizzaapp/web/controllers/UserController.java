@@ -1,40 +1,33 @@
 package com.pizzaapp.web.controllers;
 
-import com.pizzaapp.domain.models.binding.UserEditBindingModel;
-import com.pizzaapp.domain.models.view.user.AddressViewModel;
-import com.pizzaapp.web.validations.user.UserEditValidator;
+import com.pizzaapp.domain.models.binding.UserRegisterBindingModel;
+import com.pizzaapp.domain.models.service.UserServiceModel;
+import com.pizzaapp.service.UserService;
 import com.pizzaapp.web.validations.user.UserRegisterValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.pizzaapp.domain.models.binding.UserRegisterBindingModel;
-import com.pizzaapp.domain.models.service.UserServiceModel;
-import com.pizzaapp.errors.UserEditFailureException;
-import com.pizzaapp.errors.UserRegisterFailureException;
-import com.pizzaapp.service.UserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/users")
 public class UserController extends BaseController {
 
     private final UserService userService;
-    private final UserEditValidator userEditValidator;
     private final UserRegisterValidator userRegisterValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(UserService userService, UserEditValidator userEditValidator, UserRegisterValidator userRegisterValidator, ModelMapper modelMapper) {
+    public UserController(UserService userService, UserRegisterValidator userRegisterValidator, ModelMapper modelMapper) {
         this.userService = userService;
-        this.userEditValidator = userEditValidator;
         this.userRegisterValidator = userRegisterValidator;
         this.modelMapper = modelMapper;
     }
@@ -70,13 +63,5 @@ public class UserController extends BaseController {
         return view("users/login-user");
     }
 
-
-    @GetMapping("/profile")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView profile(@ModelAttribute("userRegisterBindingModel") UserEditBindingModel userEditBindingModel, Principal principal) {
-        userEditBindingModel = modelMapper.map(userService.extractUserByEmail(principal.getName()), UserEditBindingModel.class);
-
-        return view("users/profile-user", "userRegisterBindingModel", userEditBindingModel);
-    }
 
 }

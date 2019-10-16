@@ -20,6 +20,22 @@
         <th:block sec:authorize="isAuthenticated()">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="userNav">
                 <ul class="navbar-nav">
+                    <th:block sec:authorize="hasRole('ROLE_COURIER') && !hasRole('ROLE_MODERATOR')">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" id="allOrdersDropdown"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                All Orders
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="allOrdersDropdown">
+                                <th:block th:each="town : ${T(com.pizzaapp.domain.entities.Town).values()}">
+                                    <a class="dropdown-item" th:href="@{orders/delivery/{id}(id=${town})}" th:text="${town}"></a>
+                                </th:block>
+                            </div>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/orders/my}">All Orders</a>
+                        </li>
+                    </th:block>
                     <li class="nav-item active">
                         <div class="dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" role="button" id="cartDropdown"
@@ -40,9 +56,6 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/orders/my}">My Orders</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/users/profile}">Profile</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/users/addresses/all}">Addresses</a>
@@ -73,7 +86,7 @@
                                     Admin
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                    <a class="dropdown-item" th:href="@{/users/all}">All Users</a>
+                                    <a class="dropdown-item" th:href="@{/profiles}">All Users</a>
                                     <a class="dropdown-item" th:href="@{/orders/all}">All Orders</a>
                                 </div>
                             </div>

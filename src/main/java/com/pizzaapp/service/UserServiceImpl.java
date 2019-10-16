@@ -1,6 +1,5 @@
 package com.pizzaapp.service;
 
-import com.pizzaapp.common.Constants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +41,7 @@ public class UserServiceImpl implements UserService {
             roleRepository.save(new UserRole("ROLE_ROOT"));
             roleRepository.save(new UserRole("ROLE_ADMIN"));
             roleRepository.save(new UserRole("ROLE_MODERATOR"));
+            roleRepository.save(new UserRole("ROLE_COURIER"));
             roleRepository.save(new UserRole("ROLE_USER"));
         }
     }
@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
                 userEntity.getAuthorities().add(roleRepository.findByAuthority("ROLE_ADMIN").orElse(null));
             case "moderator":
                 userEntity.getAuthorities().add(roleRepository.findByAuthority("ROLE_MODERATOR").orElse(null));
+            case "courier":
+                userEntity.getAuthorities().add(roleRepository.findByAuthority("ROLE_COURIER").orElse(null));
             case "user":
                 userEntity.getAuthorities().add(roleRepository.findByAuthority("ROLE_USER").orElse(null));
                 break;
