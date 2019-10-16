@@ -3,7 +3,7 @@
         <div class="jumbotron bg-forms d-flex justify-content-center">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <h1 class="text text-center">All Orders</h1>
+                    <h1 class="text text-center">All Orders For Delivery</h1>
                 </div>
                 <div class="row d-flex justify-content-center">
                     <table class="table table-striped">
@@ -13,10 +13,10 @@
                             <th scope="col">Street</th>
                             <th scope="col">Number</th>
                             <th scope="col">Block</th>
-<!--                            <th scope="col">Entrance</th>-->
-<!--                            <th scope="col">Floor</th>-->
-<!--                            <th scope="col">Apartment</th>-->
-<!--                            <th scope="col">Phone Number</th>-->
+                            <!--                            <th scope="col">Entrance</th>-->
+                            <!--                            <th scope="col">Floor</th>-->
+                            <!--                            <th scope="col">Apartment</th>-->
+                            <!--                            <th scope="col">Phone Number</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -26,9 +26,11 @@
                                 <td th:text="${order.street}"></td>
                                 <td th:text="${order.number}"></td>
                                 <td th:text="${order.block}"></td>
-                                <td><a th:href="@{/orders/details/{id}(id=${order.id})}" class="btn bg-success text-white">Details</a></td>
+                                <td><a th:href="@{/delivery/details/{id}(id=${order.id})}"
+                                       class="btn bg-success text-white">Details</a></td>
                                 <th:block th:if="!isTaken">
-                                <td><a th:href="@{/orders/take/{id}(id=${order.id})}" class="btn bg-danger text-white">Take Order</a></td>
+                                    <td><a th:href="@{/delivery/take/{id}(id=${order.id})}"
+                                           class="btn bg-danger text-white">Take Order</a></td>
                                 </th:block>
                             </tr>
                         </th:block>

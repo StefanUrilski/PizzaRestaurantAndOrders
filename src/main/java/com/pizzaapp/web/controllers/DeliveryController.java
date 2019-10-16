@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/orders")
-public class OrderController extends BaseController {
+@RequestMapping("/delivery")
+public class DeliveryController extends BaseController {
 
     @GetMapping("/delivery/{town}")
     public ModelAndView delivery(@PathVariable String town, ModelAndView modelAndView) {
