@@ -7,6 +7,4 @@ import javax.persistence.Table;
 @Table(name = "doughs")
 public class Dough extends Ingredient {
 
-    public Dough() {
-    }
 }

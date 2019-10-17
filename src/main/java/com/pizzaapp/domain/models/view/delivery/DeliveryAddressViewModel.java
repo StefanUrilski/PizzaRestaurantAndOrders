@@ -1,6 +1,6 @@
-package com.pizzaapp.domain.models.view.order;
+package com.pizzaapp.domain.models.view.delivery;
 
-public class OrderAddressViewModel {
+public class DeliveryAddressViewModel {
 
     private String street;
     private Integer number;

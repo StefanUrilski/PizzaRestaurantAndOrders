@@ -11,9 +11,6 @@ public class Meat extends Ingredient {
 
     private BigDecimal price;
 
-    public Meat() {
-    }
-
     @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;

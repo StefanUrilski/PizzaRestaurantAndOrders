@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "cheeses")
-public class Cheese extends Ingredient {
+@Table(name = "vegetables")
+public class Vegetable extends Ingredient {
 
     private BigDecimal price;
 

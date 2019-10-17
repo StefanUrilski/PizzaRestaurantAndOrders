@@ -13,13 +13,13 @@ public class DeliveryController extends BaseController {
 
     @GetMapping("/delivery/{town}")
     public ModelAndView delivery(@PathVariable String town, ModelAndView modelAndView) {
-//        OrderAddressViewModel
+//        DeliveryAddressViewModel
         return view("delivery/all-orders", "allOrders", null);
     }
 
     @GetMapping("/details/{id}")
     public ModelAndView details(@PathVariable String id, ModelAndView modelAndView) {
-//        AddressViewModel
+//        DeliveryFullAddressViewModel
         return view("delivery/orders-details", "order", null);
     }
 

@@ -10,8 +10,7 @@ import java.util.Set;
 public class Pizza extends MenuItem {
 
     private String description;
-    private Sauce sauce;
-    private Set<Spice> spices;
+    private Set<Vegetable> vegetables;
     private Set<Cheese> cheeses;
     private Set<Meat> meats;
     private Dough dough;
@@ -26,36 +25,23 @@ public class Pizza extends MenuItem {
         this.description = description;
     }
 
-    @ManyToOne(targetEntity = Sauce.class)
-    @JoinTable(name = "pizzas_sauces"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "sauce_id")
+    @ManyToMany(targetEntity = Vegetable.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "pizzas_spices",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "spice_id")
     )
-    public Sauce getSauce() {
-        return this.sauce;
+    public Set<Vegetable> getVegetables() {
+        return this.vegetables;
     }
 
-    public void setSauce(Sauce sauce) {
-        this.sauce = sauce;
-    }
-
-    @ManyToMany(targetEntity = Spice.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_spices"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "spice_id")
-    )
-    public Set<Spice> getSpices() {
-        return this.spices;
-    }
-
-    public void setSpices(Set<Spice> spices) {
-        this.spices = spices;
+    public void setVegetables(Set<Vegetable> vegetables) {
+        this.vegetables = vegetables;
     }
 
     @ManyToMany(targetEntity = Cheese.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_cheeses"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "cheese_id")
+    @JoinTable(name = "pizzas_cheeses",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "cheese_id")
     )
     public Set<Cheese> getCheeses() {
         return this.cheeses;
@@ -66,9 +52,9 @@ public class Pizza extends MenuItem {
     }
 
     @ManyToMany(targetEntity = Meat.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_meats"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "meat_id")
+    @JoinTable(name = "pizzas_meats",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "meat_id")
     )
     public Set<Meat> getMeats() {
         return this.meats;
@@ -79,9 +65,9 @@ public class Pizza extends MenuItem {
     }
 
     @ManyToOne(targetEntity = Dough.class)
-    @JoinTable(name = "pizzas_doughs"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "dough_id")
+    @JoinTable(name = "pizzas_doughs",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "dough_id")
     )
     public Dough getDough() {
         return dough;
@@ -92,9 +78,9 @@ public class Pizza extends MenuItem {
     }
 
     @ManyToOne(targetEntity = Size.class)
-    @JoinTable(name = "pizzas_sizes"
-            , joinColumns = @JoinColumn(name = "pizza_id")
-            , inverseJoinColumns = @JoinColumn(name = "size_id")
+    @JoinTable(name = "pizzas_sizes",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id")
     )
     public Size getSize() {
         return size;

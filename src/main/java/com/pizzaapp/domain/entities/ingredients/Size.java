@@ -15,9 +15,6 @@ public class Size extends BaseEntity {
     private BigDecimal price;
     private Integer numberOfSlices;
 
-    public Size() {
-    }
-
     @Column(name = "size", nullable = false, unique = true, updatable = false)
     public String getSize() {
         return this.size;
