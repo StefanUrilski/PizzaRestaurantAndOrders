@@ -1,0 +1,15 @@
+<th:block>
+    <div class="d-flex justify-content-center bg-pic">
+        <div class="row">
+            <form class="form-horizontal" th:action="@{/menu/ingredients/add/vegetable}" method="post">
+
+                <th:block th:include="~{fragments/ingredient-blank}"/>
+
+            </form>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        document.getElementById("title").append(" Vegetable");
+        document.getElementById("submitButton").append(" Vegetable");
+    </script>
+</th:block>

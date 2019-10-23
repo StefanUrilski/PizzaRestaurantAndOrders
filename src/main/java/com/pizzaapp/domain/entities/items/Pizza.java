@@ -1,6 +1,6 @@
 package com.pizzaapp.domain.entities.items;
 
-import com.pizzaapp.domain.entities.ingredients.*;
+import com.pizzaapp.domain.entities.Ingredient;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,11 +10,7 @@ import java.util.Set;
 public class Pizza extends MenuItem {
 
     private String description;
-    private Set<Vegetable> vegetables;
-    private Set<Cheese> cheeses;
-    private Set<Meat> meats;
-    private Dough dough;
-    private Size size;
+    private Set<Ingredient> ingredients;
 
     @Column(name = "description")
     public String getDescription() {
@@ -25,68 +21,17 @@ public class Pizza extends MenuItem {
         this.description = description;
     }
 
-    @ManyToMany(targetEntity = Vegetable.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_spices",
+    @ManyToMany(targetEntity = Ingredient.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "pizzas_ingredients",
             joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "spice_id")
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    public Set<Vegetable> getVegetables() {
-        return this.vegetables;
+    public Set<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
-    public void setVegetables(Set<Vegetable> vegetables) {
-        this.vegetables = vegetables;
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    @ManyToMany(targetEntity = Cheese.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_cheeses",
-            joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "cheese_id")
-    )
-    public Set<Cheese> getCheeses() {
-        return this.cheeses;
-    }
-
-    public void setCheeses(Set<Cheese> cheeses) {
-        this.cheeses = cheeses;
-    }
-
-    @ManyToMany(targetEntity = Meat.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "pizzas_meats",
-            joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "meat_id")
-    )
-    public Set<Meat> getMeats() {
-        return this.meats;
-    }
-
-    public void setMeats(Set<Meat> meats) {
-        this.meats = meats;
-    }
-
-    @ManyToOne(targetEntity = Dough.class)
-    @JoinTable(name = "pizzas_doughs",
-            joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "dough_id")
-    )
-    public Dough getDough() {
-        return dough;
-    }
-
-    public void setDough(Dough dough) {
-        this.dough = dough;
-    }
-
-    @ManyToOne(targetEntity = Size.class)
-    @JoinTable(name = "pizzas_sizes",
-            joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "size_id")
-    )
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
 }

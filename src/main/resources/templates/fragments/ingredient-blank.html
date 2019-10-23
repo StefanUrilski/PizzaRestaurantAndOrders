@@ -1,0 +1,36 @@
+<th:block>
+    <div id="ingredientName" class="form-group" style="display: block">
+        <h2 id="title">Add </h2>
+
+        <label for="name">Name
+            <input class="form-control" id="name" type="text" name="name"
+                   placeholder="Ingredient name...">
+        </label>
+    </div>
+    <div id="size" class="form-group" style="display: none">
+        <label for="sizes">Size
+            <input class="form-control" id="sizes" type="text" name="size" placeholder="Size...">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="price">Price
+            <input class="form-control" id="price" type="number" step="any" name="price"
+                   placeholder="Ingredient price...">
+        </label>
+    </div>
+    <div id="numberOfSlices" class="form-group" style="display: none">
+        <label for="numbOfSlices">Number of slices
+            <input class="form-control" id="numbOfSlices" type="number" name="numberOfSlices"
+                   placeholder="Number of slices...">
+        </label>
+    </div>
+    <hr class="hr"/>
+    <div class="row my-5 d-flex justify-content-center">
+        <div class="col d-flex justify-content-center">
+            <button type="submit" class="btn btn-success mr-2" id="submitButton">Add </button>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a th:href="@{/menu/add}" class="btn btn-danger mr-2" >Cancel</a>
+        </div>
+    </div>
+</th:block>

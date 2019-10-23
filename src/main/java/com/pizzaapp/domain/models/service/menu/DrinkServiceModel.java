@@ -1,21 +1,22 @@
-package com.pizzaapp.domain.entities.items;
+package com.pizzaapp.domain.models.service.menu;
 
-import com.pizzaapp.domain.entities.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
-@MappedSuperclass
-public abstract class MenuItem extends BaseEntity {
+public class DrinkServiceModel {
 
+    private String id;
     private String name;
     private BigDecimal price;
     private String imageUrl;
 
+    public String getId() {
+        return this.id;
+    }
 
-    @Column(name = "name", nullable = false, unique = true, updatable = false)
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -24,8 +25,6 @@ public abstract class MenuItem extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "price", nullable = false)
-    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -34,7 +33,6 @@ public abstract class MenuItem extends BaseEntity {
         this.price = price;
     }
 
-    @Column(name = "image_url", nullable = false)
     public String getImageUrl() {
         return this.imageUrl;
     }

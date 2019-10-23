@@ -14,4 +14,14 @@ public final class Constants {
 
     public static final String ITEM_ALREADY_EXISTS = "%s already exists.";
 
+
+
+    public static final String ITEM_ADD_EXCEPTION = "Error occurred during item add.";
+
+    public static final String INGREDIENT_ADD_EXCEPTION = "Error occurred during ingredient add.";
+
+    public static final String USER_REGISTER_EXCEPTION = "Error occurred during user registration.";
+
+
+
 }

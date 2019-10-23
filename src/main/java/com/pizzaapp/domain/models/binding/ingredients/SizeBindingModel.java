@@ -1,21 +1,13 @@
-package com.pizzaapp.domain.entities.ingredients;
+package com.pizzaapp.domain.models.binding.ingredients;
 
-import com.pizzaapp.domain.entities.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "sizes")
-public class Size extends BaseEntity {
+public class SizeBindingModel {
 
     private String size;
     private BigDecimal price;
     private Integer numberOfSlices;
 
-    @Column(name = "size", nullable = false, unique = true, updatable = false)
     public String getSize() {
         return this.size;
     }
@@ -24,7 +16,6 @@ public class Size extends BaseEntity {
         this.size = size;
     }
 
-    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -33,7 +24,6 @@ public class Size extends BaseEntity {
         this.price = price;
     }
 
-    @Column(name = "number_of_slices", nullable = false, unique = true, updatable = false)
     public Integer getNumberOfSlices() {
         return this.numberOfSlices;
     }

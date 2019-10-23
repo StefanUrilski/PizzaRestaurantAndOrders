@@ -29,8 +29,8 @@ public class UserRegisterValidator implements org.springframework.validation.Val
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        UserRegisterBindingModel userRegisterBindingModel = (UserRegisterBindingModel) o;
+    public void validate(Object object, Errors errors) {
+        UserRegisterBindingModel userRegisterBindingModel = (UserRegisterBindingModel) object;
 
         if (userRepository.findByUsername(userRegisterBindingModel.getEmail()).isPresent()) {
             errors.rejectValue(

@@ -1,5 +1,6 @@
 package com.pizzaapp.service;
 
+import com.pizzaapp.errors.UserRegisterFailureException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerUser(UserServiceModel userServiceModel) {
+    public void registerUser(UserServiceModel userServiceModel) {
         seedRolesInDb();
 
         User userEntity = modelMapper.map(userServiceModel, User.class);
@@ -98,8 +99,11 @@ public class UserServiceImpl implements UserService {
 
         setUserRole(userEntity);
 
-        userRepository.save(userEntity);
-        return true;
+        try {
+            userRepository.save(userEntity);
+        } catch (Exception ex) {
+            throw new UserRegisterFailureException(USER_REGISTER_EXCEPTION);
+        }
     }
 
     @Override
