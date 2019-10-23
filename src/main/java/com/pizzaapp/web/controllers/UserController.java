@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
+@PreAuthorize("isAnonymous()")
 public class UserController extends BaseController {
 
     private final UserService userService;
@@ -33,13 +34,11 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/register")
-    @PreAuthorize("isAnonymous()")
     public ModelAndView register(@ModelAttribute("model") UserRegisterBindingModel userRegisterBindingModel) {
         return view("users/register-user", "model", userRegisterBindingModel);
     }
 
     @PostMapping("/register")
-    @PreAuthorize("isAnonymous()")
     public ModelAndView registerConfirm(@Valid @ModelAttribute("model") UserRegisterBindingModel model,
                                         BindingResult bindingResult) {
 
@@ -58,7 +57,6 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/login")
-    @PreAuthorize("isAnonymous()")
     public ModelAndView login() {
         return view("users/login-user");
     }

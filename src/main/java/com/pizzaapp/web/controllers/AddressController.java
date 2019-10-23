@@ -16,6 +16,7 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("users/addresses")
+@PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
 public class AddressController extends BaseController {
 
     private final UserService userService;
@@ -30,7 +31,6 @@ public class AddressController extends BaseController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView AllAddresses(Principal principal) {
         AddressViewModel[] addresses = modelMapper.map(
                 addressService.getUserAddressesOrderedByTown(principal.getName()),
@@ -41,13 +41,11 @@ public class AddressController extends BaseController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView addAddress(){
         return view("addresses/add-address");
     }
 
     @PostMapping("/add")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView addAddressConfirm(@ModelAttribute AddEditAddressBindingModel addressBindingModel, Principal principal){
         AddressServiceModel addressServiceModel = modelMapper.map(addressBindingModel, AddressServiceModel.class);
 
@@ -58,7 +56,6 @@ public class AddressController extends BaseController {
     }
 
     @GetMapping("/edit/{id}")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView editAddress(@PathVariable String id){
         AddEditAddressBindingModel address = modelMapper.map(
                 addressService.getAddressById(id),
@@ -68,7 +65,6 @@ public class AddressController extends BaseController {
     }
 
     @PostMapping("/edit/{id}")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView editAddressConfirm(@ModelAttribute AddEditAddressBindingModel addressBindingModel, Principal principal){
         AddressServiceModel addressServiceModel = modelMapper.map(addressBindingModel, AddressServiceModel.class);
 

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/menu")
+@PreAuthorize("hasRole('ROLE_MODERATOR')")
 public class MenuController extends BaseController {
 
     private final MenuService menuService;
@@ -32,7 +33,6 @@ public class MenuController extends BaseController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView addMenuItems() {
         return view("menu/add-menu-items", "allIngredients", ingredientService.getAllIngredients());
     }

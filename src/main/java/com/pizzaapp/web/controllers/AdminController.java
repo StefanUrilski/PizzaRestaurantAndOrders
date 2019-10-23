@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/profiles")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController extends BaseController {
 
     private final UserService userService;
@@ -29,10 +31,10 @@ public class AdminController extends BaseController {
         this.modelMapper = modelMapper;
     }
 
-    private String setHighestRole(List<UserRoleServiceModel> authorities) {
+    private String setHighestRole(int numberOfAuthorities) {
         String role = "";
 
-        switch (authorities.size()) {
+        switch (numberOfAuthorities) {
             case 1:
                 role = "USER";
                 break;
@@ -53,14 +55,13 @@ public class AdminController extends BaseController {
         return role;
     }
 
-    @GetMapping("/profiles")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/")
     public ModelAndView allProfiles() {
         List<AllUsersViewModel> allUsers = userService.extractAllUsersOrderedAlphabetically()
                 .stream()
                 .map(user -> {
                     AllUsersViewModel usersViewModel = modelMapper.map(user, AllUsersViewModel.class);
-                    usersViewModel.setRole(setHighestRole(user.getAuthorities()));
+                    usersViewModel.setRole(setHighestRole(user.getAuthorities().size()));
 
                     return usersViewModel;
                 })
@@ -69,8 +70,7 @@ public class AdminController extends BaseController {
         return view("users/all-profiles-user", "profiles", allUsers);
     }
 
-    @GetMapping("/profile/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/{id}")
     public ModelAndView profile(@PathVariable(name = "id") String id) {
         UserServiceModel userServiceModel = userService.extractUserById(id);
         UserViewModel userViewModel = modelMapper.map(userServiceModel, UserViewModel.class);
@@ -79,8 +79,7 @@ public class AdminController extends BaseController {
         return view("users/details-user", "userViewModel", userViewModel);
     }
 
-    @PostMapping("/profile/roleEdit")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/roleEdit")
     @ResponseBody
     public void roleEditConfirm(@RequestBody String body) {
         String email = body.split("&")[0].split("=")[1].replace("%40", "@");

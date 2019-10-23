@@ -11,7 +11,4 @@ public class HomeController extends BaseController {
     public ModelAndView index() {
         return view("index");
     }
-
-
-
 }
