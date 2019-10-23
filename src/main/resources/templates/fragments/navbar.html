@@ -5,6 +5,10 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <!---------------------------
+                GUEST SECTION
+        ---------------------------->
         <th:block sec:authorize="isAnonymous()">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="guestNav">
                 <ul class="navbar-nav">
@@ -17,9 +21,17 @@
                 </ul>
             </div>
         </th:block>
+
+        <!---------------------------
+                USER SECTION
+        ---------------------------->
         <th:block sec:authorize="isAuthenticated()">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="userNav">
                 <ul class="navbar-nav">
+
+                    <!---------------------------
+                            COURIER PART
+                    ---------------------------->
                     <th:block sec:authorize="hasRole('ROLE_COURIER') && !hasRole('ROLE_MODERATOR')">
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" role="button" id="allOrdersDropdown"
@@ -28,7 +40,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="allOrdersDropdown">
                                 <th:block th:each="town : ${T(com.pizzaapp.domain.entities.Town).values()}">
-                                    <a class="dropdown-item" th:href="@{orders/delivery/{id}(id=${town})}" th:text="${town}"></a>
+                                    <a class="dropdown-item" th:href="@{orders/delivery/{id}(id=${town})}"
+                                       th:text="${town}"></a>
                                 </th:block>
                             </div>
                         </li>
@@ -36,31 +49,43 @@
                             <a class="nav-link" th:href="@{/orders/my}">All Orders</a>
                         </li>
                     </th:block>
-                    <li class="nav-item active">
-                        <div class="dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" role="button" id="cartDropdown"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Cart
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="cartDropdown">
-                                <th:block th:each="item : ${#session.getAttribute('shopping-cart')}"
-                                          th:object="${item}">
-                                    <div class="dropdown-item" th:text="|*{product.product.name} x *{quantity}|"></div>
-                                </th:block>
-                                <div class="dropdown-divider"></div>
-                                <div class="text-center">
-                                    <a th:href="@{/cart/details}" class="btn btn-dark">Cart</a>
+
+                    <!---------------------------
+                            USER PART
+                    ---------------------------->
+                    <th:block sec:authorize="hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')">
+                        <li class="nav-item active">
+                            <div class="dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="cartDropdown"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cart
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="cartDropdown">
+                                    <th:block th:each="item : ${#session.getAttribute('shopping-cart')}"
+                                              th:object="${item}">
+                                        <div class="dropdown-item"
+                                             th:text="|*{product.product.name} x *{quantity}|"></div>
+                                    </th:block>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="text-center">
+                                        <a th:href="@{/cart/details}" class="btn btn-dark">Cart</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/orders/my}">My Orders</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/users/addresses/all}">Addresses</a>
-                    </li>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/orders/my}">My Orders</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/users/addresses/all}">Addresses</a>
+                        </li>
+                    </th:block>
+
+                    <!---------------------------
+                            MODERATOR PART
+                    ---------------------------->
                     <th:block sec:authorize="hasRole('ROLE_MODERATOR')">
+
                         <li class="nav-item active">
                             <div class="dropdown show">
                                 <a class="nav-link active dropdown-toggle" href="#" role="button" id="addDropdown"
@@ -76,9 +101,7 @@
                                 </div>
                             </div>
                         </li>
-                    </th:block>
 
-                    <th:block sec:authorize="hasRole('ROLE_MODERATOR')">
                         <li class="nav-item active">
                             <div class="dropdown show">
                                 <a class="nav-link active dropdown-toggle" href="#" role="button" id="allDropdown"
@@ -94,6 +117,9 @@
                         </li>
                     </th:block>
 
+                    <!---------------------------
+                            ADMIN PART
+                    ---------------------------->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <li class="nav-item active">
                             <div class="dropdown">
