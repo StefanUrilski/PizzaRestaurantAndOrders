@@ -1,0 +1,23 @@
+<th:block>
+    <div class="d-flex justify-content-center bg-pic">
+        <div class="row">
+            <form class="form-horizontal" th:action="@{/ingredients/category/add}" method="post">
+
+                <div id="ingredientName" class="form-group" style="display: block">
+                    <h2 id="title">Add Category</h2>
+
+                    <label for="name">Name
+                        <input class="form-control" id="name" type="text" name="name"
+                               placeholder="Ingredient name...">
+                    </label>
+                </div>
+
+                <hr class="hr"/>
+                <div class="row d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Add Category</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</th:block>
