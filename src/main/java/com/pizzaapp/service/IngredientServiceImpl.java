@@ -4,7 +4,7 @@ import com.pizzaapp.domain.entities.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.errors.IngredientAddFailureException;
 import com.pizzaapp.errors.NameNotFoundException;
-import com.pizzaapp.repository.IngredientRepository;
+import com.pizzaapp.repository.menu.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.pizzaapp.common.Constants;
@@ -31,7 +31,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     private <T> List<T> getAllIngredientsMapped(List<Ingredient> allIngredients, String name, Class<T> clazz) {
         return allIngredients.stream()
-                .filter(ingredient -> ingredient.getCategory().equals(name))
+                .filter(ingredient -> ingredient.getCategory().getName().equals(name))
                 .map(ingredient -> modelMapper.map(ingredient, clazz))
                 .collect(Collectors.toList());
     }
