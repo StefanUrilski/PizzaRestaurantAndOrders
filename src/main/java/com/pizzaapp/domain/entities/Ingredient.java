@@ -1,10 +1,6 @@
 package com.pizzaapp.domain.entities;
 
-import com.pizzaapp.domain.entities.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -13,7 +9,7 @@ public class Ingredient extends BaseEntity {
 
     private String name;
     private BigDecimal price;
-    private String category;
+    private Category category;
 
     @Column(name = "name", nullable = false, unique = true, updatable = false)
     public String getName() {
@@ -33,12 +29,16 @@ public class Ingredient extends BaseEntity {
         this.price = price;
     }
 
-    @Column(name = "category", nullable = false)
-    public String getCategory() {
+    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "ingredients_categories",
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }
