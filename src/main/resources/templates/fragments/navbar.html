@@ -63,13 +63,32 @@
                     <th:block sec:authorize="hasRole('ROLE_MODERATOR')">
                         <li class="nav-item active">
                             <div class="dropdown show">
-                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="moderatorDropdown"
+                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="addDropdown"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Moderator
+                                    Add Item
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="moderatorDropdown">
-                                    <a class="dropdown-item" th:href="@{/menu/add}">Add Items</a>
-                                    <a class="dropdown-item" th:href="@{/products/add}">All Items</a>
+                                <div class="dropdown-menu" aria-labelledby="addDropdown">
+                                    <a class="dropdown-item" th:href="@{/menu/add}">Add Category</a>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">Add Ingredient</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">Add Drink</a>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">Add Pizza</a>
+                                </div>
+                            </div>
+                        </li>
+                    </th:block>
+
+                    <th:block sec:authorize="hasRole('ROLE_MODERATOR')">
+                        <li class="nav-item active">
+                            <div class="dropdown show">
+                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="allDropdown"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    All Items
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="allDropdown">
+                                    <a class="dropdown-item" th:href="@{/menu/add}">All Ingredients</a>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">All Drinks</a>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">All Pizzas</a>
                                 </div>
                             </div>
                         </li>
