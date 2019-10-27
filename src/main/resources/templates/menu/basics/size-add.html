@@ -1,0 +1,37 @@
+<th:block>
+    <div class="jumbotron col-sm-11 m-auto d-flex justify-content-center bg-pic">
+
+        <form class="form-horizontal" th:action="@{/menu/size/add}" method="post">
+
+            <div id="ingredientName" class="form-group" style="display: block">
+                <h2 id="title">Add Size</h2>
+
+                <label for="size">Size Name
+                    <input class="form-control" id="size" type="text" name="size"
+                           placeholder="Small, Medium, Large, Family...">
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="numberOfSlices">Number Of Slices
+                    <input class="form-control" type="text" id="numberOfSlices" name="numberOfSlices"
+                           placeholder="Number Of Slices...">
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity
+                    <input class="form-control" type="text" id="quantity" name="quantity"
+                           placeholder="Quantity in grams...">
+                </label>
+            </div>
+            <hr class="hr"/>
+            <div class="row my-5 d-flex justify-content-center">
+                <div class="col d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-2" id="submitButton">Add Size</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</th:block>
