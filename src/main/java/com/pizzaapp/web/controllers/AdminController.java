@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/profiles")
+@RequestMapping("/profile")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController extends BaseController {
 
@@ -55,7 +55,7 @@ public class AdminController extends BaseController {
         return role;
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ModelAndView allProfiles() {
         List<AllUsersViewModel> allUsers = userService.extractAllUsersOrderedAlphabetically()
                 .stream()
