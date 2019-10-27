@@ -1,12 +1,10 @@
 package com.pizzaapp.domain.models.binding.ingredients;
 
-import java.math.BigDecimal;
-
 public class SizeBindingModel {
 
     private String size;
-    private BigDecimal price;
-    private Integer numberOfSlices;
+    private String numberOfSlices;
+    private Integer quantity;
 
     public String getSize() {
         return this.size;
@@ -16,19 +14,20 @@ public class SizeBindingModel {
         this.size = size;
     }
 
-    public BigDecimal getPrice() {
-        return this.price;
+    public String getNumberOfSlices() {
+        return numberOfSlices;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getNumberOfSlices() {
-        return this.numberOfSlices;
-    }
-
-    public void setNumberOfSlices(Integer numberOfSlices) {
+    public void setNumberOfSlices(String numberOfSlices) {
         this.numberOfSlices = numberOfSlices;
     }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }
+

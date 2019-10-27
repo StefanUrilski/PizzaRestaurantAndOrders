@@ -27,9 +27,9 @@ public class SizeServiceImpl implements SizeService {
     @Override
     public void addSize(SizeServiceModel sizeServiceModel) {
 
-        Size size = sizeRepository.findBySize(sizeServiceModel.getName()).orElse(null);
+        Size size = sizeRepository.findBySize(sizeServiceModel.getSize()).orElse(null);
 
-        ExistService.checkIfItemNotExistThrowException(size, sizeServiceModel.getName());
+        ExistService.checkIfItemNotExistThrowException(size, sizeServiceModel.getSize());
 
         size = modelMapper.map(sizeServiceModel, Size.class);
 

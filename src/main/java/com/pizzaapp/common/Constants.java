@@ -10,8 +10,6 @@ public final class Constants {
 
     public static final String NON_EXISTENT_ROLE = "Non-existent role.";
 
-    public static final String INGREDIENT_ALREADY_EXISTS = "%s already exists.";
-
     public static final String ITEM_ALREADY_EXISTS = "%s already exists.";
 
 

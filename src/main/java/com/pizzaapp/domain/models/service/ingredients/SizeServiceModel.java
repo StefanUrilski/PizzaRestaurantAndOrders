@@ -1,34 +1,41 @@
 package com.pizzaapp.domain.models.service.ingredients;
 
-import java.math.BigDecimal;
-
 public class SizeServiceModel {
 
     private String id;
-    private String name;
-    private BigDecimal price;
+    private String size;
+    private String numberOfSlices;
+    private Integer quantity;
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getSize() {
+        return size;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSize(String size) {
+        this.size = size;
     }
 
-    public BigDecimal getPrice() {
-        return this.price;
+    public String getNumberOfSlices() {
+        return numberOfSlices;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setNumberOfSlices(String numberOfSlices) {
+        this.numberOfSlices = numberOfSlices;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

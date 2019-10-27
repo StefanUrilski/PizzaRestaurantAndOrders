@@ -12,7 +12,7 @@ public class Size extends BaseEntity {
 
     private String size;
     private String numberOfSlices;
-    private String quantity;
+    private Integer quantity;
 
     @Column(name = "size", nullable = false, unique = true)
     public String getSize() {
@@ -33,11 +33,11 @@ public class Size extends BaseEntity {
     }
 
     @Column(name = "quantity", nullable = false)
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
