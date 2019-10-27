@@ -2,8 +2,10 @@ package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.ingredients.SizeBindingModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
+import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
 import com.pizzaapp.domain.models.view.CategoryViewModel;
+import com.pizzaapp.domain.models.view.IngredientBindingModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +77,16 @@ public class MenuController extends BaseController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/ingredient/add")
+    public ModelAndView addIngredient() {
+        return view("menu/ingredient-add");
+    }
+
+    @PostMapping("/ingredient/add")
+    public ModelAndView addIngredientConfirm(@ModelAttribute IngredientBindingModel ingredientBindingModel) {
+        ingredientService.addIngredient(modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
+
+        return redirect("/");
+    }
 
 }
