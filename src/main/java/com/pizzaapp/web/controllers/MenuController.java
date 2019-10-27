@@ -32,9 +32,14 @@ public class MenuController extends BaseController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/add")
-    public ModelAndView addMenuItems() {
-        return view("menu/add-menu-items", "allIngredients", ingredientService.getAllIngredients());
+    @GetMapping("/size/add")
+    public ModelAndView pizzaSpecifics() {
+        return view("menu/basics/size-add");
+    }
+
+    @GetMapping("/category/add")
+    public ModelAndView addCategory() {
+        return view("menu/basics/category-add");
     }
 
 
