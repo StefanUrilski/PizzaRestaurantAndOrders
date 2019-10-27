@@ -2,10 +2,9 @@ package com.pizzaapp.service;
 
 import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.Drink;
-import com.pizzaapp.domain.entities.items.Pizza;
+import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
-import com.pizzaapp.errors.IngredientAddFailureException;
 import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.errors.ItemAlreadyExistsException;
 import com.pizzaapp.errors.NameNotFoundException;

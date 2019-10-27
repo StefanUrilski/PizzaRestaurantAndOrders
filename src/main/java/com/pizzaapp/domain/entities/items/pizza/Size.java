@@ -1,4 +1,6 @@
-package com.pizzaapp.domain.entities;
+package com.pizzaapp.domain.entities.items.pizza;
+
+import com.pizzaapp.domain.entities.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

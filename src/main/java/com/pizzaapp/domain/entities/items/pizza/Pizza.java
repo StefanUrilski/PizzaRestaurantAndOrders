@@ -1,7 +1,6 @@
-package com.pizzaapp.domain.entities.items;
+package com.pizzaapp.domain.entities.items.pizza;
 
-import com.pizzaapp.domain.entities.Ingredient;
-import com.pizzaapp.domain.entities.Size;
+import com.pizzaapp.domain.entities.items.MenuItem;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +11,7 @@ public class Pizza extends MenuItem {
 
     private String description;
     private Size size;
+    private Dough dough;
     private Set<Ingredient> ingredients;
 
     @Column(name = "description")
@@ -21,6 +21,28 @@ public class Pizza extends MenuItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @ManyToOne(targetEntity = Size.class)
+    @JoinTable(name = "pizzas_size",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Dough getDough() {
+        return dough;
+    }
+
+    public void setDough(Dough dough) {
+        this.dough = dough;
     }
 
     @ManyToMany(targetEntity = Ingredient.class, fetch = FetchType.EAGER)

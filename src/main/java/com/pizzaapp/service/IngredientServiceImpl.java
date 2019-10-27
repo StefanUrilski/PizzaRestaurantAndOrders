@@ -1,6 +1,6 @@
 package com.pizzaapp.service;
 
-import com.pizzaapp.domain.entities.Ingredient;
+import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.errors.IngredientAddFailureException;
 import com.pizzaapp.errors.NameNotFoundException;
