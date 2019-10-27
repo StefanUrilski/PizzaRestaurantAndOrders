@@ -88,16 +88,27 @@
 
                         <li class="nav-item active">
                             <div class="dropdown show">
-                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="addDropdown"
+                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="basicsDropdown"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Add Item
+                                    Add Basics
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="addDropdown">
+                                <div class="dropdown-menu" aria-labelledby="basicsDropdown">
+                                    <a class="dropdown-item" th:href="@{/menu/dough/add}">Dough</a>
+                                    <a class="dropdown-item" th:href="@{/menu/category/add}">Category</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item active">
+                            <div class="dropdown show">
+                                <a class="nav-link active dropdown-toggle" href="#" role="button" id="itemDropdown"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add Items
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="itemDropdown">
                                     <a class="dropdown-item" th:href="@{/menu/drinks/add}">Drink</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" th:href="@{/menu/pizzas/add}">Pizza</a>
                                     <a class="dropdown-item" th:href="@{/menu/ingredients/add}">Ingredient</a>
-                                    <a class="dropdown-item" th:href="@{/menu/pizzas/specifics}">Pizzas Specifics</a>
                                 </div>
                             </div>
                         </li>
