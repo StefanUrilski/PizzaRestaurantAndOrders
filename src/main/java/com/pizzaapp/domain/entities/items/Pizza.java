@@ -1,6 +1,7 @@
 package com.pizzaapp.domain.entities.items;
 
 import com.pizzaapp.domain.entities.Ingredient;
+import com.pizzaapp.domain.entities.Size;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 public class Pizza extends MenuItem {
 
     private String description;
+    private Size size;
     private Set<Ingredient> ingredients;
 
     @Column(name = "description")
