@@ -3,16 +3,17 @@ package com.pizzaapp.web.controllers;
 import com.pizzaapp.domain.models.binding.ingredients.SizeBindingModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
+import com.pizzaapp.domain.models.view.CategoryViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/menu")
@@ -63,6 +64,15 @@ public class MenuController extends BaseController {
         categoryService.addCategory(modelMapper.map(categoryServiceModel, CategoryServiceModel.class));
 
         return redirect("/");
+    }
+
+    @GetMapping("/fetch")
+    @ResponseBody
+    public List<CategoryViewModel> fetchCategories() {
+        return categoryService.getAllCategories()
+                .stream()
+                .map(category -> modelMapper.map(category, CategoryViewModel.class))
+                .collect(Collectors.toList());
     }
 
 
