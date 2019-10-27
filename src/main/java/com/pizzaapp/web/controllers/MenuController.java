@@ -68,7 +68,7 @@ public class MenuController extends BaseController {
         return redirect("/");
     }
 
-    @GetMapping("/fetch")
+    @GetMapping("/category/fetch")
     @ResponseBody
     public List<CategoryViewModel> fetchCategories() {
         return categoryService.getAllCategories()
@@ -77,12 +77,12 @@ public class MenuController extends BaseController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/ingredient/add")
+    @GetMapping("/ingredients/add")
     public ModelAndView addIngredient() {
         return view("menu/ingredient-add");
     }
 
-    @PostMapping("/ingredient/add")
+    @PostMapping("/ingredients/add")
     public ModelAndView addIngredientConfirm(@ModelAttribute IngredientBindingModel ingredientBindingModel) {
         ingredientService.addIngredient(modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
 
