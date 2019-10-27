@@ -1,7 +1,10 @@
 package com.pizzaapp.service;
 
+import com.pizzaapp.common.Constants;
+import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.CheeseServiceModel;
+import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.repository.menu.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,17 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @Override
+    public void addCategory(CategoryServiceModel categoryServiceModel) {
+        Category category = modelMapper.map(categoryServiceModel, Category.class);
+
+        try {
+            categoryRepository.saveAndFlush(category);
+        } catch (Exception ex) {
+            throw new ItemAddFailureException(Constants.ITEM_ADD_EXCEPTION);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.pizzaapp.service;
 import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.pizza.Size;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
+import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.errors.ItemAlreadyExistsException;
 import com.pizzaapp.repository.menu.SizeRepository;
 import org.modelmapper.ModelMapper;
@@ -35,7 +36,7 @@ public class SizeServiceImpl implements SizeService {
         try {
             sizeRepository.save(size);
         } catch (Exception ex) {
-            throw new ItemAlreadyExistsException(Constants.ITEM_ADD_EXCEPTION);
+            throw new ItemAddFailureException(Constants.ITEM_ADD_EXCEPTION);
         }
     }
 
