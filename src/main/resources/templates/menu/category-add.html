@@ -1,14 +1,16 @@
 <th:block>
-    <div class="d-flex justify-content-center bg-pic">
+    <div class="jumbotron col-sm-11 m-auto d-flex justify-content-center bg-pic">
         <div class="row">
             <form class="form-horizontal" th:action="@{/ingredients/category/add}" method="post">
 
                 <div id="ingredientName" class="form-group" style="display: block">
                     <h2 id="title">Add Category</h2>
 
+                    <br />
+
                     <label for="name">Name
                         <input class="form-control" id="name" type="text" name="name"
-                               placeholder="Ingredient name...">
+                               placeholder="Category name...">
                     </label>
                 </div>
 
