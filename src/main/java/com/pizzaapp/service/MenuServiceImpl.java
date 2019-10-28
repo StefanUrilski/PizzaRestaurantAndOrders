@@ -1,13 +1,10 @@
 package com.pizzaapp.service;
 
-import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.Drink;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
 import com.pizzaapp.errors.ItemAddFailureException;
-import com.pizzaapp.errors.ItemAlreadyExistsException;
-import com.pizzaapp.errors.NameNotFoundException;
 import com.pizzaapp.repository.menu.DrinkRepository;
 import com.pizzaapp.repository.menu.PizzaRepository;
 import org.modelmapper.ModelMapper;
@@ -39,7 +36,7 @@ public class MenuServiceImpl implements MenuService {
     public void addPizza(PizzaServiceModel pizzaServiceModel) {
         Pizza pizza = pizzaRepository.findByName(pizzaServiceModel.getName()).orElse(null);
 
-        checkIfExist(pizza, Pizza.class.getSimpleName());
+        ExistService.checkIfItemExistThrowException(pizza, Pizza.class.getSimpleName());
 
         pizza = modelMapper.map(pizzaServiceModel, Pizza.class);
 
@@ -54,7 +51,7 @@ public class MenuServiceImpl implements MenuService {
     public void addDrink(DrinkServiceModel drinkServiceModel) {
         Drink drink = drinkRepository.findByName(drinkServiceModel.getName()).orElse(null);
 
-        checkIfExist(drink, Drink.class.getSimpleName());
+        ExistService.checkIfItemExistThrowException(drink, Drink.class.getSimpleName());
 
         drink = modelMapper.map(drinkServiceModel, Drink.class);
 
@@ -85,7 +82,7 @@ public class MenuServiceImpl implements MenuService {
     public PizzaServiceModel getPizzaByName(String name) {
         Pizza pizza = pizzaRepository.findByName(name).orElse(null);
 
-        checkIfExist(pizza);
+        ExistService.checkIfItemNotExistThrowException(pizza);
 
         return modelMapper.map(pizza, PizzaServiceModel.class);
     }
@@ -94,20 +91,9 @@ public class MenuServiceImpl implements MenuService {
     public DrinkServiceModel getDrinkByName(String name) {
         Drink drink = drinkRepository.findByName(name).orElse(null);
 
-        checkIfExist(drink);
+        ExistService.checkIfItemNotExistThrowException(drink);
 
         return modelMapper.map(drink, DrinkServiceModel.class);
     }
 
-    private void checkIfExist(Object item, String itemName) {
-        if (item != null) {
-            throw new ItemAlreadyExistsException(String.format(Constants.ITEM_ALREADY_EXISTS, itemName));
-        }
-    }
-
-    private void checkIfExist(Object item) {
-        if (item == null) {
-            throw new NameNotFoundException(Constants.WRONG_NON_EXISTENT_NAME);
-        }
-    }
 }

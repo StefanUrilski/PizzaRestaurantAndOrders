@@ -38,22 +38,22 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressServiceModel getAddressById(String id) {
-        Address addressEntity = addressRepository.findById(id).orElse(null);
+        Address address = addressRepository.findById(id).orElse(null);
 
-        checkAddressExistence(addressEntity);
+        ExistService.checkIfItemNotExistThrowException(address);
 
-        return modelMapper.map(addressEntity, AddressServiceModel.class);
+        return modelMapper.map(address, AddressServiceModel.class);
     }
 
     @Override
     public boolean editAddress(AddressServiceModel addressServiceModel) {
-        Address addressEntity = addressRepository.findById(addressServiceModel.getId()).orElse(null);
+        Address address = addressRepository.findById(addressServiceModel.getId()).orElse(null);
 
-        checkAddressExistence(addressEntity);
+        ExistService.checkIfItemNotExistThrowException(address);
 
-        addressEntity = modelMapper.map(addressServiceModel, Address.class);
+        address = modelMapper.map(addressServiceModel, Address.class);
 
-        addressRepository.save(addressEntity);
+        addressRepository.save(address);
 
         return true;
     }
@@ -70,14 +70,8 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(String id, String name) {
         Address address = addressRepository.findById(id).orElse(null);
 
-        checkAddressExistence(address);
+        ExistService.checkIfItemNotExistThrowException(address);
 
         addressRepository.deleteById(id);
-    }
-
-    private void checkAddressExistence(Address addressEntity) {
-        if (addressEntity == null) {
-            throw new IdNotFoundException(Constants.WRONG_NON_EXISTENT_ID);
-        }
     }
 }

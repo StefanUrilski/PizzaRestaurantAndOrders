@@ -1,5 +1,6 @@
 package com.pizzaapp.service;
 
+import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.*;
 import com.pizzaapp.errors.IngredientAddFailureException;
@@ -17,11 +18,15 @@ import static com.pizzaapp.common.Constants.INGREDIENT_ADD_EXCEPTION;
 public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientRepository ingredientRepository;
+    private final CategoryService categoryService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public IngredientServiceImpl(IngredientRepository ingredientRepository, ModelMapper modelMapper) {
+    public IngredientServiceImpl(IngredientRepository ingredientRepository,
+                                 CategoryService categoryService,
+                                 ModelMapper modelMapper) {
         this.ingredientRepository = ingredientRepository;
+        this.categoryService = categoryService;
         this.modelMapper = modelMapper;
     }
 
@@ -51,12 +56,16 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public void addIngredient(IngredientServiceModel model) {
         Ingredient ingredient = ingredientRepository
-                .findByCategoryAndName(model.getCategory(), model.getName())
+                .findByCategoryAndName(model.getCategoryId(), model.getName())
                 .orElse(null);
 
-        ExistService.checkIfItemNotExistThrowException(ingredient, Ingredient.class.getSimpleName());
+        ExistService.checkIfItemExistThrowException(ingredient, Ingredient.class.getSimpleName());
 
         ingredient = modelMapper.map(model, Ingredient.class);
+
+        CategoryServiceModel category = categoryService.getCategoryById(model.getCategoryId());
+
+        ingredient.setCategory(modelMapper.map(category, Category.class));
 
         try {
             ingredientRepository.save(ingredient);
@@ -77,7 +86,7 @@ public class IngredientServiceImpl implements IngredientService {
     public IngredientServiceModel getIngredientByCategoryAndName(String category, String name) {
         Ingredient ingredient = ingredientRepository.findByCategoryAndName(category, name).orElse(null);
 
-        ExistService.checkIfItemExistThrowException(ingredient);
+        ExistService.checkIfItemNotExistThrowException(ingredient);
 
         return modelMapper.map(ingredient, IngredientServiceModel.class);
     }

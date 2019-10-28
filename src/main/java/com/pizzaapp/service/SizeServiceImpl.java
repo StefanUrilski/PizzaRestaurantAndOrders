@@ -4,7 +4,6 @@ import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.pizza.Size;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
 import com.pizzaapp.errors.ItemAddFailureException;
-import com.pizzaapp.errors.ItemAlreadyExistsException;
 import com.pizzaapp.repository.menu.SizeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class SizeServiceImpl implements SizeService {
 
         Size size = sizeRepository.findBySize(sizeServiceModel.getSize()).orElse(null);
 
-        ExistService.checkIfItemNotExistThrowException(size, sizeServiceModel.getSize());
+        ExistService.checkIfItemExistThrowException(size, sizeServiceModel.getSize());
 
         size = modelMapper.map(sizeServiceModel, Size.class);
 
@@ -44,7 +43,7 @@ public class SizeServiceImpl implements SizeService {
     public SizeServiceModel getBySizeName(String sizeName) {
         Size size = sizeRepository.findBySize(sizeName).orElse(null);
 
-        ExistService.checkIfItemExistThrowException(size);
+        ExistService.checkIfItemNotExistThrowException(size);
 
         return modelMapper.map(size, SizeServiceModel.class);
     }
