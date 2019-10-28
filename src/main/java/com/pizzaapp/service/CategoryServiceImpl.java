@@ -3,7 +3,6 @@ package com.pizzaapp.service;
 import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
-import com.pizzaapp.domain.models.service.ingredients.CheeseServiceModel;
 import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.repository.menu.CategoryRepository;
 import org.modelmapper.ModelMapper;
@@ -29,6 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void addCategory(CategoryServiceModel categoryServiceModel) {
         Category category = modelMapper.map(categoryServiceModel, Category.class);
 
+        ExistService.checkIfItemNotExistThrowException(category);
+
         try {
             categoryRepository.saveAndFlush(category);
         } catch (Exception ex) {
@@ -37,7 +38,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryServiceModel getCategoryById(String id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(category);
+
+        return modelMapper.map(category, CategoryServiceModel.class);
+    }
+
+    @Override
     public CategoryServiceModel getCategoryByName(String name) {
+        Category category = categoryRepository.findByName(name).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(category);
+
         return modelMapper.map(categoryRepository.findByName(name), CategoryServiceModel.class);
     }
 
