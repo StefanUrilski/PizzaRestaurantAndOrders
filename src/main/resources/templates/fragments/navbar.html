@@ -23,7 +23,7 @@
         </th:block>
 
         <!---------------------------
-                USER SECTION
+             LOGIN USER SECTION
         ---------------------------->
         <th:block sec:authorize="isAuthenticated()">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="userNav">
@@ -93,8 +93,8 @@
                                     Add Basics
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="basicsDropdown">
-                                    <a class="dropdown-item" th:href="@{/menu/size/add}">Pizza Size</a>
-                                    <a class="dropdown-item" th:href="@{/menu/category/add}">Ingredient Category</a>
+                                    <a class="dropdown-item" th:href="@{/ingredients/size/add}">Pizza Size</a>
+                                    <a class="dropdown-item" th:href="@{/ingredients/category/add}">Ingredient Category</a>
                                 </div>
                             </div>
                         </li>
@@ -108,7 +108,7 @@
                                 <div class="dropdown-menu" aria-labelledby="itemDropdown">
                                     <a class="dropdown-item" th:href="@{/menu/drinks/add}">Drink</a>
                                     <a class="dropdown-item" th:href="@{/menu/pizzas/add}">Pizza</a>
-                                    <a class="dropdown-item" th:href="@{/menu/ingredients/add}">Ingredient</a>
+                                    <a class="dropdown-item" th:href="@{/ingredients/add}">Ingredient</a>
                                 </div>
                             </div>
                         </li>
@@ -120,8 +120,8 @@
                                     All Items
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="allDropdown">
-                                    <a class="dropdown-item" th:href="@{/menu/add}">Pizzas</a>
                                     <a class="dropdown-item" th:href="@{/menu/add}">Drinks</a>
+                                    <a class="dropdown-item" th:href="@{/menu/add}">Pizzas</a>
                                     <a class="dropdown-item" th:href="@{/menu/add}">Ingredients</a>
                                 </div>
                             </div>
