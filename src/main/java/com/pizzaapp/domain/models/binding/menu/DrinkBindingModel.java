@@ -1,12 +1,14 @@
 package com.pizzaapp.domain.models.binding.menu;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 
 public class DrinkBindingModel {
 
     private String name;
     private BigDecimal price;
-    private String imageUrl;
+    private MultipartFile imageUrl;
     private boolean isAlcoholic;
 
     public String getName() {
@@ -25,11 +27,11 @@ public class DrinkBindingModel {
         this.price = price;
     }
 
-    public String getImageUrl() {
+    public MultipartFile getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
     }
 

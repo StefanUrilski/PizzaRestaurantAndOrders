@@ -1,5 +1,6 @@
 package com.pizzaapp.web.controllers;
 
+import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.models.binding.ingredients.SizeBindingModel;
 import com.pizzaapp.domain.models.binding.menu.DrinkBindingModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
@@ -8,6 +9,7 @@ import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.CategoryViewModel;
 import com.pizzaapp.domain.models.view.IngredientBindingModel;
+import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,7 +101,13 @@ public class MenuController extends BaseController {
 
     @PostMapping("/drinks/add")
     public ModelAndView addDrinkConfirm(@ModelAttribute DrinkBindingModel drinkBindingModel) {
-        menuService.addDrink(modelMapper.map(drinkBindingModel, DrinkServiceModel.class));
+        DrinkServiceModel drinkServiceModel = modelMapper.map(drinkBindingModel, DrinkServiceModel.class);
+
+        String uploadImageUrl = cloudinaryService.uploadImage(drinkBindingModel.getImageUrl());
+
+        drinkServiceModel.setImageUrl(uploadImageUrl);
+
+        menuService.addDrink(drinkServiceModel);
 
         return redirect("/");
     }
