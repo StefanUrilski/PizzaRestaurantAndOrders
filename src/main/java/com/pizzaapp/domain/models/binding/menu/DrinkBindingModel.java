@@ -8,7 +8,7 @@ public class DrinkBindingModel {
 
     private String name;
     private BigDecimal price;
-    private MultipartFile imageUrl;
+    private MultipartFile image;
     private boolean isAlcoholic;
 
     public String getName() {
@@ -27,12 +27,12 @@ public class DrinkBindingModel {
         this.price = price;
     }
 
-    public MultipartFile getImageUrl() {
-        return imageUrl;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setImageUrl(MultipartFile imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public boolean isAlcoholic() {

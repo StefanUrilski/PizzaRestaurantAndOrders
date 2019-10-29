@@ -103,7 +103,7 @@ public class MenuController extends BaseController {
     public ModelAndView addDrinkConfirm(@ModelAttribute DrinkBindingModel drinkBindingModel) {
         DrinkServiceModel drinkServiceModel = modelMapper.map(drinkBindingModel, DrinkServiceModel.class);
 
-        String uploadImageUrl = cloudinaryService.uploadImage(drinkBindingModel.getImageUrl());
+        String uploadImageUrl = cloudinaryService.uploadImage(drinkBindingModel.getImage());
 
         drinkServiceModel.setImageUrl(uploadImageUrl);
 
