@@ -1,9 +1,11 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.ingredients.SizeBindingModel;
+import com.pizzaapp.domain.models.binding.menu.DrinkBindingModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
+import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.CategoryViewModel;
 import com.pizzaapp.domain.models.view.IngredientBindingModel;
 import com.pizzaapp.service.*;
@@ -88,5 +90,11 @@ public class MenuController extends BaseController {
 
         return redirect("/");
     }
+
+    @GetMapping("/drinks/add")
+    public ModelAndView addDrink() {
+        return view("menu/drink-add");
+    }
+
 
 }

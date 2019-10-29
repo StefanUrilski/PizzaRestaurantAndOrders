@@ -1,0 +1,37 @@
+<th:block>
+    <div class="jumbotron col-sm-11 m-auto d-flex justify-content-center bg-pic">
+        <form id="add-product-form" class="form w-25 mx-auto" th:action="@{/menu/drinks/add}" method="post"
+              enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="add-product-name" class="font-weight-bold">Name</label>
+                <input type="text" class="form-control text-center" id="add-product-name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="add-product-price" class="font-weight-bold">Price</label>
+                <input type="number" step="any" class="form-control text-center" id="add-product-price" name="price">
+            </div>
+            <div class="row my-5 d-flex justify-content-center">
+                <div class="col d-flex justify-content-center">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="nonAlcoholic" name="alcoholic">
+                        <label class="custom-control-label" for="nonAlcoholic">Non-alcoholic</label>
+                    </div>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="alcoholic" name="alcoholic">
+                        <label class="custom-control-label" for="alcoholic">Alcoholic</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="add-product-image" class="font-weight-bold">Image</label>
+                <input type="file" class="form-control-file" id="add-product-image" name="image">
+            </div>
+            <hr class="hr-2 bg-dark w-25">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Add Drink</button>
+            </div>
+        </form>
+    </div>
+</th:block>
