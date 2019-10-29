@@ -96,5 +96,10 @@ public class MenuController extends BaseController {
         return view("menu/drink-add");
     }
 
+    @PostMapping("/drinks/add")
+    public ModelAndView addDrinkConfirm(@ModelAttribute DrinkBindingModel drinkBindingModel) {
+        menuService.addDrink(modelMapper.map(drinkBindingModel, DrinkServiceModel.class));
 
+        return redirect("/");
+    }
 }
