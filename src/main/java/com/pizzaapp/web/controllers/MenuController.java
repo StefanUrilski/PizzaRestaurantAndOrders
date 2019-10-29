@@ -1,7 +1,9 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.menu.DrinkBindingModel;
+import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
+import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class MenuController extends BaseController {
 
     private final MenuService menuService;
+    private final IngredientService ingredientService;
     private final CloudinaryService cloudinaryService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public MenuController(MenuService menuService,
+                          IngredientService ingredientService,
                           CloudinaryService cloudinaryService,
                           ModelMapper modelMapper) {
         this.menuService = menuService;
+        this.ingredientService = ingredientService;
         this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
     }
@@ -47,5 +52,14 @@ public class MenuController extends BaseController {
         menuService.addDrink(drinkServiceModel);
 
         return redirect("/");
+    }
+
+    @GetMapping("/pizzas/add")
+    public ModelAndView addPizza() {
+        AllIngredientsServiceModel IngredientsServiceModel = ingredientService.getAllIngredients();
+
+        AllIngredientsViewModel allIngredients = modelMapper.map(IngredientsServiceModel, AllIngredientsViewModel.class);
+
+        return view("menu/pizza-add", "allIngredients", allIngredients);
     }
 }

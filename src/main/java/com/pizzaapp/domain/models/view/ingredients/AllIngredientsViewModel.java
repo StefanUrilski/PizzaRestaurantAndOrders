@@ -1,17 +1,21 @@
-package com.pizzaapp.domain.models.service.ingredients;
+package com.pizzaapp.domain.models.view.ingredients;
+
+import com.pizzaapp.domain.models.service.ingredients.CheeseServiceModel;
+import com.pizzaapp.domain.models.service.ingredients.MeatServiceModel;
+import com.pizzaapp.domain.models.service.ingredients.VegetableServiceModel;
 
 import java.util.List;
 
-public class AllIngredientsServiceModel {
+public class AllIngredientsViewModel {
 
     private List<MeatServiceModel> meats;
     private List<CheeseServiceModel> cheeses;
     private List<VegetableServiceModel> vegetables;
 
-    public AllIngredientsServiceModel() {
+    public AllIngredientsViewModel() {
     }
 
-    public AllIngredientsServiceModel(
+    public AllIngredientsViewModel(
             List<MeatServiceModel> meats,
             List<CheeseServiceModel> cheeses,
             List<VegetableServiceModel> vegetables

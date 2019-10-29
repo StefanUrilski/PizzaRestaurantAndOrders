@@ -43,12 +43,9 @@ public class IngredientServiceImpl implements IngredientService {
 
         AllIngredientsServiceModel model = new AllIngredientsServiceModel();
 
+        model.setMeats(getAllIngredientsMapped(ingredients, "Meat", MeatServiceModel.class));
         model.setCheeses(getAllIngredientsMapped(ingredients, "Cheese", CheeseServiceModel.class));
         model.setVegetables(getAllIngredientsMapped(ingredients, "Vegetable", VegetableServiceModel.class));
-        model.setDoughs(getAllIngredientsMapped(ingredients, "Dough", DoughServiceModel.class));
-        model.setMeats(getAllIngredientsMapped(ingredients, "Meat", MeatServiceModel.class));
-        model.setSizes(getAllIngredientsMapped(ingredients, "Size", SizeServiceModel.class));
-
 
         return model;
     }
