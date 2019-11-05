@@ -6,6 +6,8 @@ public final class Constants {
 
     public static final String WRONG_NON_EXISTENT_PROPERTY = "Wrong or non-existent property.";
 
+    public static final String WRONG_NON_EXISTENT_INGREDIENT = "Wrong or non-existent ingredient/s.";
+
     public static final String WRONG_NON_EXISTENT_EMAIL = "Wrong or non-existent email.";
 
     public static final String NON_EXISTENT_ROLE = "Non-existent role.";

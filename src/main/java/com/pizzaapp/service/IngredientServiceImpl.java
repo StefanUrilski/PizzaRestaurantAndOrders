@@ -1,9 +1,11 @@
 package com.pizzaapp.service;
 
+import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.*;
 import com.pizzaapp.errors.IngredientAddFailureException;
+import com.pizzaapp.errors.PropertyNotFoundException;
 import com.pizzaapp.repository.menu.IngredientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,12 +74,18 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientServiceModel getIngredientById(String id) {
-        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
+    public List<IngredientServiceModel> getIngredientsByIds(List<String> ingredientIds) {
+        List<Ingredient> allIngredients = ingredientRepository.findAll().stream()
+                .filter(ingredient -> ingredientIds.contains(ingredient.getId()))
+                .collect(Collectors.toList());
 
-        ExistService.checkIfItemNotExistThrowException(ingredient);
+        if (allIngredients.size() != ingredientIds.size()) {
+            throw new PropertyNotFoundException(Constants.WRONG_NON_EXISTENT_INGREDIENT);
+        }
 
-        return modelMapper.map(ingredient, IngredientServiceModel.class);
+        return allIngredients.stream()
+                .map(ingredient -> modelMapper.map(ingredient, IngredientServiceModel.class))
+                .collect(Collectors.toList());
     }
 
     @Override

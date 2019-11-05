@@ -12,7 +12,7 @@ public interface IngredientService {
 
     void addIngredient(IngredientServiceModel ingredientServiceModel);
 
-    IngredientServiceModel getIngredientById(String id);
+    List<IngredientServiceModel> getIngredientsByIds(List<String> ids);
 
     <T> List<T> getIngredientsByCategoryOrdered(String category, Class<T> clazz);
 
