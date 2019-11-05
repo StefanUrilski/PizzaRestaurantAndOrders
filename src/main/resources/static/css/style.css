@@ -38,3 +38,21 @@ body {
 .select-size{
   width:220px;
 }
+
+hr.paging-before {
+  height: 30px;
+  border-style: solid;
+  border-color: #787878;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+}
+hr.paging-after {
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: #787878;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+}
