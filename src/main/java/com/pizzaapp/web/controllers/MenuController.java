@@ -1,8 +1,11 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.menu.DrinkBindingModel;
+import com.pizzaapp.domain.models.binding.menu.PizzaAddBingingModel;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
+import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
+import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
@@ -61,5 +64,18 @@ public class MenuController extends BaseController {
         AllIngredientsViewModel allIngredients = modelMapper.map(IngredientsServiceModel, AllIngredientsViewModel.class);
 
         return view("menu/pizza-add", "allIngredients", allIngredients);
+    }
+
+    @PostMapping("/pizzas/add")
+    public ModelAndView addPizzaConfirm(@ModelAttribute PizzaAddBingingModel pizzaAddBingingModel) {
+        PizzaAddServiceModel pizzaAddServiceModel = modelMapper.map(pizzaAddBingingModel, PizzaAddServiceModel.class);
+
+        String uploadImageUrl = cloudinaryService.uploadImage(pizzaAddBingingModel.getImage());
+
+        pizzaAddServiceModel.setImage(uploadImageUrl);
+
+        menuService.addPizza(pizzaAddServiceModel);
+
+        return redirect("/");
     }
 }
