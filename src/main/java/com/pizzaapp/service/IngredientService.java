@@ -12,6 +12,8 @@ public interface IngredientService {
 
     void addIngredient(IngredientServiceModel ingredientServiceModel);
 
+    IngredientServiceModel getIngredientById(String id);
+
     <T> List<T> getIngredientsByCategoryOrdered(String category, Class<T> clazz);
 
     IngredientServiceModel getIngredientByCategoryAndName(String category, String name);

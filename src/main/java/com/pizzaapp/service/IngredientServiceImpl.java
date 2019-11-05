@@ -72,6 +72,15 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public IngredientServiceModel getIngredientById(String id) {
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(ingredient);
+
+        return modelMapper.map(ingredient, IngredientServiceModel.class);
+    }
+
+    @Override
     public <T> List<T> getIngredientsByCategoryOrdered(String name, Class<T> clazz) {
         return ingredientRepository.findAllByCategoryOrderByNameAsc(name)
                 .stream()
