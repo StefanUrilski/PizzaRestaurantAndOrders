@@ -5,7 +5,6 @@ import com.pizzaapp.domain.models.binding.menu.PizzaAddBingingModel;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
-import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
@@ -70,9 +69,9 @@ public class MenuController extends BaseController {
     public ModelAndView addPizzaConfirm(@ModelAttribute PizzaAddBingingModel pizzaAddBingingModel) {
         PizzaAddServiceModel pizzaAddServiceModel = modelMapper.map(pizzaAddBingingModel, PizzaAddServiceModel.class);
 
-        String uploadImageUrl = cloudinaryService.uploadImage(pizzaAddBingingModel.getImage());
+        String uploadImageUrl = cloudinaryService.uploadImage(pizzaAddBingingModel.getImageUrl());
 
-        pizzaAddServiceModel.setImage(uploadImageUrl);
+        pizzaAddServiceModel.setImageUrl(uploadImageUrl);
 
         menuService.addPizza(pizzaAddServiceModel);
 
