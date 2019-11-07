@@ -13,6 +13,7 @@ public class Pizza extends MenuItem {
     private Size size;
     private Dough dough;
     private Set<Ingredient> ingredients;
+    private String largeImgUrl;
 
     @Column(name = "description")
     public String getDescription() {
@@ -58,4 +59,12 @@ public class Pizza extends MenuItem {
         this.ingredients = ingredients;
     }
 
+    @Column(name = "large_image_url")
+    public String getLargeImgUrl() {
+        return largeImgUrl;
+    }
+
+    public void setLargeImgUrl(String largeImgUrl) {
+        this.largeImgUrl = largeImgUrl;
+    }
 }

@@ -11,11 +11,10 @@ public class PizzaServiceModel {
     private String name;
     private BigDecimal price;
     private String description;
-//    private DoughServiceModel dough;
-    private List<CheeseServiceModel> cheeses;
-    private List<MeatServiceModel> meats;
-    private List<VegetableServiceModel> vegetables;
+    private String dough;
+    private List<IngredientServiceModel> ingredients;
     private String imageUrl;
+    private String largeImgUrl;
 
     public PizzaServiceModel() {
         this.price = new BigDecimal(0);
@@ -53,43 +52,35 @@ public class PizzaServiceModel {
         this.description = description;
     }
 
-//    public DoughServiceModel getDough() {
-//        return this.dough;
-//    }
-//
-//    public void setDough(DoughServiceModel dough) {
-//        this.dough = dough;
-//    }
-
-    public List<CheeseServiceModel> getCheeses() {
-        return this.cheeses;
+    public String getDough() {
+        return dough;
     }
 
-    public void setCheeses(List<CheeseServiceModel> cheeses) {
-        this.cheeses = cheeses;
+    public void setDough(String dough) {
+        this.dough = dough;
     }
 
-    public List<MeatServiceModel> getMeats() {
-        return this.meats;
+    public List<IngredientServiceModel> getIngredients() {
+        return ingredients;
     }
 
-    public void setMeats(List<MeatServiceModel> meats) {
-        this.meats = meats;
-    }
-
-    public List<VegetableServiceModel> getVegetables() {
-        return this.vegetables;
-    }
-
-    public void setVegetables(List<VegetableServiceModel> vegetables) {
-        this.vegetables = vegetables;
+    public void setIngredients(List<IngredientServiceModel> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getImageUrl() {
-        return this.imageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getLargeImgUrl() {
+        return largeImgUrl;
+    }
+
+    public void setLargeImgUrl(String largeImgUrl) {
+        this.largeImgUrl = largeImgUrl;
     }
 }
