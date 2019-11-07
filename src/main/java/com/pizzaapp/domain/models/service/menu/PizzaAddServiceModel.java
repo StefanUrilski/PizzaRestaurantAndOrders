@@ -1,12 +1,19 @@
 package com.pizzaapp.domain.models.service.menu;
 
+import com.pizzaapp.domain.entities.items.pizza.Dough;
+
 import java.util.List;
 
 public class PizzaAddServiceModel {
 
     private String name;
     private List<String> ingredientsIds;
-    private String image;
+    private String imageUrl;
+    private String dough;
+
+    public PizzaAddServiceModel() {
+        this.dough = Dough.Traditional.name();
+    }
 
     public String getName() {
         return name;
@@ -24,11 +31,19 @@ public class PizzaAddServiceModel {
         this.ingredientsIds = ingredientsIds;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDough() {
+        return dough;
+    }
+
+    public void setDough(String dough) {
+        this.dough = dough;
     }
 }

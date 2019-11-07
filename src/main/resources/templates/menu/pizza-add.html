@@ -28,8 +28,7 @@
                         <h3>Meats</h3>
                         <div class="row" th:each="meat : ${allIngredients.meats}">
                             <label class="font-weight-bold">
-                                <input type="checkbox" id="meats" name="ingredientsIds" th:text="${meat.name}" th:value="${meat.id}">
-<!--                                <input type="hidden" id="meat" name="meat" th:value="${meat.id}"/>-->
+                                <input type="checkbox" name="ingredientsIds" th:text="${meat.name}" th:value="${meat.id}">
                             </label>
                         </div>
                     </div>
@@ -37,8 +36,7 @@
                         <h3>Cheeses</h3>
                         <div class="row" th:each="cheese : ${allIngredients.cheeses}">
                             <label class="font-weight-bold">
-                                <input type="checkbox" id="cheeses" name="ingredientsIds" th:text="${cheese.name}" th:value="${cheese.id}">
-<!--                                <input type="hidden" id="cheese" name="cheese" th:value="${cheese.id}"/>-->
+                                <input type="checkbox" name="ingredientsIds" th:text="${cheese.name}" th:value="${cheese.id}">
                             </label>
                         </div>
                     </div>
@@ -46,8 +44,7 @@
                         <h3>Vegetables</h3>
                         <div class="row" th:each="vegetable : ${allIngredients.vegetables}">
                             <label class="font-weight-bold">
-                                <input type="checkbox" id="vegetables" name="ingredientsIds" th:text="${vegetable.name}" th:value="${vegetable.id}">
-<!--                                <input type="hidden" id="vegetable" name="vegetable" th:value="${vegetable.id}"/>-->
+                                <input type="checkbox" name="ingredientsIds" th:text="${vegetable.name}" th:value="${vegetable.id}">
                             </label>
                         </div>
                     </div>
@@ -60,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="add-product-image" class="font-weight-bold">Image</label>
-                    <input type="file" class="form-control-file" id="add-product-image" name="image">
+                    <input type="file" class="form-control-file" id="add-product-image" name="imageUrl">
                 </div>
 
                 <hr class="hr-2 bg-dark w-25">
@@ -70,7 +67,7 @@
                     <button type="submit" class="btn btn-success mr-2" id="submitButton">Make Pizza</button>
                 </div>
                 <div class="col d-flex justify-content-center">
-                    <a th:href="@{/}" class="btn btn-danger mr-2" >Cancel</a>
+                    <a th:href="@{/}" class="btn btn-danger mr-2">Cancel</a>
                 </div>
             </div>
 
