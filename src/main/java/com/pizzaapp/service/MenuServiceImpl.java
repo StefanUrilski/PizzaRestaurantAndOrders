@@ -1,8 +1,11 @@
 package com.pizzaapp.service;
 
 import com.pizzaapp.domain.entities.items.Drink;
+import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
+import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
+import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
 import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.repository.menu.DrinkRepository;
@@ -11,7 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.pizzaapp.common.Constants.ITEM_ADD_EXCEPTION;
@@ -21,24 +26,56 @@ public class MenuServiceImpl implements MenuService {
 
     private final PizzaRepository pizzaRepository;
     private final DrinkRepository drinkRepository;
+    private final IngredientService ingredientService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public MenuServiceImpl(PizzaRepository pizzaRepository,
                            DrinkRepository drinkRepository,
+                           IngredientService ingredientService,
                            ModelMapper modelMapper) {
         this.pizzaRepository = pizzaRepository;
         this.drinkRepository = drinkRepository;
+        this.ingredientService = ingredientService;
         this.modelMapper = modelMapper;
     }
 
+    private String getDescriptionText(Set<Ingredient> ingredients) {
+        String ingredientNamesToLower = ingredients.stream()
+                .map(Ingredient::getName)
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(", "));
+
+        return String.format("Pizza sauce, %s and a pinch of love.", ingredientNamesToLower);
+    }
+
     @Override
-    public void addPizza(PizzaServiceModel pizzaServiceModel) {
-        Pizza pizza = pizzaRepository.findByName(pizzaServiceModel.getName()).orElse(null);
+    public void addPizza(PizzaAddServiceModel pizzaAddServiceModel) {
+        Pizza pizza = pizzaRepository.findByName(pizzaAddServiceModel.getName()).orElse(null);
 
         ExistService.checkIfItemExistThrowException(pizza, Pizza.class.getSimpleName());
 
-        pizza = modelMapper.map(pizzaServiceModel, Pizza.class);
+        pizza = modelMapper.map(pizzaAddServiceModel, Pizza.class);
+
+        // Getting IngredientServiceModel from given ingredientsIds.
+        List<IngredientServiceModel> ingredientsServiceModel =
+                ingredientService.getIngredientsByIds(pizzaAddServiceModel.getIngredientsIds());
+
+        // Mapping IngredientServiceModel to Ingredient class.
+        Set<Ingredient> ingredients = ingredientsServiceModel.stream()
+                .map(ingredientServiceModel -> modelMapper.map(ingredientServiceModel, Ingredient.class))
+                .collect(Collectors.toSet());
+
+        pizza.setIngredients(ingredients);
+
+
+        BigDecimal price = ingredientsServiceModel.stream()
+                .map(IngredientServiceModel::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        pizza.setPrice(price);
+
+        pizza.setDescription(getDescriptionText(pizza.getIngredients()));
 
         try {
             pizzaRepository.save(pizza);
