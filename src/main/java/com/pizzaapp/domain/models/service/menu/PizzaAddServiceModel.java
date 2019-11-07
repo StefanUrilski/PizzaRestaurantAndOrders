@@ -10,6 +10,7 @@ public class PizzaAddServiceModel {
     private List<String> ingredientsIds;
     private String imageUrl;
     private String dough;
+    private String largeImgUrl;
 
     public PizzaAddServiceModel() {
         this.dough = Dough.Traditional.name();
@@ -45,5 +46,13 @@ public class PizzaAddServiceModel {
 
     public void setDough(String dough) {
         this.dough = dough;
+    }
+
+    public String getLargeImgUrl() {
+        return largeImgUrl;
+    }
+
+    public void setLargeImgUrl(String largeImgUrl) {
+        this.largeImgUrl = largeImgUrl;
     }
 }

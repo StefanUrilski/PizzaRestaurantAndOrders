@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -38,6 +39,10 @@ public class MenuController extends BaseController {
         this.modelMapper = modelMapper;
     }
 
+    private String addPictureToCloud(MultipartFile largeImgUrl) {
+        return cloudinaryService.uploadImage(largeImgUrl);
+    }
+
     @GetMapping("/drinks/add")
     public ModelAndView addDrink() {
         return view("menu/drink-add");
@@ -47,7 +52,7 @@ public class MenuController extends BaseController {
     public ModelAndView addDrinkConfirm(@ModelAttribute DrinkBindingModel drinkBindingModel) {
         DrinkServiceModel drinkServiceModel = modelMapper.map(drinkBindingModel, DrinkServiceModel.class);
 
-        String uploadImageUrl = cloudinaryService.uploadImage(drinkBindingModel.getImage());
+        String uploadImageUrl = addPictureToCloud(drinkBindingModel.getImage());
 
         drinkServiceModel.setImageUrl(uploadImageUrl);
 
@@ -69,7 +74,12 @@ public class MenuController extends BaseController {
     public ModelAndView addPizzaConfirm(@ModelAttribute PizzaAddBingingModel pizzaAddBingingModel) {
         PizzaAddServiceModel pizzaAddServiceModel = modelMapper.map(pizzaAddBingingModel, PizzaAddServiceModel.class);
 
-        String uploadImageUrl = cloudinaryService.uploadImage(pizzaAddBingingModel.getImageUrl());
+        String uploadImageUrl = addPictureToCloud(pizzaAddBingingModel.getImageUrl());
+
+        if (pizzaAddBingingModel.getLargeImgUrl() != null) {
+            String largeImgUrl = addPictureToCloud(pizzaAddBingingModel.getLargeImgUrl());
+            pizzaAddServiceModel.setLargeImgUrl(largeImgUrl);
+        }
 
         pizzaAddServiceModel.setImageUrl(uploadImageUrl);
 
@@ -77,4 +87,6 @@ public class MenuController extends BaseController {
 
         return redirect("/");
     }
+
+
 }
