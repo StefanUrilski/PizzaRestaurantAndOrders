@@ -6,6 +6,7 @@ public class SizeServiceModel {
     private String size;
     private String numberOfSlices;
     private Integer quantity;
+    private double multiplier;
 
     public String getId() {
         return id;
@@ -37,5 +38,13 @@ public class SizeServiceModel {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public double getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
     }
 }

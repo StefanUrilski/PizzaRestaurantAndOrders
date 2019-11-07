@@ -13,6 +13,7 @@ public class Size extends BaseEntity {
     private String size;
     private String numberOfSlices;
     private Integer quantity;
+    private double multiplier;
 
     @Column(name = "size", nullable = false, unique = true)
     public String getSize() {
@@ -39,5 +40,14 @@ public class Size extends BaseEntity {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    @Column(name = "multiplier", nullable = false)
+    public double getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
     }
 }
