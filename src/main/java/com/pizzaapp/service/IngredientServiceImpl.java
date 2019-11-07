@@ -41,7 +41,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public AllIngredientsServiceModel getAllIngredients() {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
+        List<Ingredient> ingredients = ingredientRepository.findAllOrderByName();
 
         AllIngredientsServiceModel model = new AllIngredientsServiceModel();
 

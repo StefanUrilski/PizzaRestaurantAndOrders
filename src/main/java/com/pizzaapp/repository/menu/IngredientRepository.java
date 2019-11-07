@@ -12,6 +12,12 @@ public interface IngredientRepository extends JpaRepository<Ingredient, String> 
     @Query("" +
             "select i " +
             "from Ingredient as i " +
+            "order by i.name")
+    List<Ingredient> findAllOrderByName();
+
+    @Query("" +
+            "select i " +
+            "from Ingredient as i " +
             "join i.category as c " +
             "where c.name = :category and i.name = :name")
     Optional<Ingredient> findByCategoryAndName(String category, String name);
@@ -20,6 +26,7 @@ public interface IngredientRepository extends JpaRepository<Ingredient, String> 
             "select i " +
             "from Ingredient as i " +
             "join i.category as c " +
-            "where c.name = :category")
+            "where c.name = :category " +
+            "order by i.name")
     List<Ingredient> findAllByCategoryOrderByNameAsc(String category);
 }
