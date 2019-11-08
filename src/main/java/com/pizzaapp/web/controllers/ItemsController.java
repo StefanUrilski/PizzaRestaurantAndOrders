@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,5 +40,12 @@ public class ItemsController extends BaseController {
                 .collect(Collectors.toList());
 
         return view("items/drinks-all", "drinks", drinks);
+    }
+
+    @GetMapping("/drinks/edit/{id}")
+    public ModelAndView editDrink(@PathVariable String id) {
+        DrinkViewModel drinkViewModel = modelMapper.map(menuService.getDrinkById(id), DrinkViewModel.class);
+
+        return view("items/drink-edit", "drink", drinkViewModel);
     }
 }
