@@ -1,31 +1,31 @@
 <th:block>
-    <div class="jumbotron col-sm-11 m-auto d-flex justify-content-center bg-pic">
+    <div class="jumbotron">
         <h1 class="text-center text-dark">All Drinks</h1>
         <hr class="hr-2 bg-dark w-75">
         <table class="table table-hover w-75 mx-auto">
             <thead>
             <tr class="row mx-auto">
                 <th class="col-md-1 text-center">#</th>
-                <th class="col-md-3 text-center">Image</th>
+                <th class="col-md-2 text-center">Image</th>
                 <th class="col-md-3 text-center">Name</th>
                 <th class="col-md-2 text-center">Price</th>
                 <th class="col-md-2 text-center">Alcoholic</th>
-                <th class="col-md-3 text-center"></th>
+                <th class="col-md-2 text-center"></th>
             </tr>
             </thead>
             <tbody>
             <th:block th:each="drink, iter : ${drinks}">
                 <tr class="row mx-auto">
                     <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
-                    <td class="col-md-3">
-                        <div class="text-center"><img th:src="${drink.imageUrl}" width="50" height="50" alt="Product">
+                    <td class="col-md-2">
+                        <div class="text-center"><img th:src="${drink.imageUrl}" width="40" height="40" alt="Item">
                         </div>
                     </td>
                     <td class="col-md-3 text-center" th:text="${drink.name}"></td>
                     <td class="col-md-2 text-center" th:text="${drink.price}"></td>
-                    <td class="col-md-2 text-center" th:text="${drink.alcoholic} == true ? 'Yes' : 'No'"></td>
-                    <td class="col-md-3 text-center">
-                        <a th:href="@{/products/edit/{id}(id=${product.id})}"
+                    <td class="col-md-2 text-center" th:text="${drink.alcoholic} ? 'Yes' : 'No'"></td>
+                    <td class="col-md-2 text-center">
+                        <a th:href="@{/items/edit/{id}(id=${drink.id})}"
                            class="btn btn-success font-weight-bold text-white">Edit</a>
                     </td>
                 </tr>
