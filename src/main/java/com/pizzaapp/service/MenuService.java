@@ -16,6 +16,8 @@ public interface MenuService {
 
     List<DrinkServiceModel> getDrinksOrderedByName();
 
+    DrinkServiceModel getDrinkById(String id);
+
     PizzaServiceModel getPizzaByName(String name);
 
     DrinkServiceModel getDrinkByName(String name);
