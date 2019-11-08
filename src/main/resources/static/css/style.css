@@ -69,3 +69,7 @@ hr.paging-after {
   overflow-y: auto;
   opacity: 1;
 }
+
+hr.hr-2 {
+  height: 2px;
+}
