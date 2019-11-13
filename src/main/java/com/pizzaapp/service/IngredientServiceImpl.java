@@ -1,12 +1,14 @@
 package com.pizzaapp.service;
 
 import com.pizzaapp.common.Constants;
+import com.pizzaapp.domain.entities.items.Drink;
 import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.errors.IngredientAddFailureException;
+import com.pizzaapp.errors.ItemAddFailureException;
 import com.pizzaapp.errors.PropertyNotFoundException;
 import com.pizzaapp.repository.menu.IngredientRepository;
 import org.modelmapper.ModelMapper;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.pizzaapp.common.Constants.INGREDIENT_ADD_EXCEPTION;
+import static com.pizzaapp.common.Constants.ITEM_ADD_EXCEPTION;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -97,5 +100,20 @@ public class IngredientServiceImpl implements IngredientService {
         ExistService.checkIfItemNotExistThrowException(ingredient);
 
         return modelMapper.map(ingredient, IngredientServiceModel.class);
+    }
+
+    @Override
+    public void editIngredient(String id, IngredientServiceModel ingredientServiceModel) {
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(ingredient);
+
+        ingredient.setPrice(ingredientServiceModel.getPrice());
+
+        try {
+            ingredientRepository.save(ingredient);
+        } catch (Exception ex) {
+            throw new ItemAddFailureException(ITEM_ADD_EXCEPTION);
+        }
     }
 }

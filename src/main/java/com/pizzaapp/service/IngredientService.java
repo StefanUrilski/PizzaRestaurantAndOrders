@@ -15,4 +15,6 @@ public interface IngredientService {
     List<IngredientServiceModel> getIngredientsByIds(List<String> ids);
 
     IngredientServiceModel getIngredientById(String id);
+
+    void editIngredient(String id, IngredientServiceModel ingredientServiceModel);
 }

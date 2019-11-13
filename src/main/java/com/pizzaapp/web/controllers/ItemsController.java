@@ -87,6 +87,6 @@ public class ItemsController extends BaseController {
 
         ingredientService.editIngredient(id, modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
 
-        return redirect("/items/drinks/all");
+        return redirect("/items/ingredients/all");
     }
 }
