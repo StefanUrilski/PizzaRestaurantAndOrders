@@ -2,6 +2,7 @@ package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.menu.DrinkEditBindingModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
+import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.MenuService;
@@ -34,7 +35,7 @@ public class ItemsController extends BaseController {
     }
 
     @GetMapping("/drinks/all")
-    public ModelAndView addDrink() {
+    public ModelAndView allDrinks() {
         List<DrinkViewModel> drinks = menuService.getAllDrinksOrderedByName().stream()
                 .map(drink -> modelMapper.map(drink, DrinkViewModel.class))
                 .collect(Collectors.toList());
@@ -55,5 +56,15 @@ public class ItemsController extends BaseController {
         menuService.editDrink(modelMapper.map(drinkEditBindingModel, DrinkServiceModel.class));
 
         return redirect("/items/drinks/all");
+    }
+
+    @GetMapping("/ingredients/all")
+    public ModelAndView addIngredients() {
+        AllIngredientsViewModel allIngredients = modelMapper.map(
+                ingredientService.getAllIngredients(),
+                AllIngredientsViewModel.class
+        );
+
+        return view("items/ingredients-all", "ingredients", allIngredients);
     }
 }
