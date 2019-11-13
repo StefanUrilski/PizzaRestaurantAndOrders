@@ -7,6 +7,7 @@ import com.pizzaapp.domain.models.view.ingredients.IngredientViewModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
+import com.pizzaapp.domain.models.view.menu.PizzaViewModel;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.MenuService;
 import org.modelmapper.ModelMapper;
@@ -88,5 +89,14 @@ public class ItemsController extends BaseController {
         ingredientService.editIngredient(id, modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
 
         return redirect("/items/ingredients/all");
+    }
+
+    @GetMapping("/pizzas/all")
+    public ModelAndView allPizzas() {
+        List<PizzaViewModel> pizzas = menuService.getAllPizzasOrderedByName().stream()
+                .map(pizza -> modelMapper.map(pizza, PizzaViewModel.class))
+                .collect(Collectors.toList());
+
+        return view("items/pizzas-all", "pizzas", pizzas);
     }
 }
