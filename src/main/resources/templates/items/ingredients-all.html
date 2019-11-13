@@ -1,0 +1,84 @@
+<th:blick>
+    <div class="jumbotron m-auto justify-content-center bg-pic">
+
+
+        <h1 class="text-center text-dark">Categories</h1>
+        <hr class="hr-2 bg-dark w-25">
+        <div class="row justify-content-md-center">
+            <div class="custom-control custom-radio col-1 mr-5">
+                <input type="radio" class="custom-control-input" id="meats" name="options" value="Meats">
+                <label class="btn btn-secondary btn-group-lg" for="meats">Great Meats</label>
+            </div>
+
+            <div class="custom-control custom-radio col-md-auto mr-2">
+                <input type="radio" class="custom-control-input" id="cheeses" name="options" value="Cheeses">
+                <label class="btn btn-secondary btn-group-lg" for="cheeses">Cheeses</label>
+            </div>
+
+            <div class="custom-control custom-radio col col-lg-2">
+                <input type="radio" class="custom-control-input" id="vegetables" name="options" value="Vegetables">
+                <label class="btn btn-secondary btn-group-lg" for="vegetables">Fresh Vegetables</label>
+            </div>
+        </div>
+
+        <h2 id="category" class="text-center text-dark m-5" style="display: none">Ingredients</h2>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="meat, iter : ${ingredients.meats}">
+                <tr class="allMeats" style="display: none">
+                    <th scope="row" th:text="${iter.index + 1}"></th>
+                    <td th:text="${meat.name}"></td>
+                    <td th:text="${meat.price}"></td>
+                </tr>
+            </th:block>
+            <th:block th:each="cheese, iter : ${ingredients.cheeses}">
+                <tr class="allCheeses" style="display: none">
+                    <th scope="row" th:text="${iter.index + 1}"></th>
+                    <td th:text="${cheese.name}"></td>
+                    <td th:text="${cheese.price}"></td>
+                </tr>
+            </th:block>
+            <th:block th:each="vegetable, iter : ${ingredients.vegetables}">
+                <tr class="allVegetables" style="display: none">
+                    <th scope="row" th:text="${iter.index + 1}"></th>
+                    <td th:text="${vegetable.name}"></td>
+                    <td th:text="${vegetable.price}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("input[name$='options']").click(function () {
+                let radio_value = $(this).val();
+
+                $("#category").text('All ' + radio_value).show();
+
+                if (radio_value === 'Meats') {
+                    $(".allMeats").show();
+                    $(".allCheeses").hide();
+                    $(".allVegetables").hide();
+                } else if (radio_value === 'Cheeses') {
+                    $(".allMeats").hide();
+                    $(".allCheeses").show();
+                    $(".allVegetables").hide();
+                } else if (radio_value === 'Vegetables') {
+                    $(".allMeats").hide();
+                    $(".allCheeses").hide();
+                    $(".allVegetables").show();
+                }
+            });
+            $('[name="options"]:checked').trigger('click');
+        });
+    </script>
+</th:blick>
