@@ -1,6 +1,8 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.menu.DrinkEditBindingModel;
+import com.pizzaapp.domain.models.binding.menu.IngredientBindingModel;
+import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.IngredientViewModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
@@ -51,7 +53,7 @@ public class ItemsController extends BaseController {
         return view("items/drink-edit", "drink", drinkViewModel);
     }
 
-    @PostMapping("/drinks/edit/{id}")
+    @PostMapping("/drinks/edit/*")
     public ModelAndView editDrinkConfirm(@ModelAttribute DrinkEditBindingModel drinkEditBindingModel) {
 
         menuService.editDrink(modelMapper.map(drinkEditBindingModel, DrinkServiceModel.class));
@@ -77,5 +79,14 @@ public class ItemsController extends BaseController {
         );
 
         return view("items/ingredient-edit", "ingredient", drinkViewModel);
+    }
+
+    @PostMapping("/ingredients/edit/{id}")
+    public ModelAndView editIngredientConfirm(@PathVariable String id,
+                                              @ModelAttribute IngredientBindingModel ingredientBindingModel) {
+
+        ingredientService.editIngredient(id, modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
+
+        return redirect("/items/drinks/all");
     }
 }
