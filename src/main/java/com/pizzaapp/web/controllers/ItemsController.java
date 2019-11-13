@@ -1,5 +1,7 @@
 package com.pizzaapp.web.controllers;
 
+import com.pizzaapp.domain.models.binding.menu.DrinkEditBindingModel;
+import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.MenuService;
@@ -7,9 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -47,5 +47,13 @@ public class ItemsController extends BaseController {
         DrinkViewModel drinkViewModel = modelMapper.map(menuService.getDrinkById(id), DrinkViewModel.class);
 
         return view("items/drink-edit", "drink", drinkViewModel);
+    }
+
+    @PostMapping("/drinks/edit/{id}")
+    public ModelAndView editDrinkConfirm(@ModelAttribute DrinkEditBindingModel drinkEditBindingModel) {
+
+        menuService.editDrink(modelMapper.map(drinkEditBindingModel, DrinkServiceModel.class));
+
+        return redirect("/items/drinks/all");
     }
 }
