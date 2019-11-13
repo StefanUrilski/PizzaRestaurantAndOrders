@@ -25,7 +25,7 @@
                     <td class="col-md-2 text-center" th:text="${drink.price}"></td>
                     <td class="col-md-2 text-center" th:text="${drink.alcoholic} ? 'Yes' : 'No'"></td>
                     <td class="col-md-2 text-center">
-                        <a th:href="@{/items/drink/edit/{id}(id=${drink.id})}"
+                        <a th:href="@{/items/drinks/edit/{id}(id=${drink.id})}"
                            class="btn btn-success font-weight-bold text-white">Edit</a>
                     </td>
                 </tr>
