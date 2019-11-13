@@ -1,51 +1,47 @@
 package com.pizzaapp.domain.models.view.ingredients;
 
-import com.pizzaapp.domain.models.service.ingredients.CheeseServiceModel;
-import com.pizzaapp.domain.models.service.ingredients.MeatServiceModel;
-import com.pizzaapp.domain.models.service.ingredients.VegetableServiceModel;
-
 import java.util.List;
 
 public class AllIngredientsViewModel {
 
-    private List<MeatServiceModel> meats;
-    private List<CheeseServiceModel> cheeses;
-    private List<VegetableServiceModel> vegetables;
+    private List<IngredientViewModel> meats;
+    private List<IngredientViewModel> cheeses;
+    private List<IngredientViewModel> vegetables;
 
     public AllIngredientsViewModel() {
     }
 
     public AllIngredientsViewModel(
-            List<MeatServiceModel> meats,
-            List<CheeseServiceModel> cheeses,
-            List<VegetableServiceModel> vegetables
+            List<IngredientViewModel> meats,
+            List<IngredientViewModel> cheeses,
+            List<IngredientViewModel> vegetables
     ) {
         this.meats = meats;
         this.cheeses = cheeses;
         this.vegetables = vegetables;
     }
 
-    public List<MeatServiceModel> getMeats() {
+    public List<IngredientViewModel> getMeats() {
         return meats;
     }
 
-    public void setMeats(List<MeatServiceModel> meats) {
+    public void setMeats(List<IngredientViewModel> meats) {
         this.meats = meats;
     }
 
-    public List<CheeseServiceModel> getCheeses() {
+    public List<IngredientViewModel> getCheeses() {
         return cheeses;
     }
 
-    public void setCheeses(List<CheeseServiceModel> cheeses) {
+    public void setCheeses(List<IngredientViewModel> cheeses) {
         this.cheeses = cheeses;
     }
 
-    public List<VegetableServiceModel> getVegetables() {
+    public List<IngredientViewModel> getVegetables() {
         return vegetables;
     }
 
-    public void setVegetables(List<VegetableServiceModel> vegetables) {
+    public void setVegetables(List<IngredientViewModel> vegetables) {
         this.vegetables = vegetables;
     }
 }

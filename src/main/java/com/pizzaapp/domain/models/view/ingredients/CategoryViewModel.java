@@ -1,4 +1,4 @@
-package com.pizzaapp.domain.models.view;
+package com.pizzaapp.domain.models.view.ingredients;
 
 public class CategoryViewModel {
 

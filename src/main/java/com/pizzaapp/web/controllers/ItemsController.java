@@ -1,7 +1,7 @@
 package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.menu.DrinkEditBindingModel;
-import com.pizzaapp.domain.models.service.ingredients.IngredientViewModel;
+import com.pizzaapp.domain.models.view.ingredients.IngredientViewModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;

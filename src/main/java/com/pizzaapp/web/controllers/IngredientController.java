@@ -1,11 +1,11 @@
 package com.pizzaapp.web.controllers;
 
-import com.pizzaapp.domain.models.binding.ingredients.SizeBindingModel;
+import com.pizzaapp.domain.models.binding.menu.SizeBindingModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
-import com.pizzaapp.domain.models.view.CategoryViewModel;
-import com.pizzaapp.domain.models.view.IngredientBindingModel;
+import com.pizzaapp.domain.models.view.ingredients.CategoryViewModel;
+import com.pizzaapp.domain.models.binding.menu.IngredientBindingModel;
 import com.pizzaapp.service.CategoryService;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.SizeService;

@@ -1,4 +1,4 @@
-package com.pizzaapp.domain.models.binding.ingredients;
+package com.pizzaapp.domain.models.binding.menu;
 
 public class SizeBindingModel {
 

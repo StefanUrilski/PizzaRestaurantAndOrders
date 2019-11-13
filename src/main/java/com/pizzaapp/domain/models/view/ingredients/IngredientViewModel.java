@@ -1,14 +1,23 @@
-package com.pizzaapp.domain.models.binding.ingredients;
+package com.pizzaapp.domain.models.view.ingredients;
 
 import java.math.BigDecimal;
 
-public class CheeseBindingModel {
+public class IngredientViewModel {
 
+    private String id;
     private String name;
     private BigDecimal price;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -16,7 +25,7 @@ public class CheeseBindingModel {
     }
 
     public BigDecimal getPrice() {
-        return this.price;
+        return price;
     }
 
     public void setPrice(BigDecimal price) {
