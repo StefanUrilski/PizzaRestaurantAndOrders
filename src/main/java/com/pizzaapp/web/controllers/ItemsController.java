@@ -76,6 +76,6 @@ public class ItemsController extends BaseController {
                 IngredientViewModel.class
         );
 
-        return view("items/drink-edit", "drink", drinkViewModel);
+        return view("items/ingredient-edit", "ingredient", drinkViewModel);
     }
 }

@@ -29,6 +29,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +38,9 @@
                     <th scope="row" th:text="${iter.index + 1}"></th>
                     <td th:text="${meat.name}"></td>
                     <td th:text="${meat.price}"></td>
+                    <td><a th:href="@{/items/ingredients/edit/{id}(id=${meat.id})}"
+                           class="btn btn-success font-weight-bold text-white">Edit</a>
+                    </td>
                 </tr>
             </th:block>
             <th:block th:each="cheese, iter : ${ingredients.cheeses}">
@@ -44,6 +48,9 @@
                     <th scope="row" th:text="${iter.index + 1}"></th>
                     <td th:text="${cheese.name}"></td>
                     <td th:text="${cheese.price}"></td>
+                    <td><a th:href="@{/items/ingredients/edit/{id}(id=${cheese.id})}"
+                           class="btn btn-success font-weight-bold text-white">Edit</a>
+                    </td>
                 </tr>
             </th:block>
             <th:block th:each="vegetable, iter : ${ingredients.vegetables}">
@@ -51,6 +58,9 @@
                     <th scope="row" th:text="${iter.index + 1}"></th>
                     <td th:text="${vegetable.name}"></td>
                     <td th:text="${vegetable.price}"></td>
+                    <td><a th:href="@{/items/ingredients/edit/{id}(id=${vegetable.id})}"
+                           class="btn btn-success font-weight-bold text-white">Edit</a>
+                    </td>
                 </tr>
             </th:block>
             </tbody>
