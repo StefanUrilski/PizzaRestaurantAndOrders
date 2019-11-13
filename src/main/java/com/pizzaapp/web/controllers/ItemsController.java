@@ -35,7 +35,7 @@ public class ItemsController extends BaseController {
 
     @GetMapping("/drinks/all")
     public ModelAndView addDrink() {
-        List<DrinkViewModel> drinks = menuService.getDrinksOrderedByName().stream()
+        List<DrinkViewModel> drinks = menuService.getAllDrinksOrderedByName().stream()
                 .map(drink -> modelMapper.map(drink, DrinkViewModel.class))
                 .collect(Collectors.toList());
 

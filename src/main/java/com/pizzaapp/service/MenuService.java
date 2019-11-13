@@ -12,14 +12,15 @@ public interface MenuService {
 
     void addDrink(DrinkServiceModel drinkServiceModel);
 
-    List<PizzaServiceModel> getPizzaOrderedByName();
+    List<PizzaServiceModel> getAllPizzasOrderedByName();
 
-    List<DrinkServiceModel> getDrinksOrderedByName();
+    List<DrinkServiceModel> getAllDrinksOrderedByName();
 
     DrinkServiceModel getDrinkById(String id);
+
+    void editDrink(DrinkServiceModel drinkServiceModel);
 
     PizzaServiceModel getPizzaByName(String name);
 
     DrinkServiceModel getDrinkByName(String name);
-
 }

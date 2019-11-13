@@ -100,7 +100,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<PizzaServiceModel> getPizzaOrderedByName() {
+    public List<PizzaServiceModel> getAllPizzasOrderedByName() {
         return pizzaRepository.findAllOrderedAlphabetically()
                 .stream()
                 .map(pizza -> modelMapper.map(pizza, PizzaServiceModel.class))
@@ -108,7 +108,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<DrinkServiceModel> getDrinksOrderedByName() {
+    public List<DrinkServiceModel> getAllDrinksOrderedByName() {
         return drinkRepository.findAllOrderedAlphabetically()
                 .stream()
                 .map(drink -> modelMapper.map(drink, DrinkServiceModel.class))
@@ -122,6 +122,21 @@ public class MenuServiceImpl implements MenuService {
         ExistService.checkIfItemNotExistThrowException(drink);
 
         return modelMapper.map(drink, DrinkServiceModel.class);
+    }
+
+    @Override
+    public void editDrink(DrinkServiceModel drinkServiceModel) {
+        Drink drink = drinkRepository.findById(drinkServiceModel.getId()).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(drink);
+
+        drink = modelMapper.map(drinkServiceModel, Drink.class);
+
+        try {
+            drinkRepository.save(drink);
+        } catch (Exception ex) {
+            throw new ItemAddFailureException(ITEM_ADD_EXCEPTION);
+        }
     }
 
     @Override
