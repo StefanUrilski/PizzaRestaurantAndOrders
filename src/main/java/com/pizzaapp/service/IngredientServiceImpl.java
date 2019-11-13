@@ -3,7 +3,9 @@ package com.pizzaapp.service;
 import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.entities.items.pizza.Ingredient;
-import com.pizzaapp.domain.models.service.ingredients.*;
+import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
+import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
+import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.errors.IngredientAddFailureException;
 import com.pizzaapp.errors.PropertyNotFoundException;
 import com.pizzaapp.repository.menu.IngredientRepository;
@@ -32,10 +34,10 @@ public class IngredientServiceImpl implements IngredientService {
         this.modelMapper = modelMapper;
     }
 
-    private <T> List<T> getAllIngredientsMapped(List<Ingredient> allIngredients, String name, Class<T> clazz) {
+    private <T> List<IngredientServiceModel> getAllIngredientsMapped(List<Ingredient> allIngredients, String name) {
         return allIngredients.stream()
                 .filter(ingredient -> ingredient.getCategory().getName().equals(name))
-                .map(ingredient -> modelMapper.map(ingredient, clazz))
+                .map(ingredient -> modelMapper.map(ingredient, IngredientServiceModel.class))
                 .collect(Collectors.toList());
     }
 
@@ -45,9 +47,9 @@ public class IngredientServiceImpl implements IngredientService {
 
         AllIngredientsServiceModel model = new AllIngredientsServiceModel();
 
-        model.setMeats(getAllIngredientsMapped(ingredients, "Meat", MeatServiceModel.class));
-        model.setCheeses(getAllIngredientsMapped(ingredients, "Cheese", CheeseServiceModel.class));
-        model.setVegetables(getAllIngredientsMapped(ingredients, "Vegetable", VegetableServiceModel.class));
+        model.setMeats(getAllIngredientsMapped(ingredients, "Meat"));
+        model.setCheeses(getAllIngredientsMapped(ingredients, "Cheese"));
+        model.setVegetables(getAllIngredientsMapped(ingredients, "Vegetable"));
 
         return model;
     }
@@ -89,20 +91,11 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public <T> List<T> getIngredientsByCategoryOrdered(String name, Class<T> clazz) {
-        return ingredientRepository.findAllByCategoryOrderByNameAsc(name)
-                .stream()
-                .map(dough -> modelMapper.map(dough, clazz))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public IngredientServiceModel getIngredientByCategoryAndName(String category, String name) {
-        Ingredient ingredient = ingredientRepository.findByCategoryAndName(category, name).orElse(null);
+    public IngredientServiceModel getIngredientById(String id) {
+        Ingredient ingredient = ingredientRepository.findById(id).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(ingredient);
 
         return modelMapper.map(ingredient, IngredientServiceModel.class);
     }
-
 }
