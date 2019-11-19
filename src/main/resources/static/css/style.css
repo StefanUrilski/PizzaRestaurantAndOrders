@@ -39,6 +39,10 @@ body {
   width:220px;
 }
 
+.select-address{
+  width:440px;
+}
+
 hr.paging-before {
   height: 30px;
   border-style: solid;

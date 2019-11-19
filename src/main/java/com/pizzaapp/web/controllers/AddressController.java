@@ -84,7 +84,7 @@ public class AddressController extends BaseController {
 
         addressService.getUserAddressesOrderedByTown(principal.getName())
                 .forEach(address -> {
-                    String location = String.format("%s, %s, %s",
+                    String location = String.format("%s, street %s, № %s",
                             address.getTown(),
                             address.getStreet(),
                             address.getNumber()
