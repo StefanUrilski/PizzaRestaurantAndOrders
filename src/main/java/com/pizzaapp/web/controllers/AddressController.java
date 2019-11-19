@@ -2,6 +2,7 @@ package com.pizzaapp.web.controllers;
 
 import com.pizzaapp.domain.models.binding.AddEditAddressBindingModel;
 import com.pizzaapp.domain.models.service.AddressServiceModel;
+import com.pizzaapp.domain.models.view.user.AddressOrderViewModel;
 import com.pizzaapp.domain.models.view.user.AddressViewModel;
 import com.pizzaapp.service.AddressService;
 import com.pizzaapp.service.UserService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("users/addresses")
@@ -31,7 +34,7 @@ public class AddressController extends BaseController {
     }
 
     @GetMapping("/all")
-    public ModelAndView AllAddresses(Principal principal) {
+    public ModelAndView allAddresses(Principal principal) {
         AddressViewModel[] addresses = modelMapper.map(
                 addressService.getUserAddressesOrderedByTown(principal.getName()),
                 AddressViewModel[].class
@@ -74,4 +77,23 @@ public class AddressController extends BaseController {
         return redirect("/users/addresses/all");
     }
 
+    @GetMapping("/fetchAll")
+    @ResponseBody
+    public List<AddressOrderViewModel> fetchAllAddresses(Principal principal) {
+        List<AddressOrderViewModel> allAddresses = new ArrayList<>();
+
+        addressService.getUserAddressesOrderedByTown(principal.getName())
+                .forEach(address -> {
+                    String location = String.format("%s, %s, %s",
+                            address.getTown(),
+                            address.getStreet(),
+                            address.getNumber()
+                    );
+
+                    allAddresses.add(new AddressOrderViewModel(address.getId(), location));
+                });
+
+
+        return allAddresses;
+    }
 }
