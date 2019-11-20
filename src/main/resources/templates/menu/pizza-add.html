@@ -25,7 +25,7 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-4 ml-5">
+                    <div class="col-4">
                         <h3>Meats</h3>
                         <div class="row" th:each="meat : ${allIngredients.meats}">
                             <label class="font-weight-bold">
@@ -43,7 +43,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <h3>Vegetables</h3>
                         <div class="row" th:each="vegetable : ${allIngredients.vegetables}">
                             <label class="font-weight-bold">
@@ -59,16 +59,11 @@
             <hr class="paging-after"/>
             <br/>
 
-            <div class="row my-5 d-flex justify-content-center">
-                <div class="col ml-5 d-flex justify-content-center">
-                    <label for="add-product-image" class="font-weight-bold">PizzaImage</label>
-                    <input type="file" class="form-control-file" id="add-product-image" name="imageUrl">
-                </div>
-                <div class="col d-flex justify-content-center">
-                    <label for="add-large-image" class="font-weight-bold">LargeImage</label>
-                    <input type="file" class="form-control-file" id="add-large-image" name="largeImgUrl">
-                </div>
+            <div class="form-group">
+                <label for="add-product-image" class="font-weight-bold">Image</label>
+                <input type="file" class="form-control-file" id="add-product-image" name="imageUrl">
             </div>
+
 
             <hr class="hr-2 bg-dark w-25">
 

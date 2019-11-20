@@ -76,11 +76,6 @@ public class MenuController extends BaseController {
 
         String uploadImageUrl = addPictureToCloud(pizzaAddBingingModel.getImageUrl());
 
-        if (pizzaAddBingingModel.getLargeImgUrl() != null) {
-            String largeImgUrl = addPictureToCloud(pizzaAddBingingModel.getLargeImgUrl());
-            pizzaAddServiceModel.setLargeImgUrl(largeImgUrl);
-        }
-
         pizzaAddServiceModel.setImageUrl(uploadImageUrl);
 
         menuService.addPizza(pizzaAddServiceModel);

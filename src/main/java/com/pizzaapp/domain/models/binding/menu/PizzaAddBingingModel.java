@@ -9,7 +9,6 @@ public class PizzaAddBingingModel {
     private String name;
     private List<String> ingredientsIds;
     private MultipartFile imageUrl;
-    private MultipartFile largeImgUrl;
 
     public String getName() {
         return name;
@@ -33,13 +32,5 @@ public class PizzaAddBingingModel {
 
     public void setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public MultipartFile getLargeImgUrl() {
-        return largeImgUrl;
-    }
-
-    public void setLargeImgUrl(MultipartFile largeImgUrl) {
-        this.largeImgUrl = largeImgUrl;
     }
 }
