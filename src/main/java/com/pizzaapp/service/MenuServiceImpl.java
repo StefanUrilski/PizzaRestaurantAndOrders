@@ -46,7 +46,7 @@ public class MenuServiceImpl implements MenuService {
                 .map(String::toLowerCase)
                 .collect(Collectors.joining(", "));
 
-        return String.format("Pizza sauce, %s and a pinch of love.", ingredientNamesToLower);
+        return String.format("Pizza sauce, %s.", ingredientNamesToLower);
     }
 
     @Override

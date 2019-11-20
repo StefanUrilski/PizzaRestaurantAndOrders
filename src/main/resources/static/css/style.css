@@ -77,3 +77,26 @@ hr.paging-after {
 hr.hr-2 {
   height: 2px;
 }
+
+.img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  display: block;
+}
+
+.menu-wrapper {
+  min-width: 220px; !important;
+  max-width: 220px; !important;
+  overflow: hidden;
+}
+
+.content-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-item-bg {
+  background: #dcd9cd;
+}

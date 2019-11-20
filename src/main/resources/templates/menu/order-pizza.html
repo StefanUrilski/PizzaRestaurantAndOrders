@@ -1,0 +1,28 @@
+<th:block>
+    <div class="jumbotron bg-transparent">
+        <div class="row justify-content-center">
+            <h1>All Pizzas</h1>
+        </div>
+
+        <hr class="hr-2 bg-dark w-75">
+
+        <div class="products row pt-5 mr-3 ml-3">
+            <th:block th:each="pizza : ${allPizzas}">
+                <div class="single-widget-area author-widget menu-wrapper content-center">
+                    <div class="background-pattern p-2 pb-3 pt-3 m-2 menu-item-bg">
+                        <div class="author-thumbnail">
+                            <img class="img content-center" th:src="@{${pizza.imageUrl}}" alt="">
+                        </div>
+                        <hr class="hr-2 bg-success w-75">
+                        <div class="text-center">
+                            <h5 class="font-weight-bold" th:text="${pizza.name}"></h5>
+                            <p class="menu-desc" th:text="${pizza.description}"></p>
+                        </div>
+                            <a th:href="@{/menu/pizza/order/{id}(id=${pizza.id})}"
+                               class="btn btn-success font-weight-bold text-white ml-5">Choice</a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</th:block>

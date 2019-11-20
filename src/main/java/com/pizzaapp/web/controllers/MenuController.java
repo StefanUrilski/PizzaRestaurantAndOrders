@@ -6,6 +6,7 @@ import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
+import com.pizzaapp.domain.models.view.menu.PizzaViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/menu")
@@ -83,5 +87,14 @@ public class MenuController extends BaseController {
         return redirect("/");
     }
 
+    @GetMapping("/order/pizza")
+    @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
+    public ModelAndView orderNow() {
+        List<PizzaViewModel> allPizzas = menuService.getAllPizzasOrderedByName().stream()
+                .map(pizza -> modelMapper.map(pizza, PizzaViewModel.class))
+                .collect(Collectors.toList());
+
+        return view("menu/order-pizza", "allPizzas", allPizzas);
+    }
 
 }
