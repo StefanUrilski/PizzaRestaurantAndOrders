@@ -1,102 +1,154 @@
 body {
-  background: url(https://cdn.hipwallpaper.com/i/21/79/KsT4YS.jpg);
-  /*display:block;*/
-  /*width: 100%;*/
-  /*background-repeat: no-repeat; */
-  background-size: auto;font-family: "Open Sans", sans-serif;
+    background: url(https://cdn.hipwallpaper.com/i/21/79/KsT4YS.jpg);
+    /*display:block;*/
+    /*width: 100%;*/
+    /*background-repeat: no-repeat; */
+    background-size: auto;
+    font-family: "Open Sans", sans-serif;
 }
 
 .bg-pic {
-  background: url(https://cdn.hipwallpaper.com/i/21/79/KsT4YS.jpg);
+    background: url(https://cdn.hipwallpaper.com/i/21/79/KsT4YS.jpg);
 }
 
 
+.bg-beer {
+    background-color: #fffaea;
+}
+
+.contain {
+    height: 400px;
+    width: 400px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translatex(-50%) translatey(-50%);
+}
+
+svg {
+    vertical-align: top;
+    width: 100%;
+}
+
+.beer {
+    animation-name: empty;
+    animation-fill-mode: forwards;
+    animation-duration: 4s;
+    animation-timing-function: linear;
+    fill: #F9CF68;
+}
+
+@keyframes empty {
+    0% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    30% {
+        clip-path: polygon(0 16%, 100% 12%, 100% 100%, 0% 100%);
+    }
+    50% {
+        clip-path: polygon(0 40%, 100% 44%, 100% 100%, 0% 100%);
+    }
+    70% {
+        clip-path: polygon(0 69%, 100% 66%, 100% 100%, 0% 100%);
+    }
+    100% {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+}
+
+#myContainer {
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
+}
+
 #about .about-col {
-  background: #fff;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 20px;
+    background: #fff;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
 }
 
 #footer {
-  background: #000;
-  padding: 0 0 30px 0;
-  color: #eee;
-  font-size: 14px;
+    background: #000;
+    padding: 0 0 30px 0;
+    color: #eee;
+    font-size: 14px;
 }
 
 #footer .footer-top {
-  background: #111;
-  padding: 60px 0 30px 0;
+    background: #111;
+    padding: 60px 0 30px 0;
 }
 
 #footer .copyright {
-  text-align: center;
-  padding-top: 30px;
+    text-align: center;
+    padding-top: 30px;
 }
 
-.select-size{
-  width:220px;
+.select-size {
+    width: 220px;
 }
 
-.select-address{
-  width:440px;
+.select-address {
+    width: 440px;
 }
 
 hr.paging-before {
-  height: 30px;
-  border-style: solid;
-  border-color: #787878;
-  border-width: 1px 0 0 0;
-  border-radius: 20px;
+    height: 30px;
+    border-style: solid;
+    border-color: #787878;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
 }
 
 hr.paging-after {
-  display: block;
-  content: "";
-  height: 30px;
-  margin-top: -31px;
-  border-style: solid;
-  border-color: #787878;
-  border-width: 0 0 1px 0;
-  border-radius: 20px;
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #787878;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
 }
 
 .menu-desc {
-  font-size: 13px;
-  margin: 10px 0;
-  min-height: 50px;
-  color: #888;
-  line-height: 16px;
-  padding: 0 5px;
-  height: 65px;
-  overflow-y: auto;
-  opacity: 1;
+    font-size: 13px;
+    margin: 10px 0;
+    min-height: 50px;
+    color: #888;
+    line-height: 16px;
+    padding: 0 5px;
+    height: 65px;
+    overflow-y: auto;
+    opacity: 1;
 }
 
 hr.hr-2 {
-  height: 2px;
+    height: 2px;
 }
 
-.img{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:50%;
-  display: block;
+.img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 .menu-wrapper {
-  min-width: 220px; !important;
-  max-width: 220px; !important;
-  overflow: hidden;
+    min-width: 220px;
+!important;
+    max-width: 220px;
+!important;
+    overflow: hidden;
 }
 
 .content-center {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu-item-bg {
-  background: #dcd9cd;
+    background: #dcd9cd;
 }
