@@ -116,4 +116,14 @@ public class MenuController extends BaseController {
         return view("menu/order/order-drink", "allDrinks", allDrinks);
     }
 
+    @GetMapping("/order/drink/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
+    public ModelAndView orderDrinkDetails(@PathVariable String id) {
+        DrinkServiceModel drinkServiceModel = menuService.getDrinkById(id);
+
+        DrinkViewModel drinkById = modelMapper.map(drinkServiceModel, DrinkViewModel.class);
+
+        return view("menu/order/order-drink-details", "drink", drinkById);
+    }
+
 }

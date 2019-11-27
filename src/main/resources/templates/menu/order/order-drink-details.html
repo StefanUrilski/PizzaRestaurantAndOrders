@@ -10,12 +10,18 @@
         </div>
         <div class="row">
             <div class="col col-md-12 mt-3 m-3">
-                <h5 th:text="'Is Alcoholic: ' + ${drink.alcoholic} ? 'Yes' : 'No'"></h5>
+                <h5 class="font-weight-bold" th:text="'Is Alcoholic: ' + (${drink.alcoholic} ? 'Yes' : 'No')"></h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-12 mt-3 m-3">
+                <h4 class="font-weight-bold" th:text="'Price: ' + ${drink.price}"></h4>
             </div>
         </div>
         <div class="row">
             <form class="form w-25 mx-auto" th:action="@{/cart/add-drink}" th:method="post">
-                <div class="form-group mx-auto pt-3">
+                <div class="form-group mx-auto pt-3 pl-3">
                     <label for="quantity" class="font-weight-bold">Quantity</label>
                     <input id="quantity" class="form-control text-center" type="number"
                            min="1" max="15" step="1" name="quantity" value="1" />
