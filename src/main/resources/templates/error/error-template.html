@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
-    <th:block th:include="~{fragments/navbar}"></th:block>
-
+    <th:block th:include="~{fragments/head}"></th:block>
 
 </head>
 <body>
@@ -14,20 +13,26 @@
 </header>
 <main>
 
-    <div class="container justify-content-center col-md-11 my-4">
-        <div class="jumbotron bg-forms d-flex justify-content-center">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <h1 class="text-danger">Sorry, there was a problem with your request!</h1>
-                </div>
-                <hr class="hr"/>
-                <div class="row d-flex justify-content-center">
-                    <p th:text="${message}"></p>
-                </div>
-            </div>
+    <div class="container justify-content-center col-md-11 my-4 pt-5 pasta-body bg-error root">
+        <h1 class="text-danger text-center">Sorry, there was a problem with your request!</h1>
+        <div class="error-500" th:data-text="${message}">
 
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <spaguetti>
+                <fork></fork>
+                <meat></meat>
+                <pasta></pasta>
+                <plate></plate>
+            </spaguetti>
         </div>
     </div>
+
+    <script src="/js/error-template-animation.js"></script>
 
 </main>
 <footer>
