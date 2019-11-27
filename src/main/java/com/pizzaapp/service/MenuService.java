@@ -20,7 +20,5 @@ public interface MenuService {
 
     void editDrink(DrinkServiceModel drinkServiceModel);
 
-    PizzaServiceModel getPizzaByName(String name);
-
-    DrinkServiceModel getDrinkByName(String name);
+    PizzaServiceModel getPizzaById(String id);
 }

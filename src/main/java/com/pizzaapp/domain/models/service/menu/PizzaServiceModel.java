@@ -13,6 +13,7 @@ public class PizzaServiceModel {
     private String description;
     private String dough;
     private List<IngredientServiceModel> ingredients;
+    private SizeServiceModel size;
     private String imageUrl;
     private String largeImgUrl;
 
@@ -66,6 +67,14 @@ public class PizzaServiceModel {
 
     public void setIngredients(List<IngredientServiceModel> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public SizeServiceModel getSize() {
+        return size;
+    }
+
+    public void setSize(SizeServiceModel size) {
+        this.size = size;
     }
 
     public String getImageUrl() {

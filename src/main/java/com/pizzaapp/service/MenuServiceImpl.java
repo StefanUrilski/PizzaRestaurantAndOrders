@@ -140,21 +140,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public PizzaServiceModel getPizzaByName(String name) {
-        Pizza pizza = pizzaRepository.findByName(name).orElse(null);
+    public PizzaServiceModel getPizzaById(String id) {
+        Pizza pizza = pizzaRepository.findById(id).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(pizza);
 
         return modelMapper.map(pizza, PizzaServiceModel.class);
-    }
-
-    @Override
-    public DrinkServiceModel getDrinkByName(String name) {
-        Drink drink = drinkRepository.findByName(name).orElse(null);
-
-        ExistService.checkIfItemNotExistThrowException(drink);
-
-        return modelMapper.map(drink, DrinkServiceModel.class);
     }
 
 }
