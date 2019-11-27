@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class SizeServiceImpl implements SizeService {
@@ -47,4 +50,13 @@ public class SizeServiceImpl implements SizeService {
 
         return modelMapper.map(size, SizeServiceModel.class);
     }
+
+    @Override
+    public List<SizeServiceModel> getAllSizes() {
+        return sizeRepository.findAll()
+                .stream()
+                .map(size -> modelMapper.map(size, SizeServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
 }
