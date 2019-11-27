@@ -1,0 +1,71 @@
+<th:block>
+    <div class="jumbotron bg-pic text-center">
+        <div class="text-center">
+            <img th:src="${pizza.imageUrl}" width="450" height="450" alt="Product" style="border-radius: 50%;">
+        </div>
+        <div class="row">
+            <div class="col col-md-12 mt-5">
+                <h1 th:text="'Name: ' + ${pizza.name}"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-12 mt-3 m-3">
+                <h5 th:text="'Description: ' + ${pizza.description}"></h5>
+            </div>
+        </div>
+        <div class="row">
+            <form class="form w-25 mx-auto" th:action="@{/cart/add-pizza}" th:method="post">
+                <div class="form-group mx-auto row">
+                    <label class="font-weight-bold pr-5" for="sizeSelect">Size</label>
+                    <select class="form-control select-size" id="sizeSelect" name="size" required>
+                        <option selected="" disabled="">Select Size</option>
+                    </select>
+                </div>
+
+                <div class="form-group mx-auto row pb-3">
+                    <label class="font-weight-bold pr-4 pb-3" for="doughSelect">Dough</label>
+                    <select id="doughSelect" class="form-control select-size" name="dough" required>
+                        <option selected="" disabled="">Select Dough</option>
+                        <option th:each="dough : ${T(com.pizzaapp.domain.entities.items.pizza.Dough).values()}"
+                                th:value="${dough}"
+                                th:text="${dough}">
+                        </option>
+                    </select>
+                </div>
+
+                <br id="replaceMe"/>
+                <h5 id="price" class="font-weight-bold"></h5>
+
+                <div class="form-group mx-auto pt-3">
+                    <label for="quantity" class="font-weight-bold">Quantity</label>
+                    <input id="quantity" class="form-control text-center" type="number"
+                           min="1" max="15" step="1" name="quantity" value="1" />
+                </div>
+                <input type="hidden" name="id" th:value="${pizza.id}">
+                <button type="submit" class="btn btn-success">Order Product</button>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        fetch('/ingredients/size/fetch')
+            .then((response) => response.json())
+            .then((json) => {
+                json.forEach((size) => $('#sizeSelect')
+                    .append(`<option value="${size.id}" content="${size.multiplier}">${size.size}</option>`));
+            })
+            .catch((err) => console.log(err));
+
+        let select = document.querySelector('#sizeSelect');
+
+        select.addEventListener('change',function(){
+            let option = select.options[select.selectedIndex].getAttribute("content");
+            let price = /*[[${pizza.price}]]*/ 'default';
+
+            let actualPrice = price * option;
+
+            $("#replaceMe").hide();
+            $("#price").text('Price for one: ' + actualPrice.toFixed(2) + '$');
+        });
+    </script>
+</th:block>

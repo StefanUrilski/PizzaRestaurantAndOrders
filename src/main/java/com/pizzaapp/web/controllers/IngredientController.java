@@ -12,6 +12,7 @@ import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.SizeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/ingredients")
+@PreAuthorize("hasRole('ROLE_MODERATOR')")
 public class IngredientController extends BaseController {
 
     private final SizeService sizeService;
@@ -86,6 +88,7 @@ public class IngredientController extends BaseController {
 
     @GetMapping("/size/fetch")
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
     public List<SizeViewModel> fetchSize() {
         return sizeService.getAllSizes()
                 .stream()
