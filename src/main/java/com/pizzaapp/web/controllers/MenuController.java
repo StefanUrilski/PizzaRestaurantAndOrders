@@ -93,7 +93,7 @@ public class MenuController extends BaseController {
                 .map(pizza -> modelMapper.map(pizza, PizzaViewModel.class))
                 .collect(Collectors.toList());
 
-        return view("menu/order/order-pizza", "allPizzas", allPizzas);
+        return view("menu/order/pizza", "allPizzas", allPizzas);
     }
 
     @GetMapping("/order/pizza/{id}")
@@ -103,7 +103,7 @@ public class MenuController extends BaseController {
 
         PizzaViewModel pizzaById = modelMapper.map(pizzaServiceModel, PizzaViewModel.class);
 
-        return view("menu/order/order-pizza-details", "pizza", pizzaById);
+        return view("menu/order/pizza-details", "pizza", pizzaById);
     }
 
     @GetMapping("/order/drink")
@@ -113,7 +113,7 @@ public class MenuController extends BaseController {
                 .map(drink -> modelMapper.map(drink, DrinkViewModel.class))
                 .collect(Collectors.toList());
 
-        return view("menu/order/order-drink", "allDrinks", allDrinks);
+        return view("menu/order/drink", "allDrinks", allDrinks);
     }
 
     @GetMapping("/order/drink/{id}")
@@ -123,7 +123,7 @@ public class MenuController extends BaseController {
 
         DrinkViewModel drinkById = modelMapper.map(drinkServiceModel, DrinkViewModel.class);
 
-        return view("menu/order/order-drink-details", "drink", drinkById);
+        return view("menu/order/drink-details", "drink", drinkById);
     }
 
 }
