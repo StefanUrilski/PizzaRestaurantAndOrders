@@ -6,6 +6,7 @@ import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.CategoryViewModel;
 import com.pizzaapp.domain.models.binding.menu.IngredientBindingModel;
+import com.pizzaapp.domain.models.view.ingredients.SizeViewModel;
 import com.pizzaapp.service.CategoryService;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.service.SizeService;
@@ -81,6 +82,15 @@ public class IngredientController extends BaseController {
         ingredientService.addIngredient(modelMapper.map(ingredientBindingModel, IngredientServiceModel.class));
 
         return redirect("/");
+    }
+
+    @GetMapping("/size/fetch")
+    @ResponseBody
+    public List<SizeViewModel> fetchSize() {
+        return sizeService.getAllSizes()
+                .stream()
+                .map(size -> modelMapper.map(size, SizeViewModel.class))
+                .collect(Collectors.toList());
     }
 
 }
