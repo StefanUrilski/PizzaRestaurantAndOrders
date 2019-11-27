@@ -269,11 +269,18 @@ hr.hr-2 {
     height: 2px;
 }
 
-.img {
+.img-pizza {
     width: 120px;
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
+    display: block;
+}
+
+.img-beer {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
     display: block;
 }
 
