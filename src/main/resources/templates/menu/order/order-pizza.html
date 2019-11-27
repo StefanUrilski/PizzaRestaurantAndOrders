@@ -16,9 +16,9 @@
                         <hr class="hr-2 bg-success w-75">
                         <div class="text-center">
                             <h5 class="font-weight-bold" th:text="${pizza.name}"></h5>
-                            <p class="" th:text="${pizza.description}"></p>
+                            <p class="menu-desc" th:text="${pizza.description}"></p>
                         </div>
-                            <a th:href="@{/menu/pizza/order/pizza/{id}(id=${pizza.id})}"
+                            <a th:href="@{/menu/order/pizza/{id}(id=${pizza.id})}"
                                class="btn btn-success font-weight-bold text-white ml-5">Choice</a>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import com.pizzaapp.domain.models.binding.menu.PizzaAddBingingModel;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
+import com.pizzaapp.domain.models.service.menu.PizzaServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.domain.models.view.menu.PizzaViewModel;
@@ -13,10 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -95,7 +93,17 @@ public class MenuController extends BaseController {
                 .map(pizza -> modelMapper.map(pizza, PizzaViewModel.class))
                 .collect(Collectors.toList());
 
-        return view("menu/order-pizza", "allPizzas", allPizzas);
+        return view("menu/order/order-pizza", "allPizzas", allPizzas);
+    }
+
+    @GetMapping("/order/pizza/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
+    public ModelAndView orderPizzaDetails(@PathVariable String id) {
+        PizzaServiceModel pizzaServiceModel = menuService.getPizzaById(id);
+
+        PizzaViewModel pizzaById = modelMapper.map(pizzaServiceModel, PizzaViewModel.class);
+
+        return view("menu/order/order-pizza-details", "pizza", pizzaById);
     }
 
     @GetMapping("/order/drink")
@@ -105,7 +113,7 @@ public class MenuController extends BaseController {
                 .map(drink -> modelMapper.map(drink, DrinkViewModel.class))
                 .collect(Collectors.toList());
 
-        return view("menu/order-drink", "allDrinks", allDrinks);
+        return view("menu/order/order-drink", "allDrinks", allDrinks);
     }
 
 }
