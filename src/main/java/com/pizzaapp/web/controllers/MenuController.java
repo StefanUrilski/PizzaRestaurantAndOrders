@@ -6,6 +6,7 @@ import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
 import com.pizzaapp.domain.models.view.ingredients.AllIngredientsViewModel;
+import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.domain.models.view.menu.PizzaViewModel;
 import com.pizzaapp.service.*;
 import org.modelmapper.ModelMapper;
@@ -89,12 +90,22 @@ public class MenuController extends BaseController {
 
     @GetMapping("/order/pizza")
     @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
-    public ModelAndView orderNow() {
+    public ModelAndView orderPizza() {
         List<PizzaViewModel> allPizzas = menuService.getAllPizzasOrderedByName().stream()
                 .map(pizza -> modelMapper.map(pizza, PizzaViewModel.class))
                 .collect(Collectors.toList());
 
         return view("menu/order-pizza", "allPizzas", allPizzas);
+    }
+
+    @GetMapping("/order/drink")
+    @PreAuthorize("hasRole('ROLE_USER') && !hasRole('ROLE_COURIER')")
+    public ModelAndView orderDrink() {
+        List<DrinkViewModel> allDrinks = menuService.getAllDrinksOrderedByName().stream()
+                .map(drink -> modelMapper.map(drink, DrinkViewModel.class))
+                .collect(Collectors.toList());
+
+        return view("menu/order-drink", "allDrinks", allDrinks);
     }
 
 }
