@@ -1,7 +1,7 @@
 <th:block>
     <div class="jumbotron bg-pic text-center">
         <div class="text-center">
-            <img th:src="${pizza.imageUrl}" width="450" height="450" alt="Product" style="border-radius: 50%;">
+            <img th:src="${pizza.imageUrl}" width="450" height="450" th:alt="${pizza.name}" style="border-radius: 50%;">
         </div>
         <div class="row">
             <div class="col col-md-12 mt-5">
@@ -42,7 +42,7 @@
                            min="1" max="15" step="1" name="quantity" value="1" />
                 </div>
                 <input type="hidden" name="id" th:value="${pizza.id}">
-                <button type="submit" class="btn btn-success">Order Product</button>
+                <button type="submit" class="btn btn-success">Add to Cart</button>
             </form>
         </div>
     </div>
