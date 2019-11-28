@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 
 @Controller
@@ -93,7 +94,7 @@ public class CartController extends BaseController {
             result = result.add(item.getItem().getPrice().multiply(new BigDecimal(item.getQuantity())));
         }
 
-        return result;
+        return result.setScale(2, RoundingMode.HALF_UP);
     }
 
     @PostMapping("/add-pizza")
@@ -103,7 +104,9 @@ public class CartController extends BaseController {
         pizza.setSize(size);
 
         double multiplier = sizeService.getBySizeName(size).getMultiplier();
-        pizza.setPrice(pizza.getPrice().multiply(new BigDecimal(multiplier)));
+        BigDecimal price = pizza.getPrice().multiply(new BigDecimal(multiplier));
+
+        pizza.setPrice(price.setScale(2, RoundingMode.HALF_UP));
 
         PizzaCartViewModel pizzaCartViewModel = new PizzaCartViewModel();
         pizzaCartViewModel.setItem(pizza);
