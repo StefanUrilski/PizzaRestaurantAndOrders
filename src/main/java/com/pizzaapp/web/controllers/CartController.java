@@ -4,6 +4,7 @@ import com.pizzaapp.domain.models.view.cart.DrinkCartViewModel;
 import com.pizzaapp.domain.models.view.cart.PizzaCartViewModel;
 import com.pizzaapp.domain.models.view.cart.PizzaOrderViewModel;
 import com.pizzaapp.domain.models.view.cart.ShoppingCartItems;
+import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.service.MenuService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,18 @@ public class CartController extends BaseController {
         return redirect("/");
     }
 
+    @PostMapping("/add-drink")
+    public ModelAndView addDrinkToCartConfirm(String id, int quantity, HttpSession session) {
+        DrinkViewModel pizza = modelMapper.map(menuService.getDrinkById(id), DrinkViewModel.class);
+
+        DrinkCartViewModel pizzaCartViewModel = new DrinkCartViewModel();
+        pizzaCartViewModel.setItem(pizza);
+        pizzaCartViewModel.setQuantity(quantity);
+
+        ShoppingCartItems cart = retrieveCart(session);
+        addItemToCart(pizzaCartViewModel, cart, "drink");
+
+        return redirect("/");
+    }
 
 }
