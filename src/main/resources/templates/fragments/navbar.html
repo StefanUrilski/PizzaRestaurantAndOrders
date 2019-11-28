@@ -61,10 +61,17 @@
                                     Cart
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="cartDropdown">
-                                    <th:block th:each="item : ${#session.getAttribute('shopping-cart')}"
-                                              th:object="${item}">
-                                        <div class="dropdown-item"
-                                             th:text="|*{product.product.name} x *{quantity}|"></div>
+                                    <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                                        <th:block th:if="*{pizzas} != null">
+                                        <div th:each="pizza : *{pizzas}" class="dropdown-item"
+                                             th:text="|Pizza ${pizza.item.name} x ${pizza.quantity}|"></div>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                                        <th:block th:if="*{drinks} != null">
+                                            <div th:each="drink : *{drinks}" class="dropdown-item"
+                                                 th:text="|${drink.item.name} x ${drink.quantity}|"></div>
+                                        </th:block>
                                     </th:block>
                                     <div class="dropdown-divider"></div>
                                     <div class="text-center">

@@ -37,7 +37,7 @@ public class IngredientServiceImpl implements IngredientService {
         this.modelMapper = modelMapper;
     }
 
-    private <T> List<IngredientServiceModel> getAllIngredientsMapped(List<Ingredient> allIngredients, String name) {
+    private List<IngredientServiceModel> getAllIngredientsMapped(List<Ingredient> allIngredients, String name) {
         return allIngredients.stream()
                 .filter(ingredient -> ingredient.getCategory().getName().equals(name))
                 .map(ingredient -> modelMapper.map(ingredient, IngredientServiceModel.class))

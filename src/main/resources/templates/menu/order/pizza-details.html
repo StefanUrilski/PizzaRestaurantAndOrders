@@ -52,7 +52,7 @@
             .then((response) => response.json())
             .then((json) => {
                 json.forEach((size) => $('#sizeSelect')
-                    .append(`<option value="${size.id}" content="${size.multiplier}">${size.size}</option>`));
+                    .append(`<option value="${size.size}" content="${size.multiplier}">${size.size}</option>`));
             })
             .catch((err) => console.log(err));
 
