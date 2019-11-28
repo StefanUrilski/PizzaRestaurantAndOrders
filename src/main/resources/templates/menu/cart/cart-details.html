@@ -1,0 +1,82 @@
+<th:block>
+    <div class="jumbotron justify-content-center m-4">
+        <h1 class="text-center text-dark">Shopping Cart</h1>
+        <hr class="hr-2 bg-dark w-75">
+        <table class="table table-hover w-75 mx-auto">
+            <thead>
+            <tr class="row mx-auto">
+                <th class="col-md-2 text-center">Image</th>
+                <th class="col-md-3 text-center">Name</th>
+                <th class="col-md-3 text-center">Price per unit</th>
+                <th class="col-md-1 text-center">Quantity</th>
+                <th class="col-md-2 text-center">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:if="${#session.getAttribute('shopping-cart')} != null">
+
+                <!---------------------------
+                       PIZZA CART ITEMS
+                ---------------------------->
+                <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                    <th:block th:if="*{pizzas} != null">
+                        <th:block th:each="pizza : *{pizzas}">
+                            <tr class="row mx-auto">
+                                <th class="col-md-2 text-center">
+                                    <img th:src="${pizza.item.imageUrl}" th:alt="${pizza.item.name}" height="100" width="100">
+                                </th>
+                                <td class="col-md-3 text-center" th:text="${pizza.item.name}"></td>
+                                <td class="col-md-3 text-center" th:text="${pizza.item.price}"></td>
+                                <td class="col-md-1 text-center" th:text="${pizza.quantity}"></td>
+                                <td class="col-md-2 text-center">
+                                    <form th:action="@{/cart/remove-product}" th:method="delete">
+                                        <div class="button-holder d-flex justify-content-center">
+                                            <input type="hidden" name="id" th:value="${pizza.item.id}">
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </th:block>
+                </th:block>
+
+                <!---------------------------
+                      DRINKS CART ITEMS
+                ---------------------------->
+                <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                    <th:block th:if="*{pizzas} != null">
+                        <th:block th:each="drink : *{drinks}">
+                            <tr class="row mx-auto">
+                                <th class="col-md-2 text-center">
+                                    <img th:src="${drink.item.imageUrl}" th:alt="${drink.item.name}" height="100" width="100">
+                                </th>
+                                <td class="col-md-3 text-center" th:text="${drink.item.name}"></td>
+                                <td class="col-md-3 text-center" th:text="${drink.item.price}"></td>
+                                <td class="col-md-1 text-center" th:text="${drink.quantity}"></td>
+                                <td class="col-md-2 text-center">
+                                    <form th:action="@{/cart/remove-product}" th:method="delete">
+                                        <div class="button-holder d-flex justify-content-center">
+                                            <input type="hidden" name="id" th:value="${drink.item.id}">
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </th:block>
+                </th:block>
+            </th:block>
+            </tbody>
+        </table>
+        <hr class="hr-2 bg-dark">
+        <div class="text-center">
+            <h3 th:text="|Total: ${totalPrice}|"></h3>
+        </div>
+        <form th:action="@{/cart/checkout}" th:method="post">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Checkout</button>
+            </div>
+        </form>
+    </div>
+</th:block>
