@@ -1,100 +1,98 @@
 <th:block>
     <div class="jumbotron justify-content-center bg-pic">
-        <form class="form-horizontal align-self-center" th:action="@{/cart/checkout}" th:method="post">
+        <div class="jumbotron justify-content-center">
+            <hr class="hr-2 bg-dark w-75">
+            <h1 class="text-center text-dark">Shopping Cart</h1>
+            <hr class="hr-2 bg-dark w-75">
+            <table class="table table-hover w-75 mx-auto">
+                <thead>
+                <tr class="row mx-auto">
+                    <th class="col-md-2 text-center">Image</th>
+                    <th class="col-md-3 text-center">Name</th>
+                    <th class="col-md-3 text-center">Price per unit</th>
+                    <th class="col-md-1 text-center">Quantity</th>
+                    <th class="col-md-2 text-center">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:if="${#session.getAttribute('shopping-cart')} != null">
 
-            <div class="form-group pl-5 mb-5" style="margin: auto; width: 50%;">
-                <div class="form-group pl-5 ml-5 mb-5">
-                    <label class="font-weight-bold h2 pl-5 ml-5" for="choice-address">Choice Address</label>
-                    <select class="form-control select-address" id="choice-address" name="addressId" required>
-                        <option selected="" disabled="">Select Address</option>
-                    </select>
-                </div>
-                <hr class="hr-2 bg-dark w-100">
-            </div>
-
-            <div class="jumbotron justify-content-center" id="cart" style="display: none">
-                <hr class="hr-2 bg-dark w-75">
-                <h1 class="text-center text-dark">Shopping Cart</h1>
-                <hr class="hr-2 bg-dark w-75">
-                <table class="table table-hover w-75 mx-auto">
-                    <thead>
-                    <tr class="row mx-auto">
-                        <th class="col-md-2 text-center">Image</th>
-                        <th class="col-md-3 text-center">Name</th>
-                        <th class="col-md-3 text-center">Price per unit</th>
-                        <th class="col-md-1 text-center">Quantity</th>
-                        <th class="col-md-2 text-center">Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:if="${#session.getAttribute('shopping-cart')} != null">
-
-                        <!---------------------------
-                               PIZZA CART ITEMS
-                        ---------------------------->
-                        <th:block th:object="${#session.getAttribute('shopping-cart')}">
-                            <th:block th:if="*{pizzas} != null">
-                                <th:block th:each="pizza : *{pizzas}">
-                                    <tr class="row mx-auto">
-                                        <th class="col-md-2 text-center">
-                                            <img th:src="${pizza.item.imageUrl}" th:alt="${pizza.item.name}"
-                                                 height="100"
-                                                 width="100">
-                                        </th>
-                                        <td class="col-md-3 text-center" th:text="${pizza.item.name}"></td>
-                                        <td class="col-md-3 text-center" th:text="${pizza.item.price}"></td>
-                                        <td class="col-md-1 text-center" th:text="${pizza.quantity}"></td>
-                                        <td class="col-md-2 text-center">
-                                            <form th:action="@{/cart/remove-product}" th:method="delete">
-                                                <div class="button-holder d-flex justify-content-center">
-                                                    <input type="hidden" name="id" th:value="${pizza.item.id}">
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </th:block>
-                            </th:block>
-                        </th:block>
-
-                        <!---------------------------
-                              DRINKS CART ITEMS
-                        ---------------------------->
-                        <th:block th:object="${#session.getAttribute('shopping-cart')}">
-                            <th:block th:if="*{pizzas} != null">
-                                <th:block th:each="drink : *{drinks}">
-                                    <tr class="row mx-auto">
-                                        <th class="col-md-2 text-center">
-                                            <img th:src="${drink.item.imageUrl}" th:alt="${drink.item.name}"
-                                                 height="100"
-                                                 width="100">
-                                        </th>
-                                        <td class="col-md-3 text-center" th:text="${drink.item.name}"></td>
-                                        <td class="col-md-3 text-center" th:text="${drink.item.price}"></td>
-                                        <td class="col-md-1 text-center" th:text="${drink.quantity}"></td>
-                                        <td class="col-md-2 text-center">
-                                            <form th:action="@{/cart/remove-product}" th:method="delete">
-                                                <div class="button-holder d-flex justify-content-center">
-                                                    <input type="hidden" name="id" th:value="${drink.item.id}">
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </th:block>
+                    <!---------------------------
+                           PIZZA CART ITEMS
+                    ---------------------------->
+                    <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                        <th:block th:if="*{pizzas} != null">
+                            <th:block th:each="pizza : *{pizzas}">
+                                <tr class="row mx-auto">
+                                    <th class="col-md-2 text-center">
+                                        <img th:src="${pizza.item.imageUrl}" th:alt="${pizza.item.name}"
+                                             height="100"
+                                             width="100">
+                                    </th>
+                                    <td class="col-md-3 text-center" th:text="${pizza.item.name}"></td>
+                                    <td class="col-md-3 text-center" th:text="${pizza.item.price}"></td>
+                                    <td class="col-md-1 text-center" th:text="${pizza.quantity}"></td>
+                                    <td class="col-md-2 text-center">
+                                        <form th:action="@{/cart/remove-product}" th:method="delete">
+                                            <div class="button-holder d-flex justify-content-center">
+                                                <input type="hidden" name="id" th:value="${pizza.item.id}">
+                                                <button type="submit" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
                             </th:block>
                         </th:block>
                     </th:block>
-                    </tbody>
-                </table>
-                <hr class="hr-2 bg-dark">
-                <div class="text-center m-4">
-                    <h3 th:text="|Total: ${totalPrice}|"></h3>
+
+                    <!---------------------------
+                          DRINKS CART ITEMS
+                    ---------------------------->
+                    <th:block th:object="${#session.getAttribute('shopping-cart')}">
+                        <th:block th:if="*{pizzas} != null">
+                            <th:block th:each="drink : *{drinks}">
+                                <tr class="row mx-auto">
+                                    <th class="col-md-2 text-center">
+                                        <img th:src="${drink.item.imageUrl}" th:alt="${drink.item.name}"
+                                             height="100"
+                                             width="100">
+                                    </th>
+                                    <td class="col-md-3 text-center" th:text="${drink.item.name}"></td>
+                                    <td class="col-md-3 text-center" th:text="|${drink.item.price}$|"></td>
+                                    <td class="col-md-1 text-center" th:text="${drink.quantity}"></td>
+                                    <td class="col-md-2 text-center">
+                                        <form th:action="@{/cart/remove-product}" th:method="delete">
+                                            <div class="button-holder d-flex justify-content-center">
+                                                <input type="hidden" name="id" th:value="${drink.item.id}">
+                                                <button type="submit" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </th:block>
+                </tbody>
+            </table>
+            <hr class="hr-2 bg-dark">
+            <div class="text-center m-4">
+                <h3 th:text="|Total: ${totalPrice}$|"></h3>
+            </div>
+            <hr class="hr-2 bg-dark w-50">
+            <form class="form-horizontal align-content-center" th:action="@{/cart/checkout}" th:method="post">
+                <div class="form-group pl-5 mt-5" style="margin: auto; width: 50%;">
+                    <div class="form-group pl-5 ml-5 mb-5">
+                        <label class="font-weight-bold h2 pl-5 ml-5" for="choice-address">Choice Address</label>
+                        <select class="form-control select-address" id="choice-address" name="addressId" required>
+                            <option selected="" disabled="">Select Address</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="button-holder d-flex justify-content-center">
                     <button type="submit" class="btn btn-success">Order Now</button>
                 </div>
-            </div>
+        </div>
         </form>
     </div>
 
@@ -106,11 +104,5 @@
                     .append(`<option value="${address.id}">${address.location}</option>`));
             })
             .catch((err) => console.log(err));
-
-        let select = document.querySelector('#choice-address');
-
-        select.addEventListener('change', function () {
-            $("#cart").show();
-        });
     </script>
 </th:block>
