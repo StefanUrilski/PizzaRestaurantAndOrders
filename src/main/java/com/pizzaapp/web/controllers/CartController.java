@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +98,11 @@ public class CartController extends BaseController {
         return result.setScale(2, RoundingMode.HALF_UP);
     }
 
+    private void removeItemFromCart(String id, ShoppingCartItems cart) {
+        cart.getPizzas().removeIf(cartItem -> cartItem.getItem().getId().equals(id));
+        cart.getDrinks().removeIf(cartItem -> cartItem.getItem().getId().equals(id));
+    }
+
     @PostMapping("/add-pizza")
     public ModelAndView addPizzaToCartConfirm(String id, int quantity, String dough, String size, HttpSession session) {
         PizzaOrderViewModel pizza = modelMapper.map(menuService.getPizzaById(id), PizzaOrderViewModel.class);
@@ -115,7 +121,7 @@ public class CartController extends BaseController {
         ShoppingCartItems cart = retrieveCart(session);
         addItemToCart(pizzaCartViewModel, cart, "pizza");
 
-        return redirect("/");
+        return redirect("/menu/order/pizza");
     }
 
     @PostMapping("/add-drink")
@@ -129,15 +135,23 @@ public class CartController extends BaseController {
         ShoppingCartItems cart = retrieveCart(session);
         addItemToCart(pizzaCartViewModel, cart, "drink");
 
-        return redirect("/");
+        return redirect("/menu/order/drink");
     }
 
     @GetMapping("/details")
-    public ModelAndView cartDetails(ModelAndView modelAndView, HttpSession session) {
+    public ModelAndView cartDetails(HttpSession session) {
         ShoppingCartItems cart = retrieveCart(session);
         BigDecimal totalPrice = calcTotal(cart);
 
         return view("menu/cart/cart-details", "totalPrice", totalPrice);
+    }
+
+    @DeleteMapping("/remove-product")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView removeFromCartConfirm(String id, HttpSession session) {
+        removeItemFromCart(id, retrieveCart(session));
+
+        return redirect("/cart/details");
     }
 
 }
