@@ -14,6 +14,7 @@ public class User extends BaseEntity implements UserDetails {
     private String email;
     private String password;
     private Set<Address> addresses;
+    private Set<Order> orders;
 
     private boolean isAccountNonLocked;
     private boolean isAccountNonExpired;
@@ -22,6 +23,7 @@ public class User extends BaseEntity implements UserDetails {
     private Set<UserRole> authorities;
 
     public User() {
+        this.isEnabled = true;
         this.addresses = new HashSet<>();
         this.authorities = new HashSet<>();
     }
@@ -64,6 +66,15 @@ public class User extends BaseEntity implements UserDetails {
         this.addresses = addresses;
     }
 
+    @OneToMany(targetEntity = Order.class, mappedBy = "user", fetch = FetchType.EAGER)
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     @Transient
     @Column(name = "is_account_non_locked")
@@ -100,7 +111,7 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     @Column(name = "is_enabled")
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 
     public void setEnabled(boolean enabled) {
