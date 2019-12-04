@@ -1,11 +1,15 @@
 package com.pizzaapp.web.controllers;
 
+import com.pizzaapp.domain.models.service.OrderCreateServiceModel;
+import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
+import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;
 import com.pizzaapp.domain.models.view.cart.DrinkCartViewModel;
 import com.pizzaapp.domain.models.view.cart.PizzaCartViewModel;
 import com.pizzaapp.domain.models.view.cart.PizzaOrderViewModel;
 import com.pizzaapp.domain.models.view.cart.ShoppingCartItems;
 import com.pizzaapp.domain.models.view.menu.DrinkViewModel;
 import com.pizzaapp.service.MenuService;
+import com.pizzaapp.service.OrderService;
 import com.pizzaapp.service.SizeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.Principal;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cart")
@@ -29,19 +35,22 @@ public class CartController extends BaseController {
 
     private final MenuService menuService;
     private final SizeService sizeService;
+    private final OrderService orderService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public CartController(MenuService menuService,
                           SizeService sizeService,
+                          OrderService orderService,
                           ModelMapper modelMapper) {
         this.menuService = menuService;
         this.sizeService = sizeService;
+        this.orderService = orderService;
         this.modelMapper = modelMapper;
     }
 
     private ShoppingCartItems retrieveCart(HttpSession session) {
-        initCart(session);
+        initCart(session, false);
 
         ShoppingCartItems cart = (ShoppingCartItems) session.getAttribute("shopping-cart");
 
@@ -56,8 +65,8 @@ public class CartController extends BaseController {
         return cart;
     }
 
-    private void initCart(HttpSession session) {
-        if (session.getAttribute("shopping-cart") == null) {
+    private void initCart(HttpSession session, boolean newSession) {
+        if (session.getAttribute("shopping-cart") == null || newSession) {
             session.setAttribute("shopping-cart", new ShoppingCartItems());
         }
     }
@@ -103,11 +112,33 @@ public class CartController extends BaseController {
         cart.getDrinks().removeIf(cartItem -> cartItem.getItem().getId().equals(id));
     }
 
+    private OrderCreateServiceModel prepareOrder(ShoppingCartItems cart, String customer, String addressId, BigDecimal price) {
+        OrderCreateServiceModel order = new OrderCreateServiceModel();
+
+        order.setCustomer(customer);
+        order.setAddressId(addressId);
+        order.setTotalPrice(price);
+
+        order.setPizzas(
+                cart.getPizzas().stream()
+                .map(pizza -> modelMapper.map(pizza, PizzaCartServiceModel.class))
+                .collect(Collectors.toList())
+        );
+
+        order.setDrinks(
+                cart.getDrinks().stream()
+                        .map(drink -> modelMapper.map(drink, DrinkCartServiceModel.class))
+                        .collect(Collectors.toList())
+        );
+
+        return order;
+    }
+
     @PostMapping("/add-pizza")
     public ModelAndView addPizzaToCartConfirm(String id, int quantity, String dough, String size, HttpSession session) {
         PizzaOrderViewModel pizza = modelMapper.map(menuService.getPizzaById(id), PizzaOrderViewModel.class);
         pizza.setDough(dough);
-        pizza.setSize(size);
+        pizza.setSize(sizeService.getBySizeName(size));
 
         double multiplier = sizeService.getBySizeName(size).getMultiplier();
         BigDecimal price = pizza.getPrice().multiply(new BigDecimal(multiplier));
@@ -147,11 +178,26 @@ public class CartController extends BaseController {
     }
 
     @DeleteMapping("/remove-product")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView removeFromCartConfirm(String id, HttpSession session) {
         removeItemFromCart(id, retrieveCart(session));
 
         return redirect("/cart/details");
     }
 
+    @PostMapping("/checkout")
+    public ModelAndView checkoutConfirm(HttpSession session, String addressId, Principal principal) {
+        if (addressId == null) {
+            return redirect("/cart/details");
+        }
+
+        ShoppingCartItems cart = retrieveCart(session);
+        BigDecimal totalPrice = calcTotal(cart);
+
+        OrderCreateServiceModel orderServiceModel = prepareOrder(cart, principal.getName(), addressId, totalPrice);
+        orderService.createOrder(orderServiceModel);
+
+        initCart(session, true);
+
+        return redirect("/");
+    }
 }

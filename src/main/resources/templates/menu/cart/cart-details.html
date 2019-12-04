@@ -90,10 +90,12 @@
                     </div>
                 </div>
                 <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success">Order Now</button>
+                    <button type="submit" class="btn btn-success" id="btnSubmit" disabled="disabled">Order Now</button>
                 </div>
-        </div>
-        </form>
+                <div class="d-flex justify-content-center">
+                    <small id="btnSmall" class="font-weight-light">*Choose Address to make the order.</small>
+                </div>
+            </form>
     </div>
 
     <script>
@@ -104,5 +106,12 @@
                     .append(`<option value="${address.id}">${address.location}</option>`));
             })
             .catch((err) => console.log(err));
+
+        let select = document.querySelector('#choice-address');
+
+        select.addEventListener('change', function () {
+            $('#btnSubmit').removeAttr('disabled');
+            $('#btnSmall').hide();
+        });
     </script>
 </th:block>
