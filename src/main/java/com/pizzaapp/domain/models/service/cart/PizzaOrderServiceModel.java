@@ -1,16 +1,14 @@
-package com.pizzaapp.domain.models.view.cart;
-
-import com.pizzaapp.domain.models.service.ingredients.SizeServiceModel;
+package com.pizzaapp.domain.models.service.cart;
 
 import java.math.BigDecimal;
 
-public class PizzaOrderViewModel {
+public class PizzaOrderServiceModel {
 
     private String id;
     private String name;
     private BigDecimal price;
     private String dough;
-    private SizeServiceModel size;
+    private String size;
     private String imageUrl;
 
     public String getId() {
@@ -45,11 +43,11 @@ public class PizzaOrderViewModel {
         this.dough = dough;
     }
 
-    public SizeServiceModel getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(SizeServiceModel size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

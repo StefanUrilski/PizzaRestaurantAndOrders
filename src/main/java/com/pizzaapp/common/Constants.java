@@ -16,12 +16,15 @@ public final class Constants {
 
 
 
-    public static final String ITEM_ADD_EXCEPTION = "Error occurred during item add.";
+    public static final String ITEM_ADD_EXCEPTION = "An error occurred during item add.";
 
-    public static final String INGREDIENT_ADD_EXCEPTION = "Error occurred during ingredient add.";
+    public static final String INGREDIENT_ADD_EXCEPTION = "An error occurred during ingredient add.";
 
-    public static final String USER_REGISTER_EXCEPTION = "Error occurred during user registration.";
+    public static final String USER_REGISTER_EXCEPTION = "An error occurred during user registration.";
 
 
+    public static final String EMPTY_CART_EXCEPTION = "Cart has no items in it. Order something to make the order";
+
+    public static final String ORDER_ADD_EXCEPTION = "An error occurred when we save your order. ";
 
 }
