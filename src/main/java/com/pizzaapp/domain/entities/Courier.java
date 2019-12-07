@@ -8,9 +8,19 @@ import java.util.List;
 @Table(name = "couriers")
 public class Courier extends BaseEntity {
 
+    private User user;
     private LocalDateTime taken;
     private LocalDateTime finished;
     private List<Order> orders;
+
+    @OneToOne
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Column(name = "taken_on")
     public LocalDateTime getTaken() {
