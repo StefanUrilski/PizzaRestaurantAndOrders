@@ -5,6 +5,7 @@ import com.pizzaapp.domain.entities.Address;
 import com.pizzaapp.domain.entities.Order;
 import com.pizzaapp.domain.entities.User;
 import com.pizzaapp.domain.entities.items.Drink;
+import com.pizzaapp.domain.entities.items.MenuItem;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.*;
 import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
@@ -19,8 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -85,6 +85,22 @@ public class OrderServiceImpl implements OrderService {
         return cart;
     }
 
+    @SuppressWarnings("unchecked")
+    private <T> List<String> calcItems(List<T> items) {
+        Map<String, Integer> itemsCount = new LinkedHashMap<>();
+
+        ((List<MenuItem>)items)
+                .forEach(item -> {
+                    String name = item.getName();
+                    itemsCount.putIfAbsent(name, 0);
+                    itemsCount.put(name, itemsCount.get(name) + 1);
+                });
+
+        return itemsCount.entrySet().stream()
+                .map(entry -> String.format("%s x %s", entry.getValue(), entry.getKey()))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public void createOrder(OrderCreateServiceModel orderService) {
         if (orderService.getDrinks().isEmpty() && orderService.getPizzas().isEmpty()) {
@@ -122,9 +138,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderServiceModel> getAllOrders() {
+    public List<OrderAllServiceModel> getAllOrders() {
         return orderRepository.findAll().stream()
-                .map(order -> modelMapper.map(order, OrderServiceModel.class))
+                .map(order -> {
+                    OrderAllServiceModel currOrder = modelMapper.map(order, OrderAllServiceModel.class);
+                    currOrder.setUser(order.getUser().getUsername());
+
+                    currOrder.setPizzas(calcItems(order.getPizzas()));
+                    currOrder.setPizzas(calcItems(order.getDrinks()));
+
+                    return currOrder;
+                })
                 .collect(Collectors.toList());
     }
+
+
 }
