@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class OrderDeliveryServiceModel {
 
-    private UserServiceModel user;
+    private String user;
     private AddressServiceModel address;
     private BigDecimal totalPrice;
 
-    public UserServiceModel getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserServiceModel user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

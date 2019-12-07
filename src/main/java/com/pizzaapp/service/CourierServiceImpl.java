@@ -53,7 +53,11 @@ public class CourierServiceImpl implements CourierService {
         }
 
         return courier.getOrders().stream()
-                .map(order -> modelMapper.map(order, OrderDeliveryServiceModel.class))
+                .map(order -> {
+                    OrderDeliveryServiceModel currOrder = modelMapper.map(order, OrderDeliveryServiceModel.class);
+                    currOrder.setUser(order.getUser().getFullName());
+                    return currOrder;
+                })
                 .collect(Collectors.toList());
     }
 }
