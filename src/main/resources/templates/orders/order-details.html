@@ -1,0 +1,66 @@
+<th:block>
+    <div class="container justify-content-center col-md-11 my-4">
+        <div class="jumbotron bg-forms d-flex justify-content-center" th:object="${order.address}">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <h1>ORDER DETAILS</h1>
+                </div>
+                <hr class="hr"/>
+                <div class="row p-3">
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Street:' + *{street}"></h4>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Number: ' + *{number}"></h4>
+                    </div>
+                </div>
+
+                <hr class="hr-2 bg-dark w-75">
+
+                <div class="row p-3">
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Block: ' + *{block}"></h4>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Entrance: ' + *{entrance}"></h4>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Floor: ' + *{floor}"></h4>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Apartment: ' + *{apartment}"></h4>
+                    </div>
+                </div>
+
+                <hr class="hr-2 bg-dark w-75">
+
+                <div class="row pt-3">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="text text-center text-danger" th:text="|${order.totalPrice}$|"></h1>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <h4 th:text="'Phone Number: ' + *{phoneNumber}"></h4>
+                    </div>
+                </div>
+                <hr class="hr-2 bg-dark w-50">
+                <br/>
+
+                <form class="form mx-auto" th:action="@{/orders/take/{id}(id=${order.id})}" method="post">
+                    <div class="row m-2">
+                        <div class="col d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Take Order</button>
+                        </div>
+
+                        <div class="col d-flex justify-content-center">
+                            <a href="javascript:history.back()" class="btn btn-info">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
