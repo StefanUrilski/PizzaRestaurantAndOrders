@@ -4,6 +4,7 @@ import com.pizzaapp.domain.models.view.OrderViewModel;
 import com.pizzaapp.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class OrderController extends BaseController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView allOrders() {
         List<OrderViewModel> allOrders = orderService.getAllOrders().stream()
                 .map(order -> modelMapper.map(order, OrderViewModel.class))
@@ -36,9 +38,12 @@ public class OrderController extends BaseController {
     }
 
     @GetMapping("/delivery/{town}")
-    public ModelAndView delivery(@PathVariable String town, ModelAndView modelAndView) {
-//        DeliveryAddressViewModel
-        return view("delivery/all-orders", "allOrders", null);
+    public ModelAndView delivery(@PathVariable String town) {
+        List<OrderViewModel> allOrders = orderService.getAllNonTakenOrdersFromTown(town).stream()
+                .map(order -> modelMapper.map(order, OrderViewModel.class))
+                .collect(Collectors.toList());
+
+        return view("orders/for-delivery", "allOrders", allOrders);
     }
 
     @GetMapping("/details/{id}")
