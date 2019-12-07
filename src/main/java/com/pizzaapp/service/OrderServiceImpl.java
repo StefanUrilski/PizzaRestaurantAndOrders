@@ -161,4 +161,13 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town) {
         return mapToAllOrderService(orderRepository.findAllByTownAndIfTaken(Town.valueOf(town), false));
     }
+
+    @Override
+    public OrderServiceModel getOrderById(String id) {
+        Order order = orderRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(order);
+
+        return modelMapper.map(order, OrderServiceModel.class);
+    }
 }
