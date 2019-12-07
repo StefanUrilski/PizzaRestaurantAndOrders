@@ -49,6 +49,7 @@ public class CourierServiceImpl implements CourierService {
         }
 
         return courier.getOrders().stream()
+                .filter(order -> !order.isFinished())
                 .map(order -> {
                     OrderDeliveryServiceModel currOrder = modelMapper.map(order, OrderDeliveryServiceModel.class);
                     currOrder.setUser(order.getUser().getFullName());

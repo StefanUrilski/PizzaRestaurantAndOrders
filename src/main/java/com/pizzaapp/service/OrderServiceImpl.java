@@ -202,4 +202,15 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderFailureException(Constants.ORDER_ADD_EXCEPTION);
         }
     }
+
+    @Override
+    public void finishOrder(String id) {
+        Order order = orderRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(order);
+
+        order.setFinished(true);
+
+        orderRepository.save(order);
+    }
 }
