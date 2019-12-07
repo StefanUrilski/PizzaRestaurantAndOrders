@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,8 +57,8 @@ public class OrderController extends BaseController {
     }
 
     @PostMapping("/take/{id}")
-    public ModelAndView takeOrderConfirm(@PathVariable String id) {
-        orderService.takeOrder(id);
+    public ModelAndView takeOrderConfirm(@PathVariable String id, Principal principal) {
+        orderService.takeOrder(id, principal.getName());
 
         return redirect("/");
     }

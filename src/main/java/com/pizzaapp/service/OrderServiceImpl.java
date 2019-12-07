@@ -31,16 +31,19 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final AddressService addressService;
     private final OrderRepository orderRepository;
+    private final CourierService courierService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public OrderServiceImpl(UserService userService,
                             AddressService addressService,
                             OrderRepository orderRepository,
+                            CourierService courierService,
                             ModelMapper modelMapper) {
         this.userService = userService;
         this.addressService = addressService;
         this.orderRepository = orderRepository;
+        this.courierService = courierService;
         this.modelMapper = modelMapper;
     }
 
@@ -179,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean takeOrder(String id) {
+    public boolean takeOrder(String id, String courier) {
         Order order = orderRepository.findById(id).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(order);
@@ -187,6 +190,8 @@ public class OrderServiceImpl implements OrderService {
         if (order.isTaken()) {
             return false;
         }
+
+        courierService.takeOrder(courier, modelMapper.map(order, OrderServiceModel.class));
 
         order.setTaken(true);
 

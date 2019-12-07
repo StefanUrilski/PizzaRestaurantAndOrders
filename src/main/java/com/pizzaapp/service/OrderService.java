@@ -15,5 +15,5 @@ public interface OrderService {
 
     OrderAllServiceModel getOrderById(String id);
 
-    boolean takeOrder(String id);
+    boolean takeOrder(String id, String courier);
 }
