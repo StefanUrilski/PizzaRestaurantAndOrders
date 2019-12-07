@@ -2,7 +2,6 @@ package com.pizzaapp.service;
 
 import com.pizzaapp.domain.models.service.OrderAllServiceModel;
 import com.pizzaapp.domain.models.service.OrderCreateServiceModel;
-import com.pizzaapp.domain.models.service.OrderServiceModel;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface OrderService {
 
     List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town);
 
-    OrderServiceModel getOrderById(String id);
+    OrderAllServiceModel getOrderById(String id);
 }

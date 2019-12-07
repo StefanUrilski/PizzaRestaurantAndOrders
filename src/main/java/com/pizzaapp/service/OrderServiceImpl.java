@@ -163,11 +163,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderServiceModel getOrderById(String id) {
+    public OrderAllServiceModel getOrderById(String id) {
         Order order = orderRepository.findById(id).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(order);
 
-        return modelMapper.map(order, OrderServiceModel.class);
+        OrderAllServiceModel serviceModel = modelMapper.map(order, OrderAllServiceModel.class);
+
+        serviceModel.setUser(order.getUser().getFullName());
+
+        serviceModel.setPizzas(calcItems(order.getPizzas()));
+        serviceModel.setDrinks(calcItems(order.getDrinks()));
+
+        return serviceModel;
     }
 }

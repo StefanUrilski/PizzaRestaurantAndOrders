@@ -5,7 +5,24 @@
                 <div class="row d-flex justify-content-center">
                     <h1>ORDER DETAILS</h1>
                 </div>
-                <hr class="hr"/>
+                <hr class="hr-2 bg-dark w-25">
+
+                <div class="row d-flex justify-content-center">
+                    <h3 th:text="'Ordered By: ' + ${order.user}"></h3>
+                </div>
+
+                <div class="row p-3">
+                    <div class="col d-flex justify-content-center">
+                        <h6 th:text="'Pizzas: ' + ${order.pizzas}"></h6>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <h6 th:text="'Drinks: ' + ${order.drinks}"></h6>
+                    </div>
+                </div>
+
+                <hr class="hr-2 bg-dark w-100">
+
                 <div class="row p-3">
                     <div class="col d-flex justify-content-center">
                         <h4 th:text="'Street:' + *{street}"></h4>
