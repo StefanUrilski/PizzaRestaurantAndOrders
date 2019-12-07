@@ -1,6 +1,9 @@
 package com.pizzaapp.web.controllers;
 
+import com.pizzaapp.domain.models.service.OrderDeliveryServiceModel;
+import com.pizzaapp.domain.models.view.OrderDeliveryViewModel;
 import com.pizzaapp.domain.models.view.OrderViewModel;
+import com.pizzaapp.service.CourierService;
 import com.pizzaapp.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +25,15 @@ import java.util.stream.Collectors;
 public class OrderController extends BaseController {
 
     private final OrderService orderService;
+    private final CourierService courierService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public OrderController(OrderService orderService, ModelMapper modelMapper) {
+    public OrderController(OrderService orderService,
+                           CourierService courierService,
+                           ModelMapper modelMapper) {
         this.orderService = orderService;
+        this.courierService = courierService;
         this.modelMapper = modelMapper;
     }
 
@@ -63,4 +70,18 @@ public class OrderController extends BaseController {
         return redirect("/");
     }
 
+    @GetMapping("/my")
+    public ModelAndView myOrders(Principal principal) {
+        List<OrderDeliveryServiceModel> orders = courierService.getAllOrders(principal.getName());
+
+        if (orders == null) {
+            return view("orders/orders-my", "allOrder", null);
+        }
+
+        List<OrderDeliveryViewModel> allOrder = orders.stream()
+                .map(order -> modelMapper.map(order, OrderDeliveryViewModel.class))
+                .collect(Collectors.toList());
+
+        return view("orders/orders-my", "allOrder", allOrder);
+    }
 }
