@@ -3,6 +3,7 @@ package com.pizzaapp.service;
 import com.pizzaapp.common.Constants;
 import com.pizzaapp.domain.entities.Address;
 import com.pizzaapp.domain.entities.Order;
+import com.pizzaapp.domain.entities.Town;
 import com.pizzaapp.domain.entities.User;
 import com.pizzaapp.domain.entities.items.Drink;
 import com.pizzaapp.domain.entities.items.MenuItem;
@@ -101,6 +102,20 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.joining(", "));
     }
 
+    private List<OrderAllServiceModel> mapToAllOrderService(List<Order> orders) {
+        return orders.stream()
+                .map(order -> {
+                    OrderAllServiceModel currOrder = modelMapper.map(order, OrderAllServiceModel.class);
+                    currOrder.setUser(order.getUser().getFullName());
+
+                    currOrder.setPizzas(calcItems(order.getPizzas()));
+                    currOrder.setDrinks(calcItems(order.getDrinks()));
+
+                    return currOrder;
+                })
+                .collect(Collectors.toList());
+    }
+
     @Override
     public void createOrder(OrderCreateServiceModel orderService) {
         if (orderService.getDrinks().isEmpty() && orderService.getPizzas().isEmpty()) {
@@ -139,18 +154,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderAllServiceModel> getAllOrders() {
-        return orderRepository.findAll().stream()
-                .map(order -> {
-                    OrderAllServiceModel currOrder = modelMapper.map(order, OrderAllServiceModel.class);
-                    currOrder.setUser(order.getUser().getFullName());
-
-                    currOrder.setPizzas(calcItems(order.getPizzas()));
-                    currOrder.setDrinks(calcItems(order.getDrinks()));
-
-                    return currOrder;
-                })
-                .collect(Collectors.toList());
+        return mapToAllOrderService(orderRepository.findAll());
     }
 
-
+    @Override
+    public List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town) {
+        return mapToAllOrderService(orderRepository.findAllByTownAndIfTaken(Town.valueOf(town), false));
+    }
 }

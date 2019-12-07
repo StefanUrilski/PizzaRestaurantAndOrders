@@ -10,4 +10,6 @@ public interface OrderService {
     void createOrder(OrderCreateServiceModel orderCreateServiceModel);
 
     List<OrderAllServiceModel> getAllOrders();
+
+    List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town);
 }
