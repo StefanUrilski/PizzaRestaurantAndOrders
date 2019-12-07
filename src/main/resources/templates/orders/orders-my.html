@@ -37,8 +37,8 @@
                         <td class="col-sm-2 text-center" th:text="${order.address.phoneNumber}"></td>
                         <td class="col-sm-1 text-center" th:text="|${order.totalPrice}$|"></td>
                         <td class="col-sm-1 text-center">
-                            <form th:action="@{/orders/finished/{id}(id=${order.id})}" th:method="post">
-                                <button type="submit" class="btn btn-success">Delivered</button>
+                            <form th:action="@{/orders/finish/{id}(id=${order.id})}" th:method="post">
+                                <button type="submit" class="btn btn-success">Finish</button>
                             </form>
                         </td>
                     </tr>

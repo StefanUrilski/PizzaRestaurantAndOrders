@@ -84,4 +84,11 @@ public class OrderController extends BaseController {
 
         return view("orders/orders-my", "allOrder", allOrder);
     }
+
+    @PostMapping("finish/{id}")
+    public ModelAndView finishConfirm(@PathVariable String id) {
+        orderService.finishOrder(id);
+
+        return redirect("orders/my");
+    }
 }
