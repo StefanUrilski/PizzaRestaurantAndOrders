@@ -1,0 +1,40 @@
+<th:block>
+    <div class="container justify-content-center  col-md-11 my-4">
+        <div class="jumbotron bg-forms d-flex justify-content-center">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <h1 class="text text-center">All Orders For Delivery</h1>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">Ordered On</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="order,iter : ${allOrders}">
+                            <tr>
+                                <th scope="row" th:text="${iter.index + 1}"></th>
+                                <td th:text="${order.user}"></td>
+                                <td th:text="${order.address.street}"></td>
+                                <td th:text="${order.orderedOn}"></td>
+                                <td th:text="|${order.totalPrice}$|"></td>
+                                <td>
+                                    <a th:href="@{/orders/details/{id}(id=${order.id})}"
+                                       class="btn bg-success text-white">Details</a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
