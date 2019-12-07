@@ -177,4 +177,24 @@ public class OrderServiceImpl implements OrderService {
 
         return serviceModel;
     }
+
+    @Override
+    public boolean takeOrder(String id) {
+        Order order = orderRepository.findById(id).orElse(null);
+
+        ExistService.checkIfItemNotExistThrowException(order);
+
+        if (order.isTaken()) {
+            return false;
+        }
+
+        order.setTaken(true);
+
+        try {
+            orderRepository.save(order);
+            return true;
+        } catch (Exception ex) {
+            throw new OrderFailureException(Constants.ORDER_ADD_EXCEPTION);
+        }
+    }
 }

@@ -14,4 +14,6 @@ public interface OrderService {
     List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town);
 
     OrderAllServiceModel getOrderById(String id);
+
+    boolean takeOrder(String id);
 }
