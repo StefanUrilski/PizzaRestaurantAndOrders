@@ -121,4 +121,10 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public List<OrderServiceModel> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(order -> modelMapper.map(order, OrderServiceModel.class))
+                .collect(Collectors.toList());
+    }
 }
