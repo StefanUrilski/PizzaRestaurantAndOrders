@@ -47,11 +47,11 @@ public class OrderServiceImpl implements OrderService {
         List<DrinkServiceModel> drinksCartItems = new ArrayList<>();
 
         drinks.forEach(drink ->
-              IntStream
-                      .range(0, drink.getQuantity())
-                      .forEach(iter ->
-                              drinksCartItems.add(drink.getItem())
-                      )
+                IntStream
+                        .range(0, drink.getQuantity())
+                        .forEach(iter ->
+                                drinksCartItems.add(drink.getItem())
+                        )
         );
 
         return drinksCartItems;
@@ -86,10 +86,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> List<String> calcItems(List<T> items) {
+    private <T> String calcItems(List<T> items) {
         Map<String, Integer> itemsCount = new LinkedHashMap<>();
 
-        ((List<MenuItem>)items)
+        ((List<MenuItem>) items)
                 .forEach(item -> {
                     String name = item.getName();
                     itemsCount.putIfAbsent(name, 0);
@@ -98,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
 
         return itemsCount.entrySet().stream()
                 .map(entry -> String.format("%s x %s", entry.getValue(), entry.getKey()))
-                .collect(Collectors.toList());
+                .collect(Collectors.joining(", "));
     }
 
     @Override
@@ -120,8 +120,8 @@ public class OrderServiceImpl implements OrderService {
 
         order.setPizzas(
                 cart.getPizzas().stream()
-                .map(pizza -> modelMapper.map(pizza, Pizza.class))
-                .collect(Collectors.toList())
+                        .map(pizza -> modelMapper.map(pizza, Pizza.class))
+                        .collect(Collectors.toList())
         );
 
         order.setDrinks(
@@ -142,10 +142,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll().stream()
                 .map(order -> {
                     OrderAllServiceModel currOrder = modelMapper.map(order, OrderAllServiceModel.class);
-                    currOrder.setUser(order.getUser().getUsername());
+                    currOrder.setUser(order.getUser().getFullName());
 
                     currOrder.setPizzas(calcItems(order.getPizzas()));
-                    currOrder.setPizzas(calcItems(order.getDrinks()));
+                    currOrder.setDrinks(calcItems(order.getDrinks()));
 
                     return currOrder;
                 })

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController extends BaseController {
 
     private final OrderService orderService;
@@ -32,7 +32,7 @@ public class OrderController extends BaseController {
                 .map(order -> modelMapper.map(order, OrderViewModel.class))
                 .collect(Collectors.toList());
 
-        return view("/all-orders", "allOrders", allOrders);
+        return view("/orders/orders-all", "allOrders", allOrders);
     }
 
     @GetMapping("/delivery/{town}")

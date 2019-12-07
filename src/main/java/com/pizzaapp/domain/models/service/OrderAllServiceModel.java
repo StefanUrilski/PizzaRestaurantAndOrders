@@ -11,8 +11,8 @@ public class OrderAllServiceModel {
     private AddressServiceModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
-    private List<String> pizzas;
-    private List<String> drinks;
+    private String pizzas;
+    private String drinks;
     private BigDecimal totalPrice;
 
     public String getId() {
@@ -55,19 +55,19 @@ public class OrderAllServiceModel {
         isTaken = taken;
     }
 
-    public List<String> getPizzas() {
+    public String getPizzas() {
         return pizzas;
     }
 
-    public void setPizzas(List<String> pizzas) {
+    public void setPizzas(String pizzas) {
         this.pizzas = pizzas;
     }
 
-    public List<String> getDrinks() {
+    public String getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(List<String> drinks) {
+    public void setDrinks(String drinks) {
         this.drinks = drinks;
     }
 
