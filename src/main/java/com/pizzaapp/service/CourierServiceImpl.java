@@ -2,6 +2,7 @@ package com.pizzaapp.service;
 
 import com.pizzaapp.domain.entities.Courier;
 import com.pizzaapp.domain.entities.Order;
+import com.pizzaapp.domain.models.service.OrderDeliveryServiceModel;
 import com.pizzaapp.domain.models.service.OrderServiceModel;
 import com.pizzaapp.repository.CourierRepository;
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourierServiceImpl implements CourierService {
@@ -39,5 +42,18 @@ public class CourierServiceImpl implements CourierService {
         courier.setTaken(LocalDateTime.now());
 
         courierRepository.save(courier);
+    }
+
+    @Override
+    public List<OrderDeliveryServiceModel> getAllOrders(String courierEmail) {
+        Courier courier = courierRepository.findCourierByEmail(courierEmail).orElse(null);
+
+        if (courier == null) {
+            return null;
+        }
+
+        return courier.getOrders().stream()
+                .map(order -> modelMapper.map(order, OrderDeliveryServiceModel.class))
+                .collect(Collectors.toList());
     }
 }
