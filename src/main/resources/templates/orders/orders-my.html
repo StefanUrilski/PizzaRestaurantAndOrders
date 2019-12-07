@@ -1,0 +1,51 @@
+<th:block>
+    <th:block th:if="${allOrder == null}">
+        <div class="jumbotron text-center bg-pic">
+            <h1 class="p-5 m-5">There is no taken orders.</h1>
+        </div>
+    </th:block>
+
+    <th:block th:if="${allOrder != null}">
+        <div class="jumbotron">
+            <h1 class="text-center text-dark">Taken Orders</h1>
+            <hr class="hr-2 bg-dark w-75">
+            <table class="table table-hover w-75 mx-auto">
+                <thead>
+                <tr class="row mx-auto">
+                    <th class="col-sm-1 text-center">User</th>
+                    <th class="col-sm-2 text-center">Street</th>
+                    <th class="col-sm-1 text-center">Number</th>
+                    <th class="col-sm-1 text-center">Block</th>
+                    <th class="col-sm-1 text-center">Entrance</th>
+                    <th class="col-sm-1 text-center">Floor</th>
+                    <th class="col-sm-1 text-center">Apartment</th>
+                    <th class="col-sm-2 text-center">Phone</th>
+                    <th class="col-sm-1 text-center">Price</th>
+                    <th class="col-sm-1 text-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="order : ${allOrder}">
+                    <tr class="row mx-auto">
+                        <td class="col-sm-1 text-center" th:text="${order.user}"></td>
+                        <td class="col-sm-2 text-center" th:text="${order.address.street}"></td>
+                        <td class="col-sm-1 text-center" th:text="${order.address.number}"></td>
+                        <td class="col-sm-1 text-center" th:text="${order.address.block}"></td>
+                        <td class="col-sm-1 text-center" th:text="${order.address.entrance}"></td>
+                        <td class="col-sm-1 text-center" th:text="${order.address.floor}"></td>
+                        <td class="col-sm-1 text-center" th:text="${order.address.apartment}"></td>
+                        <td class="col-sm-2 text-center" th:text="${order.address.phoneNumber}"></td>
+                        <td class="col-sm-1 text-center" th:text="|${order.totalPrice}$|"></td>
+                        <td class="col-sm-1 text-center">
+                            <form th:action="@{/orders/finished/{id}(id=${order.id})}" th:method="post">
+                                <button type="submit" class="btn btn-success">Delivered</button>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <hr class="hr-2 bg-dark">
+        </div>
+    </th:block>
+</th:block>

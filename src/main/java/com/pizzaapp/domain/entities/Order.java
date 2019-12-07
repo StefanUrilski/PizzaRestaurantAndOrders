@@ -16,6 +16,7 @@ public class Order extends BaseEntity {
     private Address address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
+    private Boolean isFinished;
     private List<Pizza> pizzas;
     private List<Drink> drinks;
     private BigDecimal totalPrice;
@@ -62,6 +63,15 @@ public class Order extends BaseEntity {
 
     public void setTaken(boolean taken) {
         this.isTaken = taken;
+    }
+
+    @Column(name = "is_finished")
+    public Boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(Boolean finished) {
+        isFinished = finished;
     }
 
     @ManyToMany(targetEntity = Pizza.class)

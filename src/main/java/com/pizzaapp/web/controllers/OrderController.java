@@ -72,7 +72,7 @@ public class OrderController extends BaseController {
 
     @GetMapping("/my")
     public ModelAndView myOrders(Principal principal) {
-        List<OrderDeliveryServiceModel> orders = courierService.getAllOrders(principal.getName());
+        List<OrderDeliveryServiceModel> orders = courierService.getAllNotFinishedOrders(principal.getName());
 
         if (orders == null) {
             return view("orders/orders-my", "allOrder", null);

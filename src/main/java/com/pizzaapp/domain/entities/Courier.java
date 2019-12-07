@@ -1,7 +1,6 @@
 package com.pizzaapp.domain.entities;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import java.util.List;
 public class Courier extends BaseEntity {
 
     private String email;
-    private LocalDateTime taken;
-    private LocalDateTime finished;
     private List<Order> orders;
 
     public Courier() {
@@ -30,24 +27,6 @@ public class Courier extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Column(name = "taken_on")
-    public LocalDateTime getTaken() {
-        return taken;
-    }
-
-    public void setTaken(LocalDateTime taken) {
-        this.taken = taken;
-    }
-
-    @Column(name = "finished_on")
-    public LocalDateTime getFinished() {
-        return finished;
-    }
-
-    public void setFinished(LocalDateTime finished) {
-        this.finished = finished;
     }
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER)

@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,16 +35,13 @@ public class CourierServiceImpl implements CourierService {
         if (courier == null) {
             courier = new Courier(courierEmail);
         }
-
         courier.getOrders().add(modelMapper.map(orderServiceModel, Order.class));
-
-        courier.setTaken(LocalDateTime.now());
 
         courierRepository.save(courier);
     }
 
     @Override
-    public List<OrderDeliveryServiceModel> getAllOrders(String courierEmail) {
+    public List<OrderDeliveryServiceModel> getAllNotFinishedOrders(String courierEmail) {
         Courier courier = courierRepository.findCourierByEmail(courierEmail).orElse(null);
 
         if (courier == null) {

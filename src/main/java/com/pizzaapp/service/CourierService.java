@@ -9,5 +9,5 @@ public interface CourierService {
 
     void takeOrder(String courierName, OrderServiceModel orderServiceModel);
 
-    List<OrderDeliveryServiceModel> getAllOrders(String courierEmail);
+    List<OrderDeliveryServiceModel> getAllNotFinishedOrders(String courierEmail);
 }

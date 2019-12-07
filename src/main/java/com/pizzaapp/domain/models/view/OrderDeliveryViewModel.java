@@ -6,9 +6,18 @@ import java.math.BigDecimal;
 
 public class OrderDeliveryViewModel {
 
+    private String id;
     private String user;
     private AddressViewModel address;
     private BigDecimal totalPrice;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUser() {
         return user;

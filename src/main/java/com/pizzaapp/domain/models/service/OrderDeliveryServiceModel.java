@@ -4,9 +4,18 @@ import java.math.BigDecimal;
 
 public class OrderDeliveryServiceModel {
 
+    private String id;
     private String user;
     private AddressServiceModel address;
     private BigDecimal totalPrice;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUser() {
         return user;
