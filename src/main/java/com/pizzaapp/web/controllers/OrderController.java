@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/orders")
+@PreAuthorize("hasRole('ROLE_COURIER') && !hasRole('ROLE_MODERATOR')")
 public class OrderController extends BaseController {
 
     private final OrderService orderService;
@@ -53,10 +55,11 @@ public class OrderController extends BaseController {
         return view("orders/order-details", "order", order);
     }
 
-    @GetMapping("/take/{id}")
-    public ModelAndView take(@PathVariable String id) {
-        // TODO: 16-Oct-19 missing logic
-        return view("delivery/all-orders");
+    @PostMapping("/take/{id}")
+    public ModelAndView takeOrderConfirm(@PathVariable String id) {
+        orderService.takeOrder(id);
+
+        return redirect("/");
     }
 
 }
