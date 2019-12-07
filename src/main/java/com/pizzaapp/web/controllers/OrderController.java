@@ -47,13 +47,14 @@ public class OrderController extends BaseController {
     }
 
     @GetMapping("/details/{id}")
-    public ModelAndView details(@PathVariable String id, ModelAndView modelAndView) {
-//        DeliveryFullAddressViewModel
-        return view("delivery/orders-details", "order", null);
+    public ModelAndView details(@PathVariable String id) {
+        OrderViewModel order = modelMapper.map(orderService.getOrderById(id), OrderViewModel.class);
+
+        return view("orders/order-details", "order", order);
     }
 
     @GetMapping("/take/{id}")
-    public ModelAndView take(@PathVariable String id, ModelAndView modelAndView) {
+    public ModelAndView take(@PathVariable String id) {
         // TODO: 16-Oct-19 missing logic
         return view("delivery/all-orders");
     }
