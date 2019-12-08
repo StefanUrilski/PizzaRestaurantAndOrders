@@ -89,6 +89,6 @@ public class OrderController extends BaseController {
     public ModelAndView finishConfirm(@PathVariable String id) {
         orderService.finishOrder(id);
 
-        return redirect("orders/my");
+        return redirect("/");
     }
 }

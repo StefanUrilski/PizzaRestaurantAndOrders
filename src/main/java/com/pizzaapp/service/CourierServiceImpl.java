@@ -44,12 +44,12 @@ public class CourierServiceImpl implements CourierService {
     public List<OrderDeliveryServiceModel> getAllNotFinishedOrders(String courierEmail) {
         Courier courier = courierRepository.findCourierByEmail(courierEmail).orElse(null);
 
-        if (courier == null) {
+        if (courier == null || courier.getOrders() == null) {
             return null;
         }
 
         return courier.getOrders().stream()
-                .filter(order -> !order.isFinished())
+                .filter(order -> order.isFinished() == null)
                 .map(order -> {
                     OrderDeliveryServiceModel currOrder = modelMapper.map(order, OrderDeliveryServiceModel.class);
                     currOrder.setUser(order.getUser().getFullName());
