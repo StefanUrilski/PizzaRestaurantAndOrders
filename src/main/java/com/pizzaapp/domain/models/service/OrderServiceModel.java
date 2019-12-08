@@ -14,6 +14,7 @@ public class OrderServiceModel {
     private AddressServiceModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
+    private boolean isFinished;
     private List<PizzaOrderServiceModel> pizzas;
     private List<DrinkServiceModel> drinks;
     private BigDecimal totalPrice;
@@ -56,6 +57,14 @@ public class OrderServiceModel {
 
     public void setTaken(boolean taken) {
         isTaken = taken;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     public List<PizzaOrderServiceModel> getPizzas() {

@@ -13,6 +13,7 @@ public class OrderViewModel {
     private AddressViewModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
+    private boolean isFinished;
     private String pizzas;
     private String drinks;
     private BigDecimal totalPrice;
@@ -55,6 +56,14 @@ public class OrderViewModel {
 
     public void setTaken(boolean taken) {
         isTaken = taken;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     public String getPizzas() {

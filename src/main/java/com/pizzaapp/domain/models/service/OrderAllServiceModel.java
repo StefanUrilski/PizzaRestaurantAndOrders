@@ -2,7 +2,6 @@ package com.pizzaapp.domain.models.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class OrderAllServiceModel {
 
@@ -11,6 +10,7 @@ public class OrderAllServiceModel {
     private AddressServiceModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
+    private boolean isFinished;
     private String pizzas;
     private String drinks;
     private BigDecimal totalPrice;
@@ -53,6 +53,14 @@ public class OrderAllServiceModel {
 
     public void setTaken(boolean taken) {
         isTaken = taken;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     public String getPizzas() {
