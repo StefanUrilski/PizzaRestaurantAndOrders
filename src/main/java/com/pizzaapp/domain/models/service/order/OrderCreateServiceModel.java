@@ -1,4 +1,4 @@
-package com.pizzaapp.domain.models.service;
+package com.pizzaapp.domain.models.service.order;
 
 import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;

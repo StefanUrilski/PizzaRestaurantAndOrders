@@ -1,13 +1,16 @@
-package com.pizzaapp.domain.models.service;
+package com.pizzaapp.domain.models.view.order;
+
+import com.pizzaapp.domain.models.view.user.AddressViewModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class OrderAllServiceModel {
+public class OrderViewModel {
 
     private String id;
     private String user;
-    private AddressServiceModel address;
+    private AddressViewModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
     private boolean isFinished;
@@ -31,11 +34,11 @@ public class OrderAllServiceModel {
         this.user = user;
     }
 
-    public AddressServiceModel getAddress() {
+    public AddressViewModel getAddress() {
         return address;
     }
 
-    public void setAddress(AddressServiceModel address) {
+    public void setAddress(AddressViewModel address) {
         this.address = address;
     }
 

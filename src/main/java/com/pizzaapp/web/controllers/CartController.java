@@ -1,6 +1,6 @@
 package com.pizzaapp.web.controllers;
 
-import com.pizzaapp.domain.models.service.OrderCreateServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderCreateServiceModel;
 import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;
 import com.pizzaapp.domain.models.view.cart.DrinkCartViewModel;

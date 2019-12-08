@@ -1,21 +1,24 @@
-package com.pizzaapp.domain.models.view;
+package com.pizzaapp.domain.models.service.order;
 
-import com.pizzaapp.domain.models.view.user.AddressViewModel;
+import com.pizzaapp.domain.models.service.AddressServiceModel;
+import com.pizzaapp.domain.models.service.UserServiceModel;
+import com.pizzaapp.domain.models.service.cart.PizzaOrderServiceModel;
+import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderViewModel {
+public class OrderServiceModel {
 
     private String id;
-    private String user;
-    private AddressViewModel address;
+    private UserServiceModel user;
+    private AddressServiceModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
     private boolean isFinished;
-    private String pizzas;
-    private String drinks;
+    private List<PizzaOrderServiceModel> pizzas;
+    private List<DrinkServiceModel> drinks;
     private BigDecimal totalPrice;
 
     public String getId() {
@@ -26,19 +29,19 @@ public class OrderViewModel {
         this.id = id;
     }
 
-    public String getUser() {
+    public UserServiceModel getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(UserServiceModel user) {
         this.user = user;
     }
 
-    public AddressViewModel getAddress() {
+    public AddressServiceModel getAddress() {
         return address;
     }
 
-    public void setAddress(AddressViewModel address) {
+    public void setAddress(AddressServiceModel address) {
         this.address = address;
     }
 
@@ -66,19 +69,19 @@ public class OrderViewModel {
         isFinished = finished;
     }
 
-    public String getPizzas() {
+    public List<PizzaOrderServiceModel> getPizzas() {
         return pizzas;
     }
 
-    public void setPizzas(String pizzas) {
+    public void setPizzas(List<PizzaOrderServiceModel> pizzas) {
         this.pizzas = pizzas;
     }
 
-    public String getDrinks() {
+    public List<DrinkServiceModel> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(String drinks) {
+    public void setDrinks(List<DrinkServiceModel> drinks) {
         this.drinks = drinks;
     }
 

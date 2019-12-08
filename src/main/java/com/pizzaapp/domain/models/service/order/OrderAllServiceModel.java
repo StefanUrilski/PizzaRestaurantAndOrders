@@ -1,22 +1,20 @@
-package com.pizzaapp.domain.models.service;
+package com.pizzaapp.domain.models.service.order;
 
-import com.pizzaapp.domain.models.service.cart.PizzaOrderServiceModel;
-import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
+import com.pizzaapp.domain.models.service.AddressServiceModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class OrderServiceModel {
+public class OrderAllServiceModel {
 
     private String id;
-    private UserServiceModel user;
+    private String user;
     private AddressServiceModel address;
     private LocalDateTime orderedOn;
     private boolean isTaken;
     private boolean isFinished;
-    private List<PizzaOrderServiceModel> pizzas;
-    private List<DrinkServiceModel> drinks;
+    private String pizzas;
+    private String drinks;
     private BigDecimal totalPrice;
 
     public String getId() {
@@ -27,11 +25,11 @@ public class OrderServiceModel {
         this.id = id;
     }
 
-    public UserServiceModel getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserServiceModel user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -67,19 +65,19 @@ public class OrderServiceModel {
         isFinished = finished;
     }
 
-    public List<PizzaOrderServiceModel> getPizzas() {
+    public String getPizzas() {
         return pizzas;
     }
 
-    public void setPizzas(List<PizzaOrderServiceModel> pizzas) {
+    public void setPizzas(String pizzas) {
         this.pizzas = pizzas;
     }
 
-    public List<DrinkServiceModel> getDrinks() {
+    public String getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(List<DrinkServiceModel> drinks) {
+    public void setDrinks(String drinks) {
         this.drinks = drinks;
     }
 

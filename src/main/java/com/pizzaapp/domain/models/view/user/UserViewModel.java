@@ -9,10 +9,6 @@ public class UserViewModel {
     private String fullName;
     private List<String> roles;
 
-
-    public UserViewModel() {
-    }
-
     public String getId() {
         return this.id;
     }

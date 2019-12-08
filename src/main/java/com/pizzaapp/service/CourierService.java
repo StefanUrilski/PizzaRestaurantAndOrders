@@ -1,7 +1,7 @@
 package com.pizzaapp.service;
 
-import com.pizzaapp.domain.models.service.OrderDeliveryServiceModel;
-import com.pizzaapp.domain.models.service.OrderServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderDeliveryServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderServiceModel;
 
 import java.util.List;
 

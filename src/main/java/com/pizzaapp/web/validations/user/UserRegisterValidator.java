@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 public class UserRegisterValidator implements org.springframework.validation.Validator {
 
     private Pattern pattern = Pattern.compile(ValidationConstants.EMAIL_PATTERN);
-    private Matcher matcher;
 
     private final UserRepository userRepository;
 
@@ -40,7 +39,7 @@ public class UserRegisterValidator implements org.springframework.validation.Val
             );
         }
 
-        matcher = pattern.matcher(userRegisterBindingModel.getEmail());
+        Matcher matcher = pattern.matcher(userRegisterBindingModel.getEmail());
 
         if (!matcher.matches()) {
             errors.rejectValue(

@@ -1,8 +1,8 @@
 package com.pizzaapp.web.controllers;
 
-import com.pizzaapp.domain.models.service.OrderDeliveryServiceModel;
-import com.pizzaapp.domain.models.view.OrderDeliveryViewModel;
-import com.pizzaapp.domain.models.view.OrderViewModel;
+import com.pizzaapp.domain.models.service.order.OrderDeliveryServiceModel;
+import com.pizzaapp.domain.models.view.order.OrderDeliveryViewModel;
+import com.pizzaapp.domain.models.view.order.OrderViewModel;
 import com.pizzaapp.service.CourierService;
 import com.pizzaapp.service.OrderService;
 import org.modelmapper.ModelMapper;

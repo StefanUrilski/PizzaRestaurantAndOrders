@@ -2,8 +2,8 @@ package com.pizzaapp.service;
 
 import com.pizzaapp.domain.entities.Courier;
 import com.pizzaapp.domain.entities.Order;
-import com.pizzaapp.domain.models.service.OrderDeliveryServiceModel;
-import com.pizzaapp.domain.models.service.OrderServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderDeliveryServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderServiceModel;
 import com.pizzaapp.repository.CourierRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

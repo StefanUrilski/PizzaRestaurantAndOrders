@@ -1,12 +1,14 @@
-package com.pizzaapp.domain.models.service;
+package com.pizzaapp.domain.models.view.order;
+
+import com.pizzaapp.domain.models.view.user.AddressViewModel;
 
 import java.math.BigDecimal;
 
-public class OrderDeliveryServiceModel {
+public class OrderDeliveryViewModel {
 
     private String id;
     private String user;
-    private AddressServiceModel address;
+    private AddressViewModel address;
     private BigDecimal totalPrice;
 
     public String getId() {
@@ -25,11 +27,11 @@ public class OrderDeliveryServiceModel {
         this.user = user;
     }
 
-    public AddressServiceModel getAddress() {
+    public AddressViewModel getAddress() {
         return address;
     }
 
-    public void setAddress(AddressServiceModel address) {
+    public void setAddress(AddressViewModel address) {
         this.address = address;
     }
 

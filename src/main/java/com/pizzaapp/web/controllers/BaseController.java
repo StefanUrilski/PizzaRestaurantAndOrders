@@ -25,7 +25,7 @@ public abstract class BaseController {
         return modelAndView;
     }
 
-    protected ModelAndView redirect(String url) {
+    ModelAndView redirect(String url) {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("redirect:" + url);
