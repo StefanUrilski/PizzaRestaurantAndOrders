@@ -78,8 +78,10 @@ public class MenuController extends BaseController {
         PizzaAddServiceModel pizzaAddServiceModel = modelMapper.map(pizzaAddBingingModel, PizzaAddServiceModel.class);
 
         String uploadImageUrl = addPictureToCloud(pizzaAddBingingModel.getImageUrl());
+        String uploadLargeImgUrl = addPictureToCloud(pizzaAddBingingModel.getLargeImgUrl());
 
         pizzaAddServiceModel.setImageUrl(uploadImageUrl);
+        pizzaAddServiceModel.setLargeImgUrl(uploadLargeImgUrl);
 
         menuService.addPizza(pizzaAddServiceModel);
 
