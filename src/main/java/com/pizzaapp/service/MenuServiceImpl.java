@@ -148,4 +148,10 @@ public class MenuServiceImpl implements MenuService {
         return modelMapper.map(pizza, PizzaServiceModel.class);
     }
 
+    @Override
+    public List<PizzaServiceModel> getAllPizzasWithLargeImage() {
+        return pizzaRepository.findAllByLargeImgUrlIsNotNull().stream()
+                .map(pizza -> modelMapper.map(pizza, PizzaServiceModel.class))
+                .collect(Collectors.toList());
+    }
 }

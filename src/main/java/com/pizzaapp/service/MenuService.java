@@ -21,4 +21,6 @@ public interface MenuService {
     void editDrink(DrinkServiceModel drinkServiceModel);
 
     PizzaServiceModel getPizzaById(String id);
+
+    List<PizzaServiceModel> getAllPizzasWithLargeImage();
 }

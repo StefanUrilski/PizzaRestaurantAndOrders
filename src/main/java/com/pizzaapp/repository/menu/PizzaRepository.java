@@ -15,4 +15,6 @@ public interface PizzaRepository extends JpaRepository<Pizza, String> {
 
     @Query("SELECT p FROM Pizza p ORDER BY p.name")
     List<Pizza> findAllOrderedAlphabetically();
+
+    List<Pizza> findAllByLargeImgUrlIsNotNull();
 }
