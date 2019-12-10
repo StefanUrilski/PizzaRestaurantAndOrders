@@ -16,15 +16,12 @@ import java.util.stream.Collectors;
 public class CourierServiceImpl implements CourierService {
 
     private final CourierRepository courierRepository;
-    private final UserService userService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public CourierServiceImpl(CourierRepository courierRepository,
-                              UserService userService,
                               ModelMapper modelMapper) {
         this.courierRepository = courierRepository;
-        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
