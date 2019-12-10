@@ -37,8 +37,61 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+
+        <!-- Button trigger modal -->
+        <button type="button" id="alert" data-toggle="modal" data-target="#centralModalInfo">
+        </button>
+        <!-- Central Modal Medium Info -->
+        <div class="modal fade" id="centralModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-notify modal-info" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header text-center" style="background-color: #33b5e5">
+                        <p class="heading lead">La Gatta Mangiona</p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body" style="background-color: #FFEBCD">
+                        <div class="pl-5 ml-5">
+                        <img src="https://res.cloudinary.com/stefan-cloud/image/upload/v1575966760/alert-pic_lqjkqa.png"
+                             alt="..." width="250" height="137">
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                            <p>
+                                Welcome to our site. To view and order our delicious meals,
+                                <a th:href="@{/users/register}">Register</a> or <a th:href="@{/users/login}">Login</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center" style="background-color: #FFEBCD">
+                        <a type="button" class="btn btn-success" data-dismiss="modal">Got it</a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!-- Central Modal Medium Info-->
     </div>
 
     <th:block th:include="~{fragments/about}"></th:block>
+
+    <script th:inline="javascript">
+        let authority = /*[[${#authentication.authorities.toArray()[0].authority}]]*/ 'default';
+
+        if (authority === 'ROLE_ANONYMOUS') {
+            setTimeout(() => {
+                $('#alert').click();
+            }, 2000);
+        }
+    </script>
 </th:block>
 
