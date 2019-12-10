@@ -5,27 +5,27 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
+
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://wallpaperaccess.com/full/424487.jpg" class="d-block w-100" alt="...">
+                <img th:src="${firstPizza.largeImgUrl}" class="d-block w-100" th:alt="${firstPizza.name}">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h5 class="text-dark font-weight-bold" th:text="${firstPizza.name}"></h5>
+                    <p class="text-dark font-weight-bold font-italic" th:text="${firstPizza.description}"></p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://images6.alphacoders.com/412/412086.jpg" class="d-block w-100" alt="...">
+                <img th:src="${secondPizza.largeImgUrl}" class="d-block w-100" th:alt="${secondPizza.name}">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h5 class="text-dark font-weight-bold" th:text="${secondPizza.name}"></h5>
+                    <p class="text-dark font-weight-bold font-italic" th:text="${secondPizza.description}"></p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://3.bp.blogspot.com/-CJg-d7txpq8/W_Wv63p3ziI/AAAAAAAAAMg/flT6FgyFv24jqQvIgsixfdHcS6NMCoNswCHMYCw/s1600/angellos-2-go.jpgs"
-                     class="d-block w-100" alt="...">
+                <img th:src="${thirdPizza.largeImgUrl}" class="d-block w-100" th:alt="${thirdPizza.name}">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h5 class="text-dark font-weight-bold" th:text="${thirdPizza.name}"></h5>
+                    <p class="text-dark font-weight-bold font-italic" th:text="${thirdPizza.description}"></p>
                 </div>
             </div>
         </div>
