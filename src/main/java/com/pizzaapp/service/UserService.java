@@ -9,8 +9,6 @@ public interface UserService extends UserDetailsService {
 
     void registerUser(UserServiceModel userServiceModel);
 
-    boolean editUser(UserServiceModel userServiceModel);
-
     UserServiceModel extractUserByEmail(String email);
 
     UserServiceModel extractUserById(String id);
@@ -18,6 +16,4 @@ public interface UserService extends UserDetailsService {
     List<UserServiceModel> extractAllUsersOrderedAlphabetically();
 
     boolean editUserRole(String email, String role);
-
-    boolean addAddress(UserServiceModel userServiceModel);
 }

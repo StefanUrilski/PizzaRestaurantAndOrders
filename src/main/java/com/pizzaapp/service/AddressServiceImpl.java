@@ -57,13 +57,4 @@ public class AddressServiceImpl implements AddressService {
                 .map(address -> modelMapper.map(address, AddressServiceModel.class))
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public void deleteAddress(String id, String name) {
-        Address address = addressRepository.findById(id).orElse(null);
-
-        ExistService.checkIfItemNotExistThrowException(address);
-
-        addressRepository.deleteById(id);
-    }
 }

@@ -10,7 +10,5 @@ public interface CategoryService {
 
     CategoryServiceModel getCategoryById(String categoryId);
 
-    CategoryServiceModel getCategoryByName(String name);
-
     List<CategoryServiceModel> getAllCategories();
 }

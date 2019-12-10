@@ -47,15 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryServiceModel getCategoryByName(String name) {
-        Category category = categoryRepository.findByName(name).orElse(null);
-
-        ExistService.checkIfItemNotExistThrowException(category);
-
-        return modelMapper.map(categoryRepository.findByName(name), CategoryServiceModel.class);
-    }
-
-    @Override
     public List<CategoryServiceModel> getAllCategories() {
         return categoryRepository.findAll()
                 .stream()

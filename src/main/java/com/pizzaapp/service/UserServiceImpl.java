@@ -135,24 +135,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean editUser(UserServiceModel userServiceModel) {
-        User userEntity = userRepository.findByUsername(userServiceModel.getEmail()).orElse(null);
-
-        if (userEntity == null) {
-            throw new UsernameNotFoundException(WRONG_NON_EXISTENT_EMAIL);
-        }
-
-        userEntity = modelMapper.map(userServiceModel, User.class);
-        userEntity.setId(userServiceModel.getId());
-        userEntity.setUsername(userServiceModel.getEmail());
-        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
-
-        userRepository.save(userEntity);
-
-        return true;
-    }
-
-    @Override
     public List<UserServiceModel> extractAllUsersOrderedAlphabetically() {
         List<User> userEntities = userRepository.findAllOrderedAlphabetically();
 
@@ -174,15 +156,6 @@ public class UserServiceImpl implements UserService {
         }
 
         changeUserRole(userEntity, role);
-
-        userRepository.save(userEntity);
-
-        return true;
-    }
-
-    @Override
-    public boolean addAddress(UserServiceModel userServiceModel) {
-        User userEntity = modelMapper.map(userServiceModel, User.class);
 
         userRepository.save(userEntity);
 
