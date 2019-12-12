@@ -67,7 +67,7 @@ public class AddressServiceTests extends TestBase {
         Mockito.when(addressRepository.findById("1"))
                 .thenReturn(Optional.of(location));
 
-        AddressServiceModel addressService = this.service.getAddressById("1");
+        AddressServiceModel addressService = service.getAddressById("1");
 
         assertEquals(Town.Sofia, addressService.getTown());
         assertEquals(location.getStreet(), addressService.getStreet());
