@@ -8,8 +8,9 @@ import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;
-import com.pizzaapp.domain.models.service.order.OrderAllServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderFullServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderCreateServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderServiceModel;
 import com.pizzaapp.errors.EmptyCartException;
 import com.pizzaapp.repository.AddressRepository;
 import com.pizzaapp.repository.OrderRepository;
@@ -17,9 +18,11 @@ import com.pizzaapp.repository.UserRepository;
 import com.pizzaapp.service.OrderService;
 import com.pizzaapp.testBase.TestBase;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,17 +53,22 @@ public class OrderServiceTests extends TestBase {
         Order order = new Order();
         order.setUser(user);
 
-        Pizza pizza = new Pizza();
-        pizza.setName("Peperoni");
-        List<Pizza> pizzas = new ArrayList<>(List.of(pizza));
-        order.setPizzas(pizzas);
-
-        Drink drink = new Drink();
-        drink.setName("Beer");
-        List<Drink> drinks = new ArrayList<>(List.of(drink));
-        order.setDrinks(drinks);
+        order.setPizzas(getPizzas());
+        order.setDrinks(getDrinks());
 
         return new ArrayList<>(List.of(order));
+    }
+
+    private List<Pizza> getPizzas() {
+        Pizza pizza = new Pizza();
+        pizza.setName("Peperoni");
+        return new ArrayList<>(List.of(pizza));
+    }
+
+    private List<Drink> getDrinks() {
+        Drink drink = new Drink();
+        drink.setName("Beer");
+        return new ArrayList<>(List.of(drink));
     }
 
 
@@ -111,11 +119,29 @@ public class OrderServiceTests extends TestBase {
         when(orderRepository.findAll())
                 .thenReturn(orders);
 
-        List<OrderAllServiceModel> allOrders = orderService.getAllOrders();
+        List<OrderFullServiceModel> allOrders = orderService.getAllOrders();
 
         assertEquals(orders.size(), allOrders.size());
         assertEquals(orders.get(0).getUser().getFullName(), allOrders.get(0).getUser());
     }
 
+    @Test
+    public void getOrderById_whenIdExist_shouldReturnSameOrder(){
+        User user = new User();
+        user.setFullName("Some Name");
 
+        Order order = new Order();
+        order.setUser(user);
+        order.setTotalPrice(BigDecimal.TEN);
+        order.setPizzas(getPizzas());
+        order.setDrinks(getDrinks());
+
+        when(orderRepository.findById("1"))
+                .thenReturn(Optional.of(order));
+
+        OrderFullServiceModel fullOrder = orderService.getOrderById("1");
+
+        assertEquals(order.getUser().getFullName(), fullOrder.getUser());
+        assertEquals(order.getTotalPrice(), fullOrder.getTotalPrice());
+    }
 }
