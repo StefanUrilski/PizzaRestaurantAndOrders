@@ -33,14 +33,18 @@ public class CategoryServiceTests extends TestBase {
 
     @Test
     public void addCategory_shouldAddCategory() {
-        CategoryServiceModel address = new CategoryServiceModel();
+        CategoryServiceModel category = new CategoryServiceModel();
+        category.setName("categoryName");
 
-        when(categoryRepository.save(any()))
+        when(categoryRepository.findByName("categoryName"))
+                .thenReturn(Optional.empty());
+
+        when(categoryRepository.saveAndFlush(any()))
                 .thenReturn(new Category());
 
-        service.addCategory(address);
+        service.addCategory(category);
         verify(categoryRepository)
-                .save(any());
+                .saveAndFlush(any());
     }
 
     @Test
