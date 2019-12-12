@@ -3,9 +3,9 @@ package com.pizzaapp.service.integration;
 import com.pizzaapp.domain.entities.items.pizza.Category;
 import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.models.service.ingredients.AllIngredientsServiceModel;
-import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.IngredientServiceModel;
 import com.pizzaapp.errors.PropertyNotFoundException;
+import com.pizzaapp.repository.menu.CategoryRepository;
 import com.pizzaapp.repository.menu.IngredientRepository;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.testBase.TestBase;
@@ -27,6 +27,9 @@ public class IngredientServiceTests extends TestBase {
 
     @MockBean
     IngredientRepository ingredientRepository;
+
+    @MockBean
+    CategoryRepository categoryRepository;
 
     @Autowired
     IngredientService service;
@@ -69,20 +72,28 @@ public class IngredientServiceTests extends TestBase {
     }
 
     @Test
-    public void addCategory_shouldAddCategory() {
+    public void addIngredient_shouldAddIngredient() {
         IngredientServiceModel ingredient = new IngredientServiceModel();
         ingredient.setId("1");
         ingredient.setName("ingredientName");
+        ingredient.setCategoryId("2");
 
-        when(ingredientRepository.findByCategoryAndName("ingredientName", ""))
+        when(ingredientRepository.findByCategoryAndName("3", "ingredientName"))
                 .thenReturn(Optional.empty());
+
+        Category category = new Category();
+        category.setId("2");
+        category.setName("categoryName");
+
+        when(categoryRepository.findById("2"))
+                .thenReturn(Optional.of(category));
 
         when(ingredientRepository.saveAndFlush(any()))
                 .thenReturn(new Ingredient());
 
         service.addIngredient(ingredient);
         verify(ingredientRepository)
-                .saveAndFlush(any());
+                .save(any());
     }
 
     @Test(expected = PropertyNotFoundException.class)
