@@ -26,9 +26,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void addCategory(CategoryServiceModel categoryServiceModel) {
-        Category category = modelMapper.map(categoryServiceModel, Category.class);
+        Category category = categoryRepository.findByName(categoryServiceModel.getName()).orElse(null);
 
-        ExistService.checkIfItemNotExistThrowException(category);
+        ExistService.checkIfItemExistThrowException(category, categoryServiceModel.getName());
+
+        category = modelMapper.map(categoryServiceModel, Category.class);
 
         try {
             categoryRepository.saveAndFlush(category);
