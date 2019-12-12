@@ -105,4 +105,30 @@ public class MenuServiceTests extends TestBase {
         assertEquals(actual.size(), expected.size());
     }
 
+    @Test
+    public void getPizzaById_whenIdExist_shouldReturnSamePizza(){
+        Pizza pizza = new Pizza();
+        pizza.setName("PizzaName");
+
+        when(pizzaRepository.findById("1"))
+                .thenReturn(Optional.of(pizza));
+
+        PizzaServiceModel pizzaService = menuService.getPizzaById("1");
+
+        assertEquals(pizza.getName(), pizzaService.getName());
+    }
+
+    @Test
+    public void getDrinkById_whenIdExist_shouldReturnSameDrink(){
+        Drink drink = new Drink();
+        drink.setName("DrinkName");
+
+        when(drinkRepository.findById("1"))
+                .thenReturn(Optional.of(drink));
+
+        DrinkServiceModel drinkService = menuService.getDrinkById("1");
+
+        assertEquals(drink.getName(), drinkService.getName());
+    }
+
 }
