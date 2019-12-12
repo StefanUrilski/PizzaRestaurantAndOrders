@@ -8,7 +8,6 @@ import com.pizzaapp.repository.AddressRepository;
 import com.pizzaapp.service.AddressService;
 import com.pizzaapp.testBase.TestBase;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,8 +24,6 @@ import static org.mockito.Mockito.when;
 
 public class AddressServiceTests extends TestBase {
 
-    private Address location;
-
     @MockBean
     AddressRepository addressRepository;
 
@@ -36,26 +33,24 @@ public class AddressServiceTests extends TestBase {
     @Autowired
     ModelMapper modelMapper;
 
-    @Override
-    protected void beforeEach() {
+    private Address getLocation() {
         String street = "street";
         Integer number = 12;
         String phoneNumber = "123321";
 
-        location = new Address();
-        location.setTown(Town.Sofia);
-        location.setStreet(street);
-        location.setNumber(number);
-        location.setPhoneNumber(phoneNumber);
-        location.setOwner(new User());
+        Address address = new Address();
+        address.setTown(Town.Sofia);
+        address.setStreet(street);
+        address.setNumber(number);
+        address.setPhoneNumber(phoneNumber);
+        address.setOwner(new User());
+
+        return address;
     }
 
     @Test
     public void addAddress_shouldAddAddress() {
         AddressServiceModel address = new AddressServiceModel();
-
-        when(addressRepository.save(any()))
-                .thenReturn(new Address());
 
         service.addAddress(address);
         verify(addressRepository)
@@ -64,7 +59,9 @@ public class AddressServiceTests extends TestBase {
 
     @Test
     public void getAddressById_whenIdExist_shouldReturnSameAddress(){
-        Mockito.when(addressRepository.findById("1"))
+        Address location = getLocation();
+
+        when(addressRepository.findById("1"))
                 .thenReturn(Optional.of(location));
 
         AddressServiceModel addressService = service.getAddressById("1");
@@ -88,7 +85,7 @@ public class AddressServiceTests extends TestBase {
         actual.add(a1);
         actual.add(a2);
 
-        Mockito.when(addressRepository.findAllUserAddressesOrderedByName("email"))
+        when(addressRepository.findAllUserAddressesOrderedByName("email"))
                 .thenReturn(actual);
 
         List<AddressServiceModel> expected = service.getUserAddressesOrderedByTown("email");

@@ -10,7 +10,6 @@ import com.pizzaapp.repository.menu.IngredientRepository;
 import com.pizzaapp.service.IngredientService;
 import com.pizzaapp.testBase.TestBase;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -88,9 +87,6 @@ public class IngredientServiceTests extends TestBase {
         when(categoryRepository.findById("2"))
                 .thenReturn(Optional.of(category));
 
-        when(ingredientRepository.saveAndFlush(any()))
-                .thenReturn(new Ingredient());
-
         service.addIngredient(ingredient);
         verify(ingredientRepository)
                 .save(any());
@@ -115,7 +111,7 @@ public class IngredientServiceTests extends TestBase {
         Ingredient ingredient = new Ingredient();
         ingredient.setName("IngredientName");
 
-        Mockito.when(ingredientRepository.findById("1"))
+        when(ingredientRepository.findById("1"))
                 .thenReturn(Optional.of(ingredient));
 
         IngredientServiceModel ingredientService = service.getIngredientById("1");

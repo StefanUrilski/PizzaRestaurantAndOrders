@@ -5,13 +5,11 @@ import com.pizzaapp.domain.entities.Courier;
 import com.pizzaapp.domain.entities.Order;
 import com.pizzaapp.domain.entities.User;
 import com.pizzaapp.domain.entities.items.Drink;
-import com.pizzaapp.domain.entities.items.pizza.Ingredient;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;
-import com.pizzaapp.domain.models.service.order.OrderFullServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderCreateServiceModel;
-import com.pizzaapp.domain.models.service.order.OrderServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderFullServiceModel;
 import com.pizzaapp.errors.EmptyCartException;
 import com.pizzaapp.repository.AddressRepository;
 import com.pizzaapp.repository.CourierRepository;
@@ -20,7 +18,6 @@ import com.pizzaapp.repository.UserRepository;
 import com.pizzaapp.service.OrderService;
 import com.pizzaapp.testBase.TestBase;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -108,9 +105,6 @@ public class OrderServiceTests extends TestBase {
 
         when(addressRepository.findById("1"))
                 .thenReturn(Optional.of(new Address()));
-
-        when(orderRepository.saveAndFlush(any()))
-                .thenReturn(new Ingredient());
 
         orderService.createOrder(order);
         verify(orderRepository)

@@ -45,10 +45,6 @@ public class MenuServiceTests extends TestBase {
         when(pizzaRepository.findByName("pizzaName"))
                 .thenReturn(Optional.empty());
 
-        when(pizzaRepository.saveAndFlush(any()))
-                .thenReturn(new Pizza());
-
-
         menuService.addPizza(pizza);
         verify(pizzaRepository)
                 .save(any());
@@ -61,10 +57,6 @@ public class MenuServiceTests extends TestBase {
 
         when(drinkRepository.findByName("drinkName"))
                 .thenReturn(Optional.empty());
-
-        when(drinkRepository.saveAndFlush(any()))
-                .thenReturn(new Pizza());
-
 
         menuService.addDrink(drink);
         verify(drinkRepository)

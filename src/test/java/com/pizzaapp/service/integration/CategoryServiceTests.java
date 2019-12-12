@@ -6,7 +6,6 @@ import com.pizzaapp.repository.menu.CategoryRepository;
 import com.pizzaapp.service.CategoryService;
 import com.pizzaapp.testBase.TestBase;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -35,9 +34,6 @@ public class CategoryServiceTests extends TestBase {
         when(categoryRepository.findByName("categoryName"))
                 .thenReturn(Optional.empty());
 
-        when(categoryRepository.saveAndFlush(any()))
-                .thenReturn(new Category());
-
         service.addCategory(category);
         verify(categoryRepository)
                 .saveAndFlush(any());
@@ -48,7 +44,7 @@ public class CategoryServiceTests extends TestBase {
         Category category = new Category();
         category.setName("CategoryName");
 
-        Mockito.when(categoryRepository.findById("1"))
+        when(categoryRepository.findById("1"))
                 .thenReturn(Optional.of(category));
 
         CategoryServiceModel categoryService = service.getCategoryById("1");
