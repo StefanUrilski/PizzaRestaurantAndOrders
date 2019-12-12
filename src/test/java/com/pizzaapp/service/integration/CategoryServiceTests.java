@@ -1,9 +1,6 @@
 package com.pizzaapp.service.integration;
 
-import com.pizzaapp.domain.entities.Address;
-import com.pizzaapp.domain.entities.Town;
 import com.pizzaapp.domain.entities.items.pizza.Category;
-import com.pizzaapp.domain.models.service.AddressServiceModel;
 import com.pizzaapp.domain.models.service.ingredients.CategoryServiceModel;
 import com.pizzaapp.repository.menu.CategoryRepository;
 import com.pizzaapp.service.CategoryService;
@@ -18,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -72,7 +68,7 @@ public class CategoryServiceTests extends TestBase {
         actual.add(c1);
         actual.add(c2);
 
-        Mockito.when(categoryRepository.findAll())
+        when(categoryRepository.findAll())
                 .thenReturn(actual);
 
         List<CategoryServiceModel> expected = service.getAllCategories();
