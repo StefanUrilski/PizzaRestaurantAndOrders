@@ -13,7 +13,7 @@ import com.pizzaapp.domain.models.service.cart.DrinkCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaCartServiceModel;
 import com.pizzaapp.domain.models.service.cart.PizzaOrderServiceModel;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
-import com.pizzaapp.domain.models.service.order.OrderAllServiceModel;
+import com.pizzaapp.domain.models.service.order.OrderFullServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderCartItemsServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderCreateServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderServiceModel;
@@ -109,10 +109,10 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.joining(", "));
     }
 
-    private List<OrderAllServiceModel> mapToAllOrderService(List<Order> orders) {
+    private List<OrderFullServiceModel> mapToAllOrderService(List<Order> orders) {
         return orders.stream()
                 .map(order -> {
-                    OrderAllServiceModel currOrder = modelMapper.map(order, OrderAllServiceModel.class);
+                    OrderFullServiceModel currOrder = modelMapper.map(order, OrderFullServiceModel.class);
                     currOrder.setUser(order.getUser().getFullName());
 
                     currOrder.setPizzas(calcItems(order.getPizzas()));
@@ -160,22 +160,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderAllServiceModel> getAllOrders() {
+    public List<OrderFullServiceModel> getAllOrders() {
         return mapToAllOrderService(orderRepository.findAll());
     }
 
     @Override
-    public List<OrderAllServiceModel> getAllNonTakenOrdersFromTown(String town) {
+    public List<OrderFullServiceModel> getAllNonTakenOrdersFromTown(String town) {
         return mapToAllOrderService(orderRepository.findAllByTownAndIfTaken(Town.valueOf(town), false));
     }
 
     @Override
-    public OrderAllServiceModel getOrderById(String id) {
+    public OrderFullServiceModel getOrderById(String id) {
         Order order = orderRepository.findById(id).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(order);
 
-        OrderAllServiceModel serviceModel = modelMapper.map(order, OrderAllServiceModel.class);
+        OrderFullServiceModel serviceModel = modelMapper.map(order, OrderFullServiceModel.class);
 
         serviceModel.setUser(order.getUser().getFullName());
 

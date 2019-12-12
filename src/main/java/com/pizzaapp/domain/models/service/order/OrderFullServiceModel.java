@@ -5,7 +5,7 @@ import com.pizzaapp.domain.models.service.AddressServiceModel;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class OrderAllServiceModel {
+public class OrderFullServiceModel {
 
     private String id;
     private String user;
