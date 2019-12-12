@@ -1,5 +1,6 @@
 package com.pizzaapp.service.integration;
 
+import com.pizzaapp.domain.entities.items.Drink;
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
 import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
@@ -83,6 +84,23 @@ public class MenuServiceTests extends TestBase {
                 .thenReturn(actual);
 
         List<PizzaServiceModel> expected = menuService.getAllPizzasOrderedByName();
+
+        assertEquals(actual.size(), expected.size());
+    }
+
+    @Test
+    public void getAllDrinksOrderedByName_shouldReturnAllDrinks() {
+        Drink p1 = new Drink();
+        Drink p2 = new Drink();
+
+        List<Drink> actual = new ArrayList<>();
+        actual.add(p1);
+        actual.add(p2);
+
+        when(drinkRepository.findAllOrderedAlphabetically())
+                .thenReturn(actual);
+
+        List<DrinkServiceModel> expected = menuService.getAllDrinksOrderedByName();
 
         assertEquals(actual.size(), expected.size());
     }
