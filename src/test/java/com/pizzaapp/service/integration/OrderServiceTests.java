@@ -1,6 +1,7 @@
 package com.pizzaapp.service.integration;
 
 import com.pizzaapp.domain.entities.Address;
+import com.pizzaapp.domain.entities.Courier;
 import com.pizzaapp.domain.entities.Order;
 import com.pizzaapp.domain.entities.User;
 import com.pizzaapp.domain.entities.items.Drink;
@@ -13,6 +14,7 @@ import com.pizzaapp.domain.models.service.order.OrderCreateServiceModel;
 import com.pizzaapp.domain.models.service.order.OrderServiceModel;
 import com.pizzaapp.errors.EmptyCartException;
 import com.pizzaapp.repository.AddressRepository;
+import com.pizzaapp.repository.CourierRepository;
 import com.pizzaapp.repository.OrderRepository;
 import com.pizzaapp.repository.UserRepository;
 import com.pizzaapp.service.OrderService;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -42,6 +44,9 @@ public class OrderServiceTests extends TestBase {
 
     @MockBean
     OrderRepository orderRepository;
+
+    @MockBean
+    CourierRepository courierRepository;
 
     @Autowired
     OrderService orderService;
@@ -143,5 +148,34 @@ public class OrderServiceTests extends TestBase {
 
         assertEquals(order.getUser().getFullName(), fullOrder.getUser());
         assertEquals(order.getTotalPrice(), fullOrder.getTotalPrice());
+    }
+
+    @Test
+    public void takeOrder__whenOrderIsTaken_shouldReturnFalse() {
+        Order order = new Order();
+        order.setTaken(true);
+
+        when(orderRepository.findById("1"))
+                .thenReturn(Optional.of(order));
+
+        when(courierRepository.findCourierByEmail("courierEmail"))
+                .thenReturn(Optional.of(new Courier()));
+
+        assertFalse(orderService.takeOrder("1", "courier"));
+    }
+
+    @Test
+    public void takeOrder__whenIdAndCourierExist_shouldTakeTheOrder() {
+        Order order = new Order();
+
+        when(orderRepository.findById("1"))
+                .thenReturn(Optional.of(order));
+
+        when(courierRepository.findCourierByEmail("courierEmail"))
+                .thenReturn(Optional.of(new Courier()));
+
+        orderService.takeOrder("1", "courier");
+
+        assertTrue(order.isTaken());
     }
 }
