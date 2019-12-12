@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void addCategory(CategoryServiceModel categoryServiceModel) {
         Category category = categoryRepository.findByName(categoryServiceModel.getName()).orElse(null);
 
-        ExistService.checkIfItemExistThrowException(category, categoryServiceModel.getName());
+        ExistService.checkIfItemExistThrowException(category, Category.class.getSimpleName());
 
         category = modelMapper.map(categoryServiceModel, Category.class);
 
