@@ -178,4 +178,16 @@ public class OrderServiceTests extends TestBase {
 
         assertTrue(order.isTaken());
     }
+
+    @Test
+    public void finishOrder__whenIdExist_shouldFinishTheOrder() {
+        Order order = new Order();
+
+        when(orderRepository.findById("1"))
+                .thenReturn(Optional.of(order));
+
+        orderService.finishOrder("1");
+
+        assertTrue(order.isFinished());
+    }
 }
