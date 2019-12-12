@@ -1,6 +1,7 @@
 package com.pizzaapp.service.integration;
 
 import com.pizzaapp.domain.entities.items.pizza.Pizza;
+import com.pizzaapp.domain.models.service.menu.DrinkServiceModel;
 import com.pizzaapp.domain.models.service.menu.PizzaAddServiceModel;
 import com.pizzaapp.repository.menu.DrinkRepository;
 import com.pizzaapp.repository.menu.PizzaRepository;
@@ -48,5 +49,21 @@ public class MenuServiceTests extends TestBase {
                 .save(any());
     }
 
+    @Test
+    public void addDrink_shouldAddDrink() {
+        DrinkServiceModel drink = new DrinkServiceModel();
+        drink.setName("drinkName");
+
+        when(drinkRepository.findByName("drinkName"))
+                .thenReturn(Optional.empty());
+
+        when(drinkRepository.saveAndFlush(any()))
+                .thenReturn(new Pizza());
+
+
+        menuService.addDrink(drink);
+        verify(drinkRepository)
+                .save(any());
+    }
 
 }
