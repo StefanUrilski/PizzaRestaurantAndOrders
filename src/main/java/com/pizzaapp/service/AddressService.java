@@ -10,7 +10,7 @@ public interface AddressService {
 
     AddressServiceModel getAddressById(String id);
 
-    boolean editAddress(AddressServiceModel addressServiceModel);
+    AddressServiceModel editAddress(AddressServiceModel addressServiceModel);
 
     List<AddressServiceModel> getUserAddressesOrderedByTown(String email);
 }

@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public boolean editAddress(AddressServiceModel addressServiceModel) {
+    public AddressServiceModel editAddress(AddressServiceModel addressServiceModel) {
         Address address = addressRepository.findById(addressServiceModel.getId()).orElse(null);
 
         ExistService.checkIfItemNotExistThrowException(address);
@@ -47,7 +47,7 @@ public class AddressServiceImpl implements AddressService {
 
         addressRepository.save(address);
 
-        return true;
+        return modelMapper.map(address, AddressServiceModel.class);
     }
 
     @Override
