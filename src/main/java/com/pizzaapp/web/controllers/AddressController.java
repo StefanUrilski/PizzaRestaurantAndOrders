@@ -52,7 +52,7 @@ public class AddressController extends BaseController {
     public ModelAndView addAddressConfirm(@ModelAttribute AddEditAddressBindingModel addressBindingModel, Principal principal){
         AddressServiceModel addressServiceModel = modelMapper.map(addressBindingModel, AddressServiceModel.class);
 
-        addressServiceModel.setOwner(userService.extractUserByEmail(principal.getName()));
+        addressServiceModel.setOwner(userService.getUserByEmail(principal.getName()));
         addressService.addAddress(addressServiceModel);
 
         return redirect("/users/addresses/all");
@@ -71,7 +71,7 @@ public class AddressController extends BaseController {
     public ModelAndView editAddressConfirm(@ModelAttribute AddEditAddressBindingModel addressBindingModel, Principal principal){
         AddressServiceModel addressServiceModel = modelMapper.map(addressBindingModel, AddressServiceModel.class);
 
-        addressServiceModel.setOwner(userService.extractUserByEmail(principal.getName()));
+        addressServiceModel.setOwner(userService.getUserByEmail(principal.getName()));
         addressService.editAddress(addressServiceModel);
 
         return redirect("/users/addresses/all");

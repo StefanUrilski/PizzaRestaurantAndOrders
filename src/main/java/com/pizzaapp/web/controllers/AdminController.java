@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +56,7 @@ public class AdminController extends BaseController {
 
     @GetMapping("/all")
     public ModelAndView allProfiles() {
-        List<AllUsersViewModel> allUsers = userService.extractAllUsersOrderedAlphabetically()
+        List<AllUsersViewModel> allUsers = userService.getAllUsersOrderedAlphabetically()
                 .stream()
                 .map(user -> {
                     AllUsersViewModel usersViewModel = modelMapper.map(user, AllUsersViewModel.class);
@@ -72,7 +71,7 @@ public class AdminController extends BaseController {
 
     @GetMapping("/{id}")
     public ModelAndView profile(@PathVariable(name = "id") String id) {
-        UserServiceModel userServiceModel = userService.extractUserById(id);
+        UserServiceModel userServiceModel = userService.getUserById(id);
         UserViewModel userViewModel = modelMapper.map(userServiceModel, UserViewModel.class);
         userViewModel.setRoles(userServiceModel.getAuthorities().stream().map(UserRoleServiceModel::getAuthority).collect(Collectors.toList()));
 

@@ -9,11 +9,11 @@ public interface UserService extends UserDetailsService {
 
     void registerUser(UserServiceModel userServiceModel);
 
-    UserServiceModel extractUserByEmail(String email);
+    UserServiceModel getUserByEmail(String email);
 
-    UserServiceModel extractUserById(String id);
+    UserServiceModel getUserById(String id);
 
-    List<UserServiceModel> extractAllUsersOrderedAlphabetically();
+    List<UserServiceModel> getAllUsersOrderedAlphabetically();
 
     boolean editUserRole(String email, String role);
 }

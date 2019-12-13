@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel extractUserByEmail(String email) {
+    public UserServiceModel getUserByEmail(String email) {
         User userEntity = userRepository.findByUsername(email).orElse(null);
 
         if (userEntity == null) {
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel extractUserById(String id) {
+    public UserServiceModel getUserById(String id) {
         User userEntity = userRepository.findById(id).orElse(null);
 
         if (userEntity == null) {
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserServiceModel> extractAllUsersOrderedAlphabetically() {
+    public List<UserServiceModel> getAllUsersOrderedAlphabetically() {
         List<User> userEntities = userRepository.findAllOrderedAlphabetically();
 
         return userEntities.stream()

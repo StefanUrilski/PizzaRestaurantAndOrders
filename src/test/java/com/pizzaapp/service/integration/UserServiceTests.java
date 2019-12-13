@@ -90,21 +90,21 @@ public class UserServiceTests extends TestBase {
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void extractUserByEmail_whenUserNotFound_shouldThrowException() {
+    public void getUserByEmail_whenUserNotFound_shouldThrowException() {
         when(userRepository.findByUsername("email"))
                 .thenReturn(Optional.empty());
 
-        service.extractUserByEmail("email");
+        service.getUserByEmail("email");
     }
 
     @Test
-    public void extractUserByEmail_whenUserFound_shouldReturnSameUser() {
+    public void getUserByEmail_whenUserFound_shouldReturnSameUser() {
         User user = getUser();
 
         when(userRepository.findByUsername("email"))
                 .thenReturn(Optional.of(user));
 
-        UserServiceModel loadedUser = service.extractUserByEmail("email");
+        UserServiceModel loadedUser = service.getUserByEmail("email");
 
         assertEquals(user.getId(), loadedUser.getId());
         assertEquals(user.getUsername(), loadedUser.getEmail());
@@ -112,13 +112,13 @@ public class UserServiceTests extends TestBase {
     }
 
     @Test
-    public void extractUserById_whenIdExist_shouldReturnSameUser(){
+    public void getUserById_whenIdExist_shouldReturnSameUser(){
         User user = getUser();
 
         when(userRepository.findById("1"))
                 .thenReturn(Optional.of(user));
 
-        UserServiceModel userService = service.extractUserById("1");
+        UserServiceModel userService = service.getUserById("1");
 
         assertEquals(user.getId(), userService.getId());
         assertEquals(user.getUsername(), userService.getEmail());
@@ -126,15 +126,15 @@ public class UserServiceTests extends TestBase {
     }
 
     @Test(expected = IdNotFoundException.class)
-    public void extractUserById_whenUserNotFound_shouldThrowException() {
+    public void getUserById_whenUserNotFound_shouldThrowException() {
         when(userRepository.findById("22"))
                 .thenReturn(Optional.empty());
 
-        service.extractUserById("22");
+        service.getUserById("22");
     }
 
     @Test
-    public void extractAllUsersOrderedAlphabetically_shouldReturnAllUsers() {
+    public void getAllUsersOrderedAlphabetically_shouldReturnAllUsers() {
         User u1 = new User();
         User u2 = new User();
 
@@ -146,7 +146,7 @@ public class UserServiceTests extends TestBase {
         when(userRepository.findAllOrderedAlphabetically())
                 .thenReturn(actual);
 
-        List<UserServiceModel> expected = service.extractAllUsersOrderedAlphabetically();
+        List<UserServiceModel> expected = service.getAllUsersOrderedAlphabetically();
 
         assertEquals(actual.size(), expected.size());
     }

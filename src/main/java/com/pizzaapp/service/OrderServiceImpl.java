@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
             throw new EmptyCartException(Constants.EMPTY_CART_EXCEPTION);
         }
 
-        UserServiceModel user = userService.extractUserByEmail(orderService.getCustomer());
+        UserServiceModel user = userService.getUserByEmail(orderService.getCustomer());
         AddressServiceModel address = addressService.getAddressById(orderService.getAddressId());
 
         OrderCartItemsServiceModel cart = prepareOrder(orderService.getPizzas(), orderService.getDrinks());

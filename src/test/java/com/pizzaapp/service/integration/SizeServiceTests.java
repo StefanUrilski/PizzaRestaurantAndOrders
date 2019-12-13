@@ -40,7 +40,7 @@ public class SizeServiceTests extends TestBase {
     }
 
     @Test
-    public void getSizeById_whenIdExist_shouldReturnSameSize(){
+    public void getSizeByName_whenNameExist_shouldReturnSameSize(){
         Size size = new Size();
         size.setSize("SizeName");
 

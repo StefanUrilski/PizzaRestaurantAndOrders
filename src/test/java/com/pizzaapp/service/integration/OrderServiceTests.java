@@ -145,7 +145,7 @@ public class OrderServiceTests extends TestBase {
     }
 
     @Test
-    public void takeOrder__whenOrderIsTaken_shouldReturnFalse() {
+    public void takeOrder_whenOrderIsTaken_shouldReturnFalse() {
         Order order = new Order();
         order.setTaken(true);
 
@@ -159,7 +159,7 @@ public class OrderServiceTests extends TestBase {
     }
 
     @Test
-    public void takeOrder__whenIdAndCourierExist_shouldTakeTheOrder() {
+    public void takeOrder_whenIdAndCourierExist_shouldTakeTheOrder() {
         Order order = new Order();
 
         when(orderRepository.findById("1"))
@@ -174,7 +174,7 @@ public class OrderServiceTests extends TestBase {
     }
 
     @Test
-    public void finishOrder__whenIdExist_shouldFinishTheOrder() {
+    public void finishOrder_whenIdExist_shouldFinishTheOrder() {
         Order order = new Order();
 
         when(orderRepository.findById("1"))
