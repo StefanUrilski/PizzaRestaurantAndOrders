@@ -30,26 +30,36 @@ public class UserServiceTests extends TestBase {
     RoleRepository roleRepository;
 
     @Autowired
-    UserService userService;
+    UserService service;
+
+
+    private User getUser() {
+        User user = new User();
+        user.setId("1");
+        user.setFullName("fullName");
+        user.setUsername("someEmail");
+        user.setPassword("pass");
+
+        return user;
+    }
+
 
     @Test(expected = UsernameNotFoundException.class)
     public void loadUserByUsername_whenUserNotFound_shouldThrowException() {
         when(userRepository.findByUsername("someEmail"))
                 .thenReturn(Optional.empty());
 
-        userService.loadUserByUsername("email");
+        service.loadUserByUsername("email");
     }
 
     @Test
     public void loadUserByUsername_whenUserFound_shouldReturnSameUser() {
-        User user = new User();
-        user.setUsername("someEmail");
-        user.setPassword("pass");
+        User user = getUser();
 
         when(userRepository.findByUsername("email"))
                 .thenReturn(Optional.of(user));
 
-        UserDetails loadedUser = userService.loadUserByUsername("email");
+        UserDetails loadedUser = service.loadUserByUsername("email");
 
         assertEquals(user.getUsername(), loadedUser.getUsername());
         assertEquals(user.getPassword(), loadedUser.getPassword());
@@ -70,7 +80,7 @@ public class UserServiceTests extends TestBase {
         when(roleRepository.findAll())
                 .thenReturn(List.of(new UserRole("User")));
 
-        userService.registerUser(user);
+        service.registerUser(user);
 
         verify(userRepository)
                 .save(any());
@@ -81,23 +91,34 @@ public class UserServiceTests extends TestBase {
         when(userRepository.findByUsername("email"))
                 .thenReturn(Optional.empty());
 
-        userService.extractUserByEmail("email");
+        service.extractUserByEmail("email");
     }
 
     @Test
     public void extractUserByEmail_whenUserFound_shouldReturnSameUser() {
-        User user = new User();
-        user.setId("1");
-        user.setFullName("fullName");
-        user.setUsername("someEmail");
+        User user = getUser();
 
         when(userRepository.findByUsername("email"))
                 .thenReturn(Optional.of(user));
 
-        UserServiceModel loadedUser = userService.extractUserByEmail("email");
+        UserServiceModel loadedUser = service.extractUserByEmail("email");
 
         assertEquals(user.getId(), loadedUser.getId());
         assertEquals(user.getUsername(), loadedUser.getEmail());
         assertEquals(user.getFullName(), loadedUser.getFullName());
+    }
+
+    @Test
+    public void extractUserById_whenIdExist_shouldReturnSameUser(){
+        User user = getUser();
+
+        when(userRepository.findById("1"))
+                .thenReturn(Optional.of(user));
+
+        UserServiceModel userService = service.extractUserById("1");
+
+        assertEquals(user.getId(), userService.getId());
+        assertEquals(user.getUsername(), userService.getEmail());
+        assertEquals(user.getFullName(), userService.getFullName());
     }
 }
