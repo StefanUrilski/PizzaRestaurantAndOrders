@@ -3,6 +3,7 @@ package com.pizzaapp.service.integration;
 import com.pizzaapp.domain.entities.User;
 import com.pizzaapp.domain.entities.UserRole;
 import com.pizzaapp.domain.models.service.UserServiceModel;
+import com.pizzaapp.errors.IdNotFoundException;
 import com.pizzaapp.repository.RoleRepository;
 import com.pizzaapp.repository.UserRepository;
 import com.pizzaapp.service.UserService;
@@ -120,5 +121,13 @@ public class UserServiceTests extends TestBase {
         assertEquals(user.getId(), userService.getId());
         assertEquals(user.getUsername(), userService.getEmail());
         assertEquals(user.getFullName(), userService.getFullName());
+    }
+
+    @Test(expected = IdNotFoundException.class)
+    public void extractUserById_whenUserNotFound_shouldThrowException() {
+        when(userRepository.findById("22"))
+                .thenReturn(Optional.empty());
+
+        service.extractUserById("22");
     }
 }
