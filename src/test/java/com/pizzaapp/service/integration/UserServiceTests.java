@@ -14,10 +14,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -129,5 +130,23 @@ public class UserServiceTests extends TestBase {
                 .thenReturn(Optional.empty());
 
         service.extractUserById("22");
+    }
+
+    @Test
+    public void extractAllUsersOrderedAlphabetically_shouldReturnAllUsers() {
+        User u1 = new User();
+        User u2 = new User();
+
+        u1.setUsername("userOne");
+        u2.setUsername("userTwo");
+
+        List<User> actual = new ArrayList<>(List.of(u1, u2));
+
+        when(userRepository.findAllOrderedAlphabetically())
+                .thenReturn(actual);
+
+        List<UserServiceModel> expected = service.extractAllUsersOrderedAlphabetically();
+
+        assertEquals(actual.size(), expected.size());
     }
 }
