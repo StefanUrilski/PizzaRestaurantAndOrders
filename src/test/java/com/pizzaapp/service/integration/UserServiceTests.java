@@ -75,4 +75,29 @@ public class UserServiceTests extends TestBase {
         verify(userRepository)
                 .save(any());
     }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void extractUserByEmail_whenUserNotFound_shouldThrowException() {
+        when(userRepository.findByUsername("email"))
+                .thenReturn(Optional.empty());
+
+        userService.extractUserByEmail("email");
+    }
+
+    @Test
+    public void extractUserByEmail_whenUserFound_shouldReturnSameUser() {
+        User user = new User();
+        user.setId("1");
+        user.setFullName("fullName");
+        user.setUsername("someEmail");
+
+        when(userRepository.findByUsername("email"))
+                .thenReturn(Optional.of(user));
+
+        UserServiceModel loadedUser = userService.extractUserByEmail("email");
+
+        assertEquals(user.getId(), loadedUser.getId());
+        assertEquals(user.getUsername(), loadedUser.getEmail());
+        assertEquals(user.getFullName(), loadedUser.getFullName());
+    }
 }
