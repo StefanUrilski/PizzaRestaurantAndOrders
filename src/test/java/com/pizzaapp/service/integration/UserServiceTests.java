@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -148,5 +149,30 @@ public class UserServiceTests extends TestBase {
         List<UserServiceModel> expected = service.extractAllUsersOrderedAlphabetically();
 
         assertEquals(actual.size(), expected.size());
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void editUserRole_whenNotRoleFound_shouldThrowException() {
+        when(userRepository.findByUsername("some"))
+                .thenReturn(Optional.empty());
+
+        service.editUserRole("some", "user");
+    }
+
+    @Test
+    public void editUserRole_whenChangeRole_shouldRoleBeChanged() {
+        User user = new User();
+        user.setUsername("email");
+
+        when(userRepository.findByUsername("some"))
+                .thenReturn(Optional.of(user));
+
+        when(roleRepository.findByAuthority("user"))
+                .thenReturn(Optional.of(new UserRole("User")));
+
+        boolean changedRole = service.editUserRole("some", "user");
+
+        assertTrue(changedRole);
+        assertEquals(1, user.getAuthorities().size());
     }
 }
