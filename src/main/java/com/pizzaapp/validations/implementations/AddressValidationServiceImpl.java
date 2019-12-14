@@ -16,7 +16,7 @@ public class AddressValidationServiceImpl implements AddressValidationService {
             return false;
         }
 
-        if (address.getStreet().isEmpty()) {
+        if (address.getStreet() == null || address.getStreet().trim().isEmpty()) {
             return false;
         }
 
@@ -24,7 +24,7 @@ public class AddressValidationServiceImpl implements AddressValidationService {
             return false;
         }
 
-        Pattern pattern = Pattern.compile("^[+]*[0-9]{10,12}$");
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
         Matcher matcher = pattern.matcher(address.getPhoneNumber());
 
         if (!matcher.matches()) {
