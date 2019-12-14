@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 @Component
 public class UserValidationServiceImpl implements UserValidationService {
-    private final static String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
     @Override
     public boolean isValid(UserServiceModel userServiceModel) {
