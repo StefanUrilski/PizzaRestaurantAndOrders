@@ -1,6 +1,7 @@
 package com.pizzaapp.service;
 
 import com.pizzaapp.errors.UserRegisterFailureException;
+import com.pizzaapp.validations.UserValidationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,13 +26,19 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserValidationService validationService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           UserValidationService validationService,
+                           BCryptPasswordEncoder bCryptPasswordEncoder,
+                           ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.validationService = validationService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
     }
@@ -91,6 +98,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
+        if (!validationService.isValid(userServiceModel)) {
+            throw new UserRegisterFailureException(USER_REGISTER_EXCEPTION);
+        }
+
         seedRolesInDb();
 
         User userEntity = modelMapper.map(userServiceModel, User.class);
