@@ -7,6 +7,7 @@ import com.pizzaapp.domain.models.service.AddressServiceModel;
 import com.pizzaapp.repository.AddressRepository;
 import com.pizzaapp.service.AddressService;
 import com.pizzaapp.testBase.TestBase;
+import com.pizzaapp.validations.AddressValidationService;
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AddressServiceTests extends TestBase {
 
     @MockBean
     AddressRepository addressRepository;
+
+    @MockBean
+    AddressValidationService validationService;
 
     @Autowired
     AddressService service;
@@ -51,6 +55,9 @@ public class AddressServiceTests extends TestBase {
     @Test
     public void addAddress_shouldAddAddress() {
         AddressServiceModel address = new AddressServiceModel();
+
+        when(validationService.isValid(address))
+                .thenReturn(true);
 
         service.addAddress(address);
         verify(addressRepository)

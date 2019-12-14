@@ -29,7 +29,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public boolean addAddress(AddressServiceModel addressServiceModel) {
-        if (validationService.isValid(addressServiceModel)) {
+        if (!validationService.isValid(addressServiceModel)) {
             throw new AddressIncompleteException(Constants.WRONG_ADDRESS);
         }
 
@@ -49,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressServiceModel editAddress(AddressServiceModel addressServiceModel) {
-        if (validationService.isValid(addressServiceModel)) {
+        if (!validationService.isValid(addressServiceModel)) {
             throw new AddressIncompleteException(Constants.WRONG_ADDRESS);
         }
 
