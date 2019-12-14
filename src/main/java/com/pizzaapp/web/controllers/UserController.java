@@ -3,7 +3,6 @@ package com.pizzaapp.web.controllers;
 import com.pizzaapp.domain.models.binding.UserRegisterBindingModel;
 import com.pizzaapp.domain.models.service.UserServiceModel;
 import com.pizzaapp.service.UserService;
-import com.pizzaapp.web.validations.user.UserRegisterValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,13 +22,11 @@ import javax.validation.Valid;
 public class UserController extends BaseController {
 
     private final UserService userService;
-    private final UserRegisterValidator userRegisterValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(UserService userService, UserRegisterValidator userRegisterValidator, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
-        this.userRegisterValidator = userRegisterValidator;
         this.modelMapper = modelMapper;
     }
 
@@ -41,10 +38,7 @@ public class UserController extends BaseController {
     @PostMapping("/register")
     public ModelAndView registerConfirm(@Valid @ModelAttribute("model") UserRegisterBindingModel model,
                                         BindingResult bindingResult) {
-
-        userRegisterValidator.validate(model, bindingResult);
-
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !(model.getPassword().equals(model.getConfirmPassword()))) {
             model.setPassword(null);
             model.setConfirmPassword(null);
             return view("users/register-user", "model", model);
