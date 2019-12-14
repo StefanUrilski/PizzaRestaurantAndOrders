@@ -2,7 +2,6 @@ package com.pizzaapp.validations.implementations;
 
 import com.pizzaapp.domain.models.service.UserServiceModel;
 import com.pizzaapp.validations.UserValidationService;
-import com.pizzaapp.validations.ValidationConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
@@ -10,11 +9,11 @@ import java.util.regex.Pattern;
 
 @Component
 public class UserValidationServiceImpl implements UserValidationService {
-
-    private Pattern pattern = Pattern.compile(ValidationConstants.EMAIL_PATTERN);
+    private final static String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
     @Override
     public boolean isValid(UserServiceModel userServiceModel) {
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(userServiceModel.getEmail());
 
         if (!matcher.matches()) {

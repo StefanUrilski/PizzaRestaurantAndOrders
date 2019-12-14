@@ -8,6 +8,7 @@ import com.pizzaapp.repository.RoleRepository;
 import com.pizzaapp.repository.UserRepository;
 import com.pizzaapp.service.UserService;
 import com.pizzaapp.testBase.TestBase;
+import com.pizzaapp.validations.UserValidationService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,6 +32,9 @@ public class UserServiceTests extends TestBase {
 
     @MockBean
     RoleRepository roleRepository;
+
+    @MockBean
+    UserValidationService userValidation;
 
     @Autowired
     UserService service;
@@ -73,6 +77,9 @@ public class UserServiceTests extends TestBase {
         UserServiceModel user = new UserServiceModel();
         user.setEmail("email");
         user.setPassword("password");
+
+        when(userValidation.isValid(user))
+                .thenReturn(true);
 
         when(roleRepository.count())
                 .thenReturn(1L);
