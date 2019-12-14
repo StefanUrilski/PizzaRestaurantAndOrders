@@ -10,6 +10,8 @@ public final class Constants {
 
     public static final String WRONG_NON_EXISTENT_EMAIL = "Wrong or non-existent email.";
 
+    public static final String WRONG_ADDRESS = "Wrong address or missing fields.";
+
     public static final String NON_EXISTENT_ROLE = "Non-existent role.";
 
     public static final String ITEM_ALREADY_EXISTS = "%s already exists.";

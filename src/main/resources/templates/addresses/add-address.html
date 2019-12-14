@@ -8,7 +8,7 @@
 
                 <div class="form-group">
                     <label for="address-town" class="form-group">Town</label>
-                        <select class="browser-default custom-select" id="address-town" name="town">
+                        <select class="browser-default custom-select" id="address-town" name="town" required>
                             <option disabled selected>Select town</option>
                             <option th:each="town : ${T(com.pizzaapp.domain.entities.Town).values()}"
                                     th:value="${town}"
